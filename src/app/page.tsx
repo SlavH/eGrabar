@@ -71,8 +71,8 @@ export default function Home() {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {news.map((item) => (
                 <GlassCard key={item.id} className="p-6 bg-white/10 border-white/20 backdrop-blur-md">
-                  <h3 className="text-xl font-semibold mb-3 text-slate-900">{item.title}</h3>
-                  <div className="text-slate-600 text-sm line-clamp-3" dangerouslySetInnerHTML={{ __html: item.content }} />
+                  <h3 className="text-xl font-semibold mb-3 text-slate-100">{item.title}</h3>
+                  <div className="text-slate-300 text-sm line-clamp-3" dangerouslySetInnerHTML={{ __html: item.content }} />
                 </GlassCard>
               ))}
             </div>
@@ -120,10 +120,10 @@ export default function Home() {
                 <div className="w-14 h-14 rounded-xl bg-blue-600/10 text-blue-600 flex items-center justify-center mb-5 group-hover:bg-blue-600/20 transition-colors">
                   {item.icon}
                 </div>
-                <h3 className="text-xl font-semibold text-slate-900 mb-3 group-hover:text-blue-600 transition-colors">
+                <h3 className="text-xl font-semibold text-slate-100 mb-3 group-hover:text-blue-300 transition-colors">
                   {t.sections[item.key as keyof typeof t.sections]}
                 </h3>
-                <p className="text-slate-500">{t.sections[item.key + 'Desc' as keyof typeof t.sections]}</p>
+                <p className="text-slate-300">{t.sections[item.key + 'Desc' as keyof typeof t.sections]}</p>
               </Link>
             ))}
           </div>

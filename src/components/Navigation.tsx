@@ -49,7 +49,7 @@ export default function Navigation() {
             <Link
               key={link.href}
               href={link.href}
-              className="text-sm font-medium text-slate-700 hover:text-blue-600 transition-colors relative group whitespace-nowrap"
+              className="text-sm font-medium text-slate-200 hover:text-blue-300 transition-colors relative group whitespace-nowrap"
             >
               {t.nav[link.key as keyof typeof t.nav]}
               <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-blue-600 transition-all group-hover:w-full" />
