@@ -4,6 +4,7 @@ import Background3D from "@/components/Background3D";
 import Link from "next/link";
 import { useApp } from "@/lib/context";
 import { useEffect, useState } from "react";
+import { GlassCard } from "@/components/ui/glass-card";
 
 export default function Home() {
   const { t, language } = useApp();
@@ -29,9 +30,9 @@ export default function Home() {
             {t.home.tagline}
           </div>
           
-          <h1 className="text-2xl sm:text-4xl md:text-6xl lg:text-7xl font-bold mb-6 leading-snug flex flex-wrap justify-center items-center gap-x-2">
+          <h1 className="text-2xl sm:text-4xl md:text-6xl lg:text-7xl font-bold mb-6 leading-snug flex flex-wrap justify-center items-center gap-x-2 drop-shadow-md">
             <span className="relative inline-block">
-              <span className="text-blue-600 text-base absolute -bottom-0.5 -left-3">{language === 'en' ? 'e' : 'ի'}</span>
+              <span className="text-blue-600 text-base absolute -bottom-0.5 -left-1">{language === 'en' ? 'e' : 'ի'}</span>
               <span className="text-blue-400 ml-1.5">{language === 'en' ? 'Grabar' : 'Գրաբար'}</span>
             </span>
           </h1>
@@ -69,10 +70,10 @@ export default function Home() {
             <h2 className="text-3xl font-bold text-slate-900 mb-12 text-center">{t.nav.news}</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {news.map((item) => (
-                <div key={item.id} className="p-6 bg-slate-50 rounded-2xl border border-slate-200">
-                  <h3 className="text-xl font-semibold mb-3">{item.title}</h3>
+                <GlassCard key={item.id} className="p-6 bg-white/10 border-white/20 backdrop-blur-md">
+                  <h3 className="text-xl font-semibold mb-3 text-slate-900">{item.title}</h3>
                   <div className="text-slate-600 text-sm line-clamp-3" dangerouslySetInnerHTML={{ __html: item.content }} />
-                </div>
+                </GlassCard>
               ))}
             </div>
           </div>
@@ -114,7 +115,7 @@ export default function Home() {
               <Link
                 key={i}
                 href={item.href}
-                className="group p-8 bg-slate-50 rounded-2xl border border-slate-200 hover:border-blue-600/50 transition-all card-hover"
+                className="group p-8 bg-white/10 backdrop-blur-md rounded-2xl border border-white/20 hover:border-blue-600/50 transition-all card-hover"
               >
                 <div className="w-14 h-14 rounded-xl bg-blue-600/10 text-blue-600 flex items-center justify-center mb-5 group-hover:bg-blue-600/20 transition-colors">
                   {item.icon}
