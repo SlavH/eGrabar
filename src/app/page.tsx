@@ -32,7 +32,7 @@ export default function Home() {
           
           <h1 className="text-2xl sm:text-4xl md:text-6xl lg:text-7xl font-bold mb-6 leading-snug flex flex-wrap justify-center items-center gap-x-2 drop-shadow-md">
             <span className="relative inline-block">
-              <span className="text-blue-600 text-base absolute -bottom-0.5 -left-1">{language === 'en' ? 'e' : 'ի'}</span>
+              <span className="text-blue-600 text-base absolute -bottom-0 -left-0">{language === 'en' ? 'e' : 'ի'}</span>
               <span className="text-blue-400 ml-1.5">{language === 'en' ? 'Grabar' : 'Գրաբար'}</span>
             </span>
           </h1>

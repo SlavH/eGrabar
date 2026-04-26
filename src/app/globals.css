@@ -10,7 +10,7 @@
 }
 
 .glass {
-  @apply bg-white/85 backdrop-blur-xl border border-slate-200;
+  @apply bg-white/10 backdrop-blur-md border border-white/20;
 }
 
 .card-hover {
