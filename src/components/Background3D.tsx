@@ -4,7 +4,7 @@ import dynamic from 'next/dynamic';
 
 const Background = dynamic(() => import('./Background3D'), { 
   ssr: false,
-  loading: () => <div className="fixed inset-0 bg-white -z-10" />
+  loading: () => <div className="fixed inset-0 bg-slate-950 -z-10" />
 });
 
 export default function Background3D() {

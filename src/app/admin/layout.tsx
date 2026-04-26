@@ -27,9 +27,9 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     // Show a friendly login prompt instead of rendering nothing
     return (
       <div className="min-h-screen flex items-center justify-center p-6">
-        <div className="text-center text-slate-600">
+        <div className="text-center text-slate-300">
           <p>{language === 'en' ? 'Not authenticated' : 'Անձնական մուտքը չի հաստատված'}</p>
-          <Link href="/admin/login" className="mt-2 inline-block text-blue-600 font-semibold">
+          <Link href="/admin/login" className="mt-2 inline-block text-blue-300 font-semibold">
             {language === 'en' ? 'Go to Admin Login' : 'Գործարկել ադմին մուտք'}
           </Link>
         </div>
@@ -50,13 +50,13 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   return (
     <div className="min-h-screen pt-20">
       <div className="flex">
-        <aside className="w-64 min-h-[calc(100vh-5rem)] bg-slate-50 border-r border-slate-200 p-4">
+        <aside className="w-64 min-h-[calc(100vh-5rem)] bg-white/10 backdrop-blur-md border-r border-white/20 p-4">
           <nav className="space-y-1">
             {adminNav.map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
-                className="flex items-center gap-3 px-4 py-3 text-slate-600 hover:text-blue-600 hover:bg-white rounded-lg transition-colors"
+                className="flex items-center gap-3 px-4 py-3 text-slate-300 hover:text-blue-300 hover:bg-white/10 rounded-lg transition-colors"
               >
                 <span>{item.icon}</span>
                 <span>{item.label}</span>
@@ -64,10 +64,10 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
             ))}
           </nav>
           
-          <div className="mt-8 pt-4 border-t border-slate-200">
+          <div className="mt-8 pt-4 border-t border-white/20">
             <button
               onClick={async () => { await logout(); router.push('/'); }}
-              className="flex items-center gap-3 w-full px-4 py-3 text-slate-600 hover:text-red-500 hover:bg-white rounded-lg transition-colors"
+              className="flex items-center gap-3 w-full px-4 py-3 text-slate-300 hover:text-red-400 hover:bg-white/10 rounded-lg transition-colors"
             >
               <span>🚪</span>
               <span>{language === 'en' ? 'Logout' : 'Ելք'}</span>

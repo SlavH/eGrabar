@@ -18,7 +18,7 @@ export function GlassButton({
       className={cn(
         "glass px-6 py-3 rounded-lg font-medium transition-all duration-200",
         variant === "primary" && "bg-blue-600 text-white hover:bg-blue-700",
-        variant === "secondary" && "bg-white/20 text-slate-900 hover:bg-white/30",
+        variant === "secondary" && "bg-white/10 backdrop-blur-md border border-white/20 text-slate-100 hover:bg-white/20",
         className
       )}
       {...props}

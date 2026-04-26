@@ -41,46 +41,46 @@ export default function DonatePage() {
         className="mb-8"
       />
       <div className="max-w-4xl mx-auto">
-        <div className="bg-slate-50 rounded-2xl border border-slate-200 p-8 mb-12">
-          <div className="flex justify-between text-slate-600 mb-2">
+        <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-8 mb-12">
+          <div className="flex justify-between text-slate-300 mb-2">
             <span>{language === 'en' ? 'Raised:' : 'Հավաքվել է:'} ${currentAmount.toLocaleString()}</span>
             <span>{language === 'en' ? 'Goal:' : 'Նպատակ:'} ${targetAmount.toLocaleString()}</span>
           </div>
-          <div className="h-4 bg-white rounded-full overflow-hidden">
-            <div className="h-full bg-gradient-to-br from-blue-600 to-blue-800" style={{ width: `${progress}%` }} />
+          <div className="h-4 bg-white/20 rounded-full overflow-hidden">
+            <div className="h-full bg-gradient-to-br from-blue-500 to-blue-700" style={{ width: `${progress}%` }} />
           </div>
-          <p className="text-center text-slate-500 mt-2">{progress.toFixed(1)}% {language === 'en' ? 'funded' : 'ֆինանսավորված'}</p>
+          <p className="text-center text-slate-300 mt-2">{progress.toFixed(1)}% {language === 'en' ? 'funded' : 'ֆինանսավորված'}</p>
         </div>
 
         {submitted ? (
-          <div className="bg-slate-50 rounded-2xl border border-blue-600/30 p-8 text-center">
-            <h3 className="text-xl font-semibold text-slate-900 mb-2">
+          <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-8 text-center">
+            <h3 className="text-xl font-semibold text-slate-100 mb-2">
               {language === 'en' ? 'Thank you for your support!' : 'Շնորհակալ ենք ձեր աջակցության համար:'}
             </h3>
           </div>
         ) : (
-          <form onSubmit={handleSubmit} className="bg-slate-50 rounded-2xl border border-slate-200 p-8">
+          <form onSubmit={handleSubmit} className="bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-8">
             <div className="mb-6">
-              <label className="block text-slate-600 mb-2">{language === 'en' ? 'Donation Amount ($)' : 'Նվիրաբերություն ($)'}</label>
+              <label className="block text-slate-300 mb-2">{language === 'en' ? 'Donation Amount ($)' : 'Նվիրաբերություն ($)'}</label>
               <input
                 type="number"
                 value={amount}
                 onChange={(e) => setAmount(e.target.value)}
                 placeholder="Other amount"
-                className="w-full px-4 py-3 bg-white border border-slate-200 rounded-xl text-slate-800 placeholder-zinc-500 focus:outline-none focus:border-blue-600"
+                className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-slate-100 placeholder-slate-400 focus:outline-none focus:border-blue-400"
               />
               <input
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder={language === 'en' ? 'Email (for receipt)' : 'Էլ. Փոստ (հարգանքին համար)'}
-                className="w-full mt-4 px-4 py-3 bg-white border border-slate-200 rounded-xl text-slate-800 placeholder-zinc-500 focus:outline-none focus:border-blue-600"
+                className="w-full mt-4 px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-slate-100 placeholder-slate-400 focus:outline-none focus:border-blue-400"
               />
             </div>
             <button
               type="submit"
               disabled={!amount}
-              className="w-full py-4 bg-gradient-to-br from-blue-600 to-blue-800 rounded-xl text-white font-semibold hover:shadow-lg hover:shadow-blue-600/20 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full py-4 bg-gradient-to-br from-blue-500 to-blue-700 rounded-xl text-white font-semibold hover:shadow-lg hover:shadow-blue-500/20 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {language === 'en' ? 'Donate Now' : 'Նվիրաբերել Հիմա'}
             </button>

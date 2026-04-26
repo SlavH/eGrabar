@@ -12,8 +12,8 @@ export default function ContactsPage() {
         title={language === 'en' ? 'Contacts' : 'Կապ'}
         className="mb-8"
       />
-      <div className="max-w-4xl mx-auto text-center bg-slate-50 p-8 rounded-2xl border border-slate-200 space-y-6">
-        <p className="text-slate-600">
+      <div className="max-w-4xl mx-auto text-center bg-white/10 backdrop-blur-md p-8 rounded-2xl border border-white/20 space-y-6">
+        <p className="text-slate-300">
           {language === 'en' ? 'Contact us at:' : 'Կապնվեք մեզ հետ՝'}
         </p>
         <a href="mailto:info@egrabar.am" className="block text-blue-600 hover:text-blue-800 text-lg">

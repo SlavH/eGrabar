@@ -63,9 +63,9 @@ export default function Home() {
       </section>
 
       {news.length > 0 && (
-        <section className="py-20 px-6 bg-white border-t border-slate-200">
+        <section className="py-20 px-6 bg-white/10 backdrop-blur-md border-t border-white/20">
           <div className="max-w-6xl mx-auto">
-            <h2 className="text-3xl font-bold text-slate-900 mb-12 text-center">{t.nav.news}</h2>
+            <h2 className="text-3xl font-bold text-slate-100 mb-12 text-center">{t.nav.news}</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {news.map((item) => (
                 <GlassCard key={item.id} className="p-6 bg-white/10 border-white/20 backdrop-blur-md">
@@ -78,7 +78,7 @@ export default function Home() {
         </section>
       )}
       
-      <section className="py-20 px-6 border-t border-slate-200/50">
+      <section className="py-20 px-6 border-t border-white/20">
         <div className="max-w-6xl mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[
