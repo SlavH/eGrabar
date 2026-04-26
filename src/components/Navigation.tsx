@@ -119,7 +119,7 @@ export default function Navigation() {
               key={link.href}
               href={link.href}
               onClick={() => setIsOpen(false)}
-              className="block py-3 text-slate-700 hover:text-blue-600 transition-colors border-b border-slate-200 last:border-0 relative z-[110]"
+              className="block py-3 text-slate-200 hover:text-blue-300 transition-colors border-b border-white/10 last:border-0 relative z-[110]"
             >
               {t.nav[link.key as keyof typeof t.nav]}
             </Link>

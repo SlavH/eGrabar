@@ -1,6 +1,5 @@
 'use client';
 
-import Background3D from "@/components/Background3D";
 import Link from "next/link";
 import { useApp } from "@/lib/context";
 import { useEffect, useState } from "react";
@@ -21,7 +20,6 @@ export default function Home() {
 
   return (
     <main className="min-h-screen">
-      <Background3D />
       
       <section className="relative min-h-screen flex items-center justify-center px-2 sm:px-4 md:px-6 pt-20">
         <div className="max-w-5xl w-full mx-auto text-center">
@@ -32,7 +30,7 @@ export default function Home() {
           
           <h1 className="text-2xl sm:text-4xl md:text-6xl lg:text-7xl font-bold mb-6 leading-snug flex flex-wrap justify-center items-center gap-x-2 drop-shadow-md">
             <span className="relative inline-block">
-              <span className="text-blue-300 text-base absolute -bottom-0 -left-0">{language === 'en' ? 'e' : 'ի'}</span>
+              <span className="text-blue-300 text-lg absolute -bottom-0 -left-0">{language === 'en' ? 'e' : 'ի'}</span>
               <span className="text-blue-200 ml-1.5">{language === 'en' ? 'Grabar' : 'Գրաբար'}</span>
             </span>
           </h1>

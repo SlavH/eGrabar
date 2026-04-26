@@ -4,7 +4,7 @@
 
 @layer base {
   body {
-    @apply bg-sky-100 text-slate-900;
+    @apply bg-transparent text-slate-900;
     font-family: var(--font-sans), sans-serif;
   }
 }
