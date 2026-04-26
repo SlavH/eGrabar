@@ -1,16 +1,17 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 
-// Protect admin routes but allow access to the login page
+// Production admin protection: require a simple admin_session cookie
 export function middleware(req: NextRequest) {
   const url = req.nextUrl.clone();
   const path = url.pathname;
   const isAdminPath = path.startsWith('/admin');
   const isLoginPath = path.startsWith('/admin/login');
 
+  // Protect admin routes
   if (isAdminPath && !isLoginPath) {
-    const token = req.cookies.get('egrabar-auth')?.value;
-    if (!token) {
+    const token = req.cookies.get('admin_session')?.value;
+    if (!token || token !== '1') {
       return NextResponse.redirect(new URL('/admin/login', req.url));
     }
   }

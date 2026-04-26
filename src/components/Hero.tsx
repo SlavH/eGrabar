@@ -1,5 +1,4 @@
 "use client";
-import Link from 'next/link';
 import React from 'react';
 
 export default function Hero({
@@ -16,8 +15,8 @@ export default function Hero({
   return (
     <section className={`py-12 ${className ?? ''}`}>
       <div className="max-w-5xl mx-auto text-center">
-        <h2 className="text-4xl md:text-5xl font-extrabold text-gold mb-4">{title}</h2>
-        {subtitle ? <p className="text-zinc-400 text-lg md:text-xl">{subtitle}</p> : null}
+        <h2 className="text-4xl md:text-5xl font-extrabold text-blue-600 mb-4">{title}</h2>
+        {subtitle ? <p className="text-slate-600 text-lg md:text-xl">{subtitle}</p> : null}
         {action ? <div className="mt-6">{action}</div> : null}
       </div>
     </section>

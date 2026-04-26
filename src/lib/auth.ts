@@ -2,33 +2,24 @@ import crypto from 'crypto'
 
 const SECRET = process.env.ADMIN_JWT_SECRET || 'replace-me-please'
 
-export function base64url(input: Buffer) {
-  return input.toString('base64')
+function toBase64Url(input: string) {
+  return Buffer.from(input, 'utf8')
+    .toString('base64')
     .replace(/=/g, '')
-    .replace(/
-    .replace(/
-    .replace(/
     .replace(/\+/g, '-')
     .replace(/\//g, '_')
 }
 
-export function encodeHeader() {
-  const header = { alg: 'HS256', typ: 'JWT' }
-  const json = JSON.stringify(header)
-  return Buffer.from(json).toString('base64url')
-}
-
-function toBase64Url(obj: any) {
-  return Buffer.from(JSON.stringify(obj)).toString('base64url')
-}
-
 export function signToken(payload: any): string {
   const header = { alg: 'HS256', typ: 'JWT' }
-  const headerB64 = toBase64Url(header)
-  const payloadB64 = toBase64Url(payload)
-  const toSign = `${headerB64}.${payloadB64}`
-  const signature = crypto.createHmac('sha256', SECRET).update(toSign).digest('base64url')
-  return `${headerB64}.${payloadB64}.${signature}`
+  const headerB64 = toBase64Url(JSON.stringify(header))
+  const payloadB64 = toBase64Url(JSON.stringify(payload))
+  const unsigned = `${headerB64}.${payloadB64}`
+  const signature = crypto.createHmac('sha256', SECRET).update(unsigned).digest('base64')
+    .replace(/=/g, '')
+    .replace(/\+/g, '-')
+    .replace(/\//g, '_')
+  return `${unsigned}.${signature}`
 }
 
 export function verifyToken(token: string): any | null {
@@ -36,11 +27,13 @@ export function verifyToken(token: string): any | null {
     const parts = token.split('.')
     if (parts.length !== 3) return null
     const [headerB64, payloadB64, signature] = parts
-    const toSign = `${headerB64}.${payloadB64}`
-    const expected = crypto.createHmac('sha256', SECRET).update(toSign).digest('base64url')
+    const unsigned = `${headerB64}.${payloadB64}`
+    const expected = crypto.createHmac('sha256', SECRET).update(unsigned).digest('base64')
+      .replace(/=/g, '')
+      .replace(/\+/g, '-')
+      .replace(/\//g, '_')
     if (signature !== expected) return null
-    const payload = JSON.parse(Buffer.from(payloadB64, 'base64url').toString('utf-8'))
-    // check expiry
+    const payload = JSON.parse(Buffer.from(payloadB64, 'base64').toString('utf8'))
     if (payload.exp && payload.exp < Math.floor(Date.now() / 1000)) return null
     return payload
   } catch {
