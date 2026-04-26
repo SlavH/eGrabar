@@ -25,32 +25,32 @@ export default function Home() {
       
       <section className="relative min-h-screen flex items-center justify-center px-2 sm:px-4 md:px-6 pt-20">
         <div className="max-w-5xl w-full mx-auto text-center">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-600/10 border border-blue-600/20 text-blue-600 text-xs sm:text-sm mb-8">
-            <span className="w-2 h-2 rounded-full bg-blue-600 animate-pulse" />
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-400/20 border border-blue-400/30 text-blue-300 text-xs sm:text-sm mb-8">
+            <span className="w-2 h-2 rounded-full bg-blue-300 animate-pulse" />
             {t.home.tagline}
           </div>
           
           <h1 className="text-2xl sm:text-4xl md:text-6xl lg:text-7xl font-bold mb-6 leading-snug flex flex-wrap justify-center items-center gap-x-2 drop-shadow-md">
             <span className="relative inline-block">
-              <span className="text-blue-600 text-base absolute -bottom-0 -left-0">{language === 'en' ? 'e' : 'ի'}</span>
-              <span className="text-blue-400 ml-1.5">{language === 'en' ? 'Grabar' : 'Գրաբար'}</span>
+              <span className="text-blue-300 text-base absolute -bottom-0 -left-0">{language === 'en' ? 'e' : 'ի'}</span>
+              <span className="text-blue-200 ml-1.5">{language === 'en' ? 'Grabar' : 'Գրաբար'}</span>
             </span>
           </h1>
           
-          <p className="text-sm sm:text-lg md:text-xl lg:text-2xl text-slate-600 mb-10 max-w-3xl mx-auto leading-normal">
+          <p className="text-sm sm:text-lg md:text-xl lg:text-2xl text-slate-300 mb-10 max-w-3xl mx-auto leading-normal">
             {t.home.subtitle}
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
               href="/library"
-              className="px-6 py-3 sm:px-8 sm:py-4 bg-gradient-to-br from-blue-600 to-blue-800 rounded-xl text-white font-semibold hover:shadow-lg hover:shadow-blue-600/20 transition-all text-sm sm:text-base"
+              className="px-6 py-3 sm:px-8 sm:py-4 bg-gradient-to-br from-blue-500 to-blue-700 rounded-xl text-white font-semibold hover:shadow-lg hover:shadow-blue-500/20 transition-all text-sm sm:text-base"
             >
               {t.home.explore}
             </Link>
             <Link
               href="/center"
-              className="px-6 py-3 sm:px-8 sm:py-4 border border-slate-300 rounded-xl text-slate-700 font-semibold hover:border-blue-600 hover:text-blue-600 transition-all text-sm sm:text-base"
+              className="px-6 py-3 sm:px-8 sm:py-4 border border-slate-500 rounded-xl text-slate-300 font-semibold hover:border-blue-400 hover:text-blue-300 transition-all text-sm sm:text-base"
             >
               {t.home.about}
             </Link>
