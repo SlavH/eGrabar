@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Noto_Serif_Armenian } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 import { AppProvider } from "@/lib/context";
 import Navigation from "@/components/Navigation";
@@ -8,6 +9,12 @@ import Background3D from "@/components/Background3D";
 const inter = Inter({
   variable: "--font-inter",
   subsets: ["latin"],
+});
+
+const antique = localFont({
+  src: "./fonts/Antique.woff2",
+  variable: "--font-antique",
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -22,7 +29,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="min-h-screen">
+      <body className={`${inter.variable} ${antique.variable} min-h-screen`}>
         <Background3D />
         <AppProvider>
           <Navigation />
