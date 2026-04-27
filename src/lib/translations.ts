@@ -22,16 +22,7 @@ export const translations = {
     },
     sections: {
       library: 'Library',
-      news: 'News',
-      contacts: 'Contacts',
-      amaras: 'Amaras Center',
-      donate: 'Donate',
-    },
-    home: {
-      tagline: 'Preserving Armenian Scientific Heritage',
-      title: 'eGrabar',
-      subtitle: 'A sanctuary for Armenian scholarship, preserving centuries of scientific achievement and cultural knowledge for future generations.',
-      digitalLibraryDesc: 'Access thousands of research papers, manuscripts, and historical documents.',
+      libraryDesc: 'Access thousands of research papers, manuscripts, and historical documents.',
       videoHub: 'Video Hub',
       videoHubDesc: 'Watch educational lectures, documentary videos and scientific presentations.',
       courses: 'Courses',
@@ -52,27 +43,27 @@ export const translations = {
   hy: {
     nav: {
       home: 'Գլխավոր',
-      library: 'Թվային Գրադարան',
+      library: 'Գրադարան',
       videos: 'Տեսանյութեր',
       presentations: 'Ներկայացումներ',
       history: 'Պատմություն',
       courses: 'Դասընթացներ',
-      news: 'Լրաշարք',
+      news: 'Լրաշ',
       contacts: 'Կապ',
       amaras: 'Ամարաս կենտրոն',
       donate: 'Նվիրաբերեք',
     },
     home: {
       tagline: 'Պահպանելով հայկական գիտական ժառանգությունը',
-      title: 'իԳրաբար',
-      subtitle: 'Հայկական գիտության թվային տաճար, պահպանելով դարերի գիտական նվաճումները և մշակութային գիտելիքները սերունդների համար.',
+      title: 'Լրաշ',
+      subtitle: 'Հայկական գիտության տաճար, պահպանելով դարերի գիտական նվաճումները և մշակութային գիտելիքները սերունդների համար.',
       explore: 'Ուսումնասիրել Գրադարանը',
-      about: 'իԳրաբար պատմության մասին',
+      about: 'Լրաշ պատմության մասին',
       scroll: 'Սահեք ուսումնասիրելու համար',
     },
     sections: {
-      digitalLibrary: 'Թվային Գրադարան',
-      digitalLibraryDesc: 'Մուտք գործեք հազարավոր հետազոտությունների, ձեռագրերի և պատմական փաստաթղթերի:',
+      library: 'Գրադարան',
+      libraryDesc: 'Մուտք գործեք հազարավոր հետազոտությունների, ձեռագրերի և պատմական փաստաթղթերի:',
       videoHub: 'Տեսանյութեր',
       videoHubDesc: 'Դիտեք կրթական դասախոսություններ, դոկումենտալ տեսանյութեր և գիտական ներկայացումներ:',
       courses: 'Դասընթացներ',
@@ -96,7 +87,7 @@ export type Language = 'en' | 'hy';
 
 type Nav = { home: string; library: string; videos: string; presentations: string; history: string; courses: string; news: string; contacts: string; amaras: string; donate: string };
 type Home = { tagline: string; title: string; subtitle: string; explore: string; about: string; scroll: string };
-type Sections = { digitalLibrary: string; digitalLibraryDesc: string; videoHub: string; videoHubDesc: string; courses: string; coursesDesc: string };
+type Sections = { library: string; libraryDesc: string; videoHub: string; videoHubDesc: string; courses: string; coursesDesc: string };
 type Library = { search: string; noResults: string; noResultsHint: string; preview: string; download: string };
 type Common = { learnMore: string; viewAll: string };
 
