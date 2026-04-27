@@ -39,7 +39,7 @@ export default function Navigation() {
         <Link href="/" className="flex items-center gap-1.5 group">
           <img src="/nur.png" alt="Logo" className="w-10 h-10 rounded-lg" />
           <span className="text-2xl font-semibold tracking-wide whitespace-nowrap">
-            <span className="text-blue-200">{language === 'en' ? 'eGrabar' : 'Գ'}</span>
+            <span className="text-blue-200">{language === 'en' ? 'eGrabar' : 'իԳ'}</span>
           </span>
         </Link>
 
