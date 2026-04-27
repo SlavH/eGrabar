@@ -21,8 +21,8 @@ const googlesans = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Egrabar - Scientific & Educational Portal",
-  description: "A comprehensive educational platform preserving Armenian heritage and scientific knowledge",
+  title: 'eGrabar | Լրաշ',
+  description: 'Preserving Armenian scientific heritage and cultural knowledge',
 };
 
 export default function RootLayout({

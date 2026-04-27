@@ -6,14 +6,8 @@ import { useApp } from '@/lib/context';
 
 export default function AdminDashboard() {
   const { t, language, isAuthenticated, authLoading } = useApp();
-  // Client-side test bypass via URL parameter admin_test_bypass
-  const testBypass = typeof window !== 'undefined' && new URL(window.location.href).searchParams.get('admin_test_bypass') === 'true';
-  const isAuthorized = true; // BYPASS ENABLED
-  // Debug banner for testing environments
-  const urlParamBypass = typeof window !== 'undefined' ? new URL(window.location.href).searchParams.get('admin_test_bypass') : null;
-  const envBypass = process.env.NEXT_PUBLIC_DEV_TEST_ADMIN_BYPASS === 'true';
-  const cookieOn = typeof window !== 'undefined' && document.cookie.includes('egrabar-auth=1');
-  const adminDebug = `DevBypass=${envBypass}, URL_Bypass=${urlParamBypass ?? 'none'}, Cookie=${cookieOn ? 'ON' : 'OFF'}`;
+  const cookieOn = typeof window !== 'undefined' && document.cookie.includes('admin_session=1');
+  const isAuthorized = isAuthenticated || cookieOn;
   const [stats, setStats] = useState({ books: 0, videos: 0, presentations: 0, events: 0, donations: 0 });
   const [loading, setLoading] = useState(true);
 
@@ -67,12 +61,6 @@ export default function AdminDashboard() {
 
   return (
     <div>
-      {/* Debug banner for testing environments (visible only when authorized) */}
-      {isAuthorized && (
-        <div className="w-full bg-yellow-100 text-black text-xs p-2 mb-4 border-b border-yellow-300">
-          {adminDebug}
-        </div>
-      )}
       <h1 className="text-3xl font-bold text-blue-600 mb-8">
         {language === 'en' ? 'Dashboard' : 'Վահանակ'}
       </h1>

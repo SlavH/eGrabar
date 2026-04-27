@@ -16,12 +16,17 @@ export default function ContactsPage() {
         <p className="text-slate-300">
           {language === 'en' ? 'Contact us at:' : 'Կապնվեք մեզ հետ՝'}
         </p>
-        <a href="mailto:info@egrabar.am" className="block text-blue-600 hover:text-blue-800 text-lg">
-          info@egrabar.am
+        <a href="mailto:amarascenter@gmail.com" className="block text-blue-600 hover:text-blue-800 text-lg">
+          amarascenter@gmail.com
         </a>
+        <div className="flex justify-center gap-6 pt-4 text-blue-600">
+          <span className="flex items-center gap-2">
+            <strong>Whatsapp Viber:</strong> +1-747-203-9694
+          </span>
+        </div>
         <div className="flex justify-center gap-6 pt-4">
           <a 
-            href="https://facebook.com/egrabar" 
+            href="https://www.facebook.com/groups/1880715288860279" 
             target="_blank" 
             rel="noopener noreferrer"
             className="flex items-center gap-2 text-blue-600 hover:text-blue-800 transition-colors"
@@ -32,7 +37,7 @@ export default function ContactsPage() {
             <span>Facebook</span>
           </a>
           <a 
-            href="https://instagram.com/egrabar" 
+            href="https://www.instagram.com/amarascenter/" 
             target="_blank" 
             rel="noopener noreferrer"
             className="flex items-center gap-2 text-blue-600 hover:text-blue-800 transition-colors"

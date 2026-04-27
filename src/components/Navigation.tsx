@@ -39,8 +39,7 @@ export default function Navigation() {
         <Link href="/" className="flex items-center gap-1.5 group">
           <img src="/nur.png" alt="Logo" className="w-10 h-10 rounded-lg" />
           <span className="text-2xl font-semibold font-antique tracking-wide whitespace-nowrap relative inline-block">
-            <span className="text-blue-300 text-xs absolute -bottom-0.5 -left-0.5">{language === 'en' ? 'e' : 'ի'}</span>
-            <span className="text-blue-200 ml-1.5">{language === 'en' ? 'Grabar' : 'Գրաբար'}</span>
+            <span className="text-blue-200">{language === 'en' ? 'Grabar' : 'Լրաշար'}</span>
           </span>
         </Link>
 

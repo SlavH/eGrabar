@@ -2,7 +2,7 @@ export const translations = {
   en: {
     nav: {
       home: 'Home',
-      library: 'Digital Library',
+      library: 'Library',
       videos: 'Video Hub',
       presentations: 'Presentations',
       history: 'History',
@@ -15,13 +15,22 @@ export const translations = {
     home: {
       tagline: 'Preserving Armenian Scientific Heritage',
       title: 'eGrabar',
-      subtitle: 'A digital sanctuary for Armenian scholarship, preserving centuries of scientific achievement and cultural knowledge for future generations.',
+      subtitle: 'A sanctuary for Armenian scholarship, preserving centuries of scientific achievement and cultural knowledge for future generations.',
       explore: 'Explore the Library',
       about: 'About eGrabar History',
       scroll: 'Scroll to explore',
     },
     sections: {
-      digitalLibrary: 'Digital Library',
+      library: 'Library',
+      news: 'News',
+      contacts: 'Contacts',
+      amaras: 'Amaras Center',
+      donate: 'Donate',
+    },
+    home: {
+      tagline: 'Preserving Armenian Scientific Heritage',
+      title: 'eGrabar',
+      subtitle: 'A sanctuary for Armenian scholarship, preserving centuries of scientific achievement and cultural knowledge for future generations.',
       digitalLibraryDesc: 'Access thousands of research papers, manuscripts, and historical documents.',
       videoHub: 'Video Hub',
       videoHubDesc: 'Watch educational lectures, documentary videos and scientific presentations.',
