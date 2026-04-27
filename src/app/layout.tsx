@@ -21,7 +21,7 @@ const googlesans = localFont({
 });
 
 export const metadata: Metadata = {
-  title: 'eGrabar | Լրաշ',
+  title: 'Grabar | Գ',
   description: 'Preserving Armenian scientific heritage and cultural knowledge',
 };
 

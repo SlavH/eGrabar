@@ -13,10 +13,10 @@ const timeline = [
   },
   {
     year: '2005',
-    title: { en: 'Digital Archive Launch', hy: 'Թվային Արխիվ' },
+    title: { en: 'Archive Launch', hy: 'Արխիվ' },
     description: {
-      en: 'Launched our digital archive, making rare manuscripts and research accessible worldwide.',
-      hy: 'Թողարկվեց մեր թվային արխիվը, դարձնելով հազվագյուտ ձեռագրերը և հետազոտությունները հասանելի ամբողջ աշխարհին:',
+      en: 'Launched our archive, making rare manuscripts and research accessible worldwide.',
+      hy: 'Թողարկվեց մեր արխիվը, դարձնելով հազվագյուտ ձեռագրերը և հետազոտությունները հասանելի ամբողջ աշխարհին:',
     },
   },
   {

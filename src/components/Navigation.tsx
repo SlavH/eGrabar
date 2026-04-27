@@ -38,8 +38,8 @@ export default function Navigation() {
       <div className="max-w-[90rem] mx-auto px-6 flex items-center justify-between">
         <Link href="/" className="flex items-center gap-1.5 group">
           <img src="/nur.png" alt="Logo" className="w-10 h-10 rounded-lg" />
-          <span className="text-2xl font-semibold font-antique tracking-wide whitespace-nowrap relative inline-block">
-            <span className="text-blue-200">{language === 'en' ? 'Grabar' : 'Լրաշար'}</span>
+          <span className="text-2xl font-semibold tracking-wide whitespace-nowrap">
+            <span className="text-blue-200">{language === 'en' ? 'Grabar' : 'Գ'}</span>
           </span>
         </Link>
 
@@ -75,7 +75,7 @@ export default function Navigation() {
               ENG
             </button>
             <a
-              href="https://facebook.com/egrabar"
+              href="https://www.facebook.com/groups/1880715288860279"
               target="_blank"
               rel="noopener noreferrer"
               className="p-2 text-slate-300 hover:text-blue-300 transition-colors"
@@ -85,7 +85,7 @@ export default function Navigation() {
               </svg>
             </a>
             <a
-              href="https://instagram.com/egrabar"
+              href="https://www.instagram.com/amarascenter/"
               target="_blank"
               rel="noopener noreferrer"
               className="p-2 text-slate-300 hover:text-blue-300 transition-colors"
