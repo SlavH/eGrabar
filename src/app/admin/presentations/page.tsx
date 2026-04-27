@@ -25,11 +25,21 @@ export default function AdminPresentationsPage() {
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    const { supabase } = await import('@/lib/supabase');
-    await supabase.from('presentations').insert([form]);
-    setForm({ title: '', description: '', thumbnail_url: '', pptx_url: '' });
-    setShowForm(false);
-    fetchPresentations();
+    try {
+      const { supabase } = await import('@/lib/supabase');
+      const { data, error } = await supabase.from('presentations').insert([form]);
+      if (error) {
+        console.error('Insert error:', error);
+        alert('Error: ' + error.message);
+        return;
+      }
+      console.log('Inserted:', data);
+      setForm({ title: '', description: '', thumbnail_url: '', pptx_url: '' });
+      setShowForm(false);
+      fetchPresentations();
+    } catch (err) {
+      console.error('Submit error:', err);
+    }
   }
 
   async function handleDelete(id: string) {
@@ -53,6 +63,9 @@ export default function AdminPresentationsPage() {
             <input type="text" placeholder="Title" value={form.title} onChange={e => setForm({...form, title: e.target.value})} required className="px-4 py-2 bg-white border border-slate-200 rounded-lg text-slate-800" />
             <input type="text" placeholder="Thumbnail URL" value={form.thumbnail_url} onChange={e => setForm({...form, thumbnail_url: e.target.value})} className="px-4 py-2 bg-white border border-slate-200 rounded-lg text-slate-800" />
             <input type="text" placeholder="PPTX URL" value={form.pptx_url} onChange={e => setForm({...form, pptx_url: e.target.value})} required className="px-4 py-2 bg-white border border-slate-200 rounded-lg text-slate-800 md:col-span-2" />
+          </div>
+          <div className="mb-4">
+            <label className="block text-sm text-slate-600 mb-2">Description</label>
             <RichTextEditor value={form.description} onChange={description => setForm({...form, description})} placeholder="Description" />
           </div>
           <button type="submit" className="px-6 py-2 bg-blue-600 text-white font-semibold rounded-lg">{language === 'en' ? 'Save' : 'Պահպանել'}</button>
