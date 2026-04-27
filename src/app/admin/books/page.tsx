@@ -10,7 +10,7 @@ export default function AdminBooksPage() {
   const [books, setBooks] = useState<Book[]>([]);
   const [loading, setLoading] = useState(true);
   const [showForm, setShowForm] = useState(false);
-  const [form, setForm] = useState({ title: '', author: '', description: '', category: 'history', cover_url: '', pdf_url: '' });
+  const [form, setForm] = useState({ title: '', author: '', description: '', category: 'science', cover_url: '', pdf_url: '' });
   const { t, language } = useApp();
 
   useEffect(() => {
@@ -28,7 +28,7 @@ export default function AdminBooksPage() {
     e.preventDefault();
     const { supabase } = await import('@/lib/supabase');
     await supabase.from('books').insert([form]);
-    setForm({ title: '', author: '', description: '', category: 'history', cover_url: '', pdf_url: '' });
+    setForm({ title: '', author: '', description: '', category: 'science', cover_url: '', pdf_url: '' });
     setShowForm(false);
     fetchBooks();
   }

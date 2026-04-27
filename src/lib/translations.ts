@@ -1,11 +1,10 @@
 export const translations = {
   en: {
-    nav: {
+nav: {
       home: 'Home',
       library: 'Library',
       videos: 'Video Hub',
       presentations: 'Presentations',
-      history: 'History',
       courses: 'Courses',
       news: 'News',
       contacts: 'Contacts',
@@ -14,10 +13,10 @@ export const translations = {
     },
     home: {
       tagline: 'Preserving Armenian Scientific Heritage',
-      title: 'eGrabar',
+      title: 'Grabar',
       subtitle: 'A sanctuary for Armenian scholarship, preserving centuries of scientific achievement and cultural knowledge for future generations.',
       explore: 'Explore the Library',
-      about: 'About eGrabar History',
+      about: 'About Grabar',
       scroll: 'Scroll to explore',
     },
     sections: {
@@ -46,19 +45,18 @@ export const translations = {
       library: 'Գրադարան',
       videos: 'Տեսանյութեր',
       presentations: 'Ներկայացումներ',
-      history: 'Պատմություն',
       courses: 'Դասընթացներ',
-      news: 'Լրաշ',
+      news: 'Լ',
       contacts: 'Կապ',
       amaras: 'Ամարաս կենտրոն',
       donate: 'Նվիրաբերեք',
     },
     home: {
       tagline: 'Պահպանելով հայկական գիտական ժառանգությունը',
-      title: 'Լրաշ',
+      title: 'Գ',
       subtitle: 'Հայկական գիտության տաճար, պահպանելով դարերի գիտական նվաճումները և մշակութային գիտելիքները սերունդների համար.',
       explore: 'Ուսումնասիրել Գրադարանը',
-      about: 'Լրաշ պատմության մասին',
+      about: 'Գ մասին',
       scroll: 'Սահեք ուսումնասիրելու համար',
     },
     sections: {
@@ -85,7 +83,7 @@ export const translations = {
 
 export type Language = 'en' | 'hy';
 
-type Nav = { home: string; library: string; videos: string; presentations: string; history: string; courses: string; news: string; contacts: string; amaras: string; donate: string };
+type Nav = { home: string; library: string; videos: string; presentations: string; courses: string; news: string; contacts: string; amaras: string; donate: string };
 type Home = { tagline: string; title: string; subtitle: string; explore: string; about: string; scroll: string };
 type Sections = { library: string; libraryDesc: string; videoHub: string; videoHubDesc: string; courses: string; coursesDesc: string };
 type Library = { search: string; noResults: string; noResultsHint: string; preview: string; download: string };

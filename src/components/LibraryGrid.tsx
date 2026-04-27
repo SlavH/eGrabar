@@ -11,7 +11,6 @@ interface LibraryGridProps {
 
 const categories = [
   { key: 'all', hy: 'Բոլորը', en: 'All' },
-  { key: 'history', hy: 'Պատմություն', en: 'History' },
   { key: 'science', hy: 'Գիտություն', en: 'Science' },
   { key: 'religion', hy: 'Կրոն', en: 'Religion' },
   { key: 'culture', hy: 'Մշակույթ', en: 'Culture' },
@@ -26,7 +25,6 @@ export default function LibraryGrid({ initialBooks = [] }: LibraryGridProps) {
   const { t, language } = useApp();
 
   const mockBooks: Book[] = [
-    { id: '1', title: 'Medieval Armenian Manuscripts', author: 'Dr. V. Arzumanyan', description: 'Catalog of 12th-century scripts.', category: 'history', cover_url: '', pdf_url: '', created_at: new Date().toISOString(), views: 10 },
     { id: '2', title: 'Astrophysics in Ancient Armenia', author: 'Prof. A. Sargsyan', description: 'Evidence of stellar observation.', category: 'science', cover_url: '', pdf_url: '', created_at: new Date().toISOString(), views: 25 },
   ];
 
