@@ -29,10 +29,7 @@ export default function Home() {
           </div>
           
           <h1 className="text-2xl sm:text-4xl md:text-6xl lg:text-7xl font-bold mb-6 leading-snug flex flex-wrap justify-center items-center gap-x-2 drop-shadow-md">
-            <span className="relative inline-block">
-              <span className="text-blue-300 text-lg absolute -bottom-0 -left-0">{language === 'en' ? 'e' : 'ի'}</span>
-              <span className="text-blue-200 ml-1.5">{language === 'en' ? 'Grabar' : 'Գրաբար'}</span>
-            </span>
+            <span className="text-blue-200">{language === 'en' ? 'Grabar' : 'Գրաբար'}</span>
           </h1>
           
           <p className="text-sm sm:text-lg md:text-xl lg:text-2xl text-slate-300 mb-10 max-w-3xl mx-auto leading-normal">
