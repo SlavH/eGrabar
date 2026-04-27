@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import { GlassCard } from "@/components/ui/glass-card";
 
 export default function Home() {
-  const { t, language } = useApp();
+  const { t, language, getLocalizedText } = useApp();
   const [news, setNews] = useState<any[]>([]);
 
   useEffect(() => {
@@ -66,8 +66,8 @@ export default function Home() {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {news.map((item) => (
                 <GlassCard key={item.id} className="p-6 bg-white/10 border-white/20 backdrop-blur-md">
-                  <h3 className="text-xl font-semibold mb-3 text-slate-100">{item.title}</h3>
-                  <div className="text-slate-300 text-sm line-clamp-3" dangerouslySetInnerHTML={{ __html: item.content }} />
+                  <h3 className="text-xl font-semibold mb-3 text-slate-100">{getLocalizedText(item, 'title')}</h3>
+                  <div className="text-slate-300 text-sm line-clamp-3" dangerouslySetInnerHTML={{ __html: getLocalizedText(item, 'content') }} />
                 </GlassCard>
               ))}
             </div>

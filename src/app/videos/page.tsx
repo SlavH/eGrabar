@@ -13,7 +13,7 @@ const mockVideos: Video[] = [
 export default function VideosPage() {
   const [videos, setVideos] = useState<Video[]>([]);
   const [loading, setLoading] = useState(true);
-  const { t, language } = useApp();
+  const { t, language, getLocalizedText } = useApp();
 
   useEffect(() => {
     async function fetchVideos() {
@@ -59,7 +59,7 @@ export default function VideosPage() {
               <div key={video.id} className="group bg-slate-50 rounded-xl overflow-hidden border border-slate-200 card-hover">
                 <div className="relative aspect-video bg-white">
                   {video.thumbnail_url ? (
-                    <img src={video.thumbnail_url} alt={video.title} className="w-full h-full object-cover" />
+                    <img src={video.thumbnail_url} alt={getLocalizedText(video, 'title')} className="w-full h-full object-cover" />
                   ) : (
                     <div className="w-full h-full flex items-center justify-center">
                       <svg className="w-16 h-16 text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -77,8 +77,8 @@ export default function VideosPage() {
                   </div>
                 </div>
                 <div className="p-4">
-                  <h3 className="font-semibold text-slate-900 line-clamp-2 mb-1 group-hover:text-blue-600 transition-colors">{video.title}</h3>
-                  <p className="text-sm text-slate-500 line-clamp-2">{video.description}</p>
+                  <h3 className="font-semibold text-slate-900 line-clamp-2 mb-1 group-hover:text-blue-600 transition-colors">{getLocalizedText(video, 'title')}</h3>
+                  <p className="text-sm text-slate-500 line-clamp-2">{getLocalizedText(video, 'description')}</p>
                 </div>
               </div>
             ))}

@@ -11,7 +11,7 @@ const mockEvents: Event[] = [
 ];
 
 export default function EventsPage() {
-  const { t, language } = useApp();
+  const { t, language, getLocalizedText } = useApp();
   const [events, setEvents] = useState<Event[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -42,6 +42,7 @@ export default function EventsPage() {
         className="mb-8"
       />
       <div className="max-w-7xl mx-auto">
+
         {loading ? (
           <div className="space-y-4">
             {[...Array(3)].map((_, i) => (
@@ -72,10 +73,10 @@ export default function EventsPage() {
                         {event.time}
                       </div>
                     </div>
-                    <h3 className="text-xl font-semibold text-slate-900 mb-2 group-hover:text-blue-600 transition-colors">{event.title}</h3>
-                    <p className="text-slate-500 mb-2">{event.description}</p>
+                    <h3 className="text-xl font-semibold text-slate-900 mb-2 group-hover:text-blue-600 transition-colors">{getLocalizedText(event, 'title')}</h3>
+                    <p className="text-slate-500 mb-2">{getLocalizedText(event, 'description')}</p>
                     <p className="text-slate-400 text-sm">
-                      {t.common.instructor} <span className="text-blue-600">{event.instructor}</span>
+                      {t.common.instructor}: <span className="text-blue-600">{getLocalizedText(event, 'instructor')}</span>
                     </p>
                   </div>
                   <a

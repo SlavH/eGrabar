@@ -13,7 +13,7 @@ const mockPresentations: Presentation[] = [
 export default function PresentationsPage() {
   const [presentations, setPresentations] = useState<Presentation[]>([]);
   const [loading, setLoading] = useState(true);
-  const { t } = useApp();
+  const { t, getLocalizedText } = useApp();
 
   useEffect(() => {
     async function fetchPresentations() {
@@ -37,6 +37,7 @@ export default function PresentationsPage() {
         className="mb-8"
       />
       <div className="max-w-7xl mx-auto">
+
         {loading ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {[...Array(8)].map((_, i) => (
@@ -59,7 +60,7 @@ export default function PresentationsPage() {
               <div key={ppt.id} className="group bg-slate-50 rounded-xl overflow-hidden border border-slate-200 card-hover">
                 <div className="relative aspect-[4/3] bg-white">
                   {ppt.thumbnail_url ? (
-                    <img src={ppt.thumbnail_url} alt={ppt.title} className="w-full h-full object-cover" />
+                    <img src={ppt.thumbnail_url} alt={getLocalizedText(ppt, 'title')} className="w-full h-full object-cover" />
                   ) : (
                     <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-burgundy/20 to-blue-600/20">
                       <svg className="w-16 h-16 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -69,15 +70,15 @@ export default function PresentationsPage() {
                   )}
                   <div className="absolute inset-0 bg-gradient-to-t from-obsidian/90 to-transparent opacity-0 group-hover:opacity-100 transition-opacity">
                     <div className="absolute bottom-0 left-0 right-0 p-4">
-                      <button className="w-full py-2 bg-blue-600 text-white rounded-lg text-sm font-medium hover:bg-blue-600-light transition-colors">
+                      <a href={ppt.pptx_url} target="_blank" rel="noopener noreferrer" className="w-full py-2 bg-blue-600 text-white rounded-lg text-sm font-medium hover:bg-blue-600-light transition-colors block text-center">
                         {t.common.download}
-                      </button>
+                      </a>
                     </div>
                   </div>
                 </div>
                 <div className="p-4">
-                  <h3 className="font-semibold text-slate-900 line-clamp-2 mb-1 group-hover:text-blue-600 transition-colors">{ppt.title}</h3>
-                  <p className="text-sm text-slate-500 line-clamp-2">{ppt.description}</p>
+                  <h3 className="font-semibold text-slate-900 line-clamp-2 mb-1 group-hover:text-blue-600 transition-colors">{getLocalizedText(ppt, 'title')}</h3>
+                  <p className="text-sm text-slate-500 line-clamp-2">{getLocalizedText(ppt, 'description')}</p>
                 </div>
               </div>
             ))}
