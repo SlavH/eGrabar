@@ -1,84 +1,84 @@
 export const translations = {
-  en: {
-nav: {
-      home: 'Home',
-      library: 'Library',
-      videos: 'Video Hub',
-      presentations: 'Presentations',
-      courses: 'Courses',
-      news: 'News',
-      contacts: 'Contacts',
-      amaras: 'Amaras Center',
-      donate: 'Donate',
+  "en": {
+    "nav": {
+      "home": "Home",
+      "library": "Library",
+      "videos": "Video Hub",
+      "presentations": "Presentations",
+      "courses": "Courses",
+      "news": "News",
+      "contacts": "Contacts",
+      "amaras": "Amaras Center",
+      "donate": "Donate"
     },
-    home: {
-      tagline: 'Preserving Armenian Scientific Heritage',
-      title: 'Grabar',
-      subtitle: 'A sanctuary for Armenian scholarship, preserving centuries of scientific achievement and cultural knowledge for future generations.',
-      explore: 'Explore the Library',
-      about: 'About Grabar',
-      scroll: 'Scroll to explore',
+    "home": {
+      "tagline": "Preserving Armenian Scientific Heritage",
+      "title": "eGrabar",
+      "subtitle": "A sanctuary for Armenian scholarship, preserving centuries of scientific achievement and cultural knowledge for future generations.",
+      "explore": "Explore the Library",
+      "about": "About eGrabar",
+      "scroll": "Scroll to explore"
     },
-    sections: {
-      library: 'Library',
-      libraryDesc: 'Access thousands of research papers, manuscripts, and historical documents.',
-      videoHub: 'Video Hub',
-      videoHubDesc: 'Watch educational lectures, documentary videos and scientific presentations.',
-      courses: 'Courses',
-      coursesDesc: 'Join upcoming courses and seminars with leading Armenian scholars.',
+    "sections": {
+      "library": "Library",
+      "libraryDesc": "Access thousands of research papers, manuscripts, and historical documents.",
+      "videoHub": "Video Hub",
+      "videoHubDesc": "Watch educational lectures, documentary videos and scientific presentations.",
+      "courses": "Courses",
+      "coursesDesc": "Join upcoming courses and seminars with leading Armenian scholars."
     },
-    library: {
-      search: 'Search books, papers, manuscripts...',
-      noResults: 'No books found',
-      noResultsHint: 'Try adjusting your search or filter criteria',
-      preview: 'Preview',
-      download: 'Download',
+    "library": {
+      "search": "Search books, papers, manuscripts...",
+      "noResults": "No books found",
+      "noResultsHint": "Try adjusting your search or filter criteria",
+      "preview": "Preview",
+      "download": "Download"
     },
-    common: {
-      learnMore: 'Learn more',
-      viewAll: 'View all',
-    },
+    "common": {
+      "learnMore": "Learn more",
+      "viewAll": "View all"
+    }
   },
-  hy: {
-    nav: {
-      home: 'Գլխավոր',
-      library: 'Գրադարան',
-      videos: 'Տեսանյութեր',
-      presentations: 'Ներկայացումներ',
-      courses: 'Դասընթացներ',
-      news: 'Լ',
-      contacts: 'Կապ',
-      amaras: 'Ամարաս կենտրոն',
-      donate: 'Նվիրաբերեք',
+  "hy": {
+    "nav": {
+      "home": "Գլխավոր",
+      "library": "Գրադարան",
+      "videos": "Տեսանյութեր",
+      "presentations": "Ներկայացումներ",
+      "courses": "Դասընթացներ",
+      "news": "Լ",
+      "contacts": "Կ",
+      "amaras": "Ա",
+      "donate": "Ն"
     },
-    home: {
-      tagline: 'Պահպանելով հայկական գիտական ժառանգությունը',
-      title: 'Գ',
-      subtitle: 'Հայկական գիտության տաճար, պահպանելով դարերի գիտական նվաճումները և մշակութային գիտելիքները սերունդների համար.',
-      explore: 'Ուսումնասիրել Գրադարանը',
-      about: 'Գ մասին',
-      scroll: 'Սահեք ուսումնասիրելու համար',
+    "home": {
+      "tagline": "Պահպանելով հ",
+      "title": "Գ",
+      "subtitle": "Հ",
+      "explore": "Ո",
+      "about": "Գ",
+      "scroll": "Ս"
     },
-    sections: {
-      library: 'Գրադարան',
-      libraryDesc: 'Մուտք գործեք հազարավոր հետազոտությունների, ձեռագրերի և պատմական փաստաթղթերի:',
-      videoHub: 'Տեսանյութեր',
-      videoHubDesc: 'Դիտեք կրթական դասախոսություններ, դոկումենտալ տեսանյութեր և գիտական ներկայացումներ:',
-      courses: 'Դասընթացներ',
-      coursesDesc: 'Միակցվեք վերջին դասընթացներին և սեմինարներին հայտնի հայ գիտնականների հետ:',
+    "sections": {
+      "library": "Գ",
+      "libraryDesc": "Մ",
+      "videoHub": "Տ",
+      "videoHubDesc": "Դ",
+      "courses": "Դ",
+      "coursesDesc": "Մ"
     },
-    library: {
-      search: 'Որոնել գրքեր, հոդվածներ, ձեռագրեր...',
-      noResults: 'Գրքեր չեն գտնվել',
-      noResultsHint: 'Փորձեք որոնումը կամ ֆիլտրի չափանիշները փոփոխել',
-      preview: 'Դիտել',
-      download: 'Ներբեռնել',
+    "library": {
+      "search": "Ո",
+      "noResults": "Գ",
+      "noResultsHint": "Փ",
+      "preview": "Դ",
+      "download": "Ն"
     },
-    common: {
-      learnMore: 'Ավելին իմանալ',
-      viewAll: 'Տեսնել բոլորը',
-    },
-  },
+    "common": {
+      "learnMore": "Ա",
+      "viewAll": "Տ"
+    }
+  }
 } as const;
 
 export type Language = 'en' | 'hy';
