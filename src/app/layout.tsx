@@ -11,9 +11,9 @@ const inter = Inter({
   subsets: ["latin"],
 });
 
-const antique = localFont({
-  src: "./fonts/Antique.woff2",
-  variable: "--font-antique",
+const oldtimer = localFont({
+  src: "./fonts/Oldtimer.woff2",
+  variable: "--font-oldtimer",
   display: "swap",
 });
 
@@ -29,7 +29,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.variable} ${antique.variable} min-h-screen`}>
+      <body className={`${inter.variable} ${oldtimer.variable} min-h-screen`}>
         <Background3D />
         <AppProvider>
           <Navigation />

@@ -4,14 +4,14 @@
 
 @layer base {
   * {
-    font-family: var(--font-antique), var(--font-inter), sans-serif;
+    font-family: var(--font-oldtimer), var(--font-inter), sans-serif;
   }
   body {
     @apply bg-transparent text-slate-900;
-    font-family: var(--font-antique), var(--font-inter), sans-serif;
+    font-family: var(--font-oldtimer), var(--font-inter), sans-serif;
   }
   h1, h2, h3, h4, h5, h6 {
-    font-family: var(--font-antique), var(--font-inter), sans-serif;
+    font-family: var(--font-oldtimer), var(--font-inter), sans-serif;
   }
 }
 
