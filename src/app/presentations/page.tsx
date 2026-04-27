@@ -33,11 +33,10 @@ export default function PresentationsPage() {
     <main className="min-h-screen pt-24 pb-16 px-6 bg-background">
       <Hero
         title={t.nav.presentations}
-        subtitle="Access PowerPoint presentations and slides from our educational programs."
+        subtitle={t.sections.presentationsDesc}
         className="mb-8"
       />
       <div className="max-w-7xl mx-auto">
-
         {loading ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {[...Array(8)].map((_, i) => (
@@ -51,8 +50,8 @@ export default function PresentationsPage() {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
               </svg>
             </div>
-            <h3 className="text-xl font-semibold text-slate-600 mb-2">No presentations yet</h3>
-            <p className="text-slate-500">Check back soon for slide decks</p>
+            <h3 className="text-xl font-semibold text-slate-600 mb-2">{t.common.noPresentationsYet}</h3>
+            <p className="text-slate-500">{t.common.noPresentationsHint}</p>
           </div>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
@@ -71,7 +70,7 @@ export default function PresentationsPage() {
                   <div className="absolute inset-0 bg-gradient-to-t from-obsidian/90 to-transparent opacity-0 group-hover:opacity-100 transition-opacity">
                     <div className="absolute bottom-0 left-0 right-0 p-4">
                       <button className="w-full py-2 bg-blue-600 text-white rounded-lg text-sm font-medium hover:bg-blue-600-light transition-colors">
-                        Download
+                        {t.common.download}
                       </button>
                     </div>
                   </div>

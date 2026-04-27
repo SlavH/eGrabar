@@ -42,7 +42,6 @@ export default function EventsPage() {
         className="mb-8"
       />
       <div className="max-w-7xl mx-auto">
-
         {loading ? (
           <div className="space-y-4">
             {[...Array(3)].map((_, i) => (
@@ -56,8 +55,8 @@ export default function EventsPage() {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
               </svg>
             </div>
-            <h3 className="text-xl font-semibold text-slate-600 mb-2">No upcoming events</h3>
-            <p className="text-slate-500">Check back soon for scheduled courses and seminars</p>
+            <h3 className="text-xl font-semibold text-slate-600 mb-2">{t.common.noEventsYet}</h3>
+            <p className="text-slate-500">{t.common.noEventsHint}</p>
           </div>
         ) : (
           <div className="space-y-4">
@@ -76,7 +75,7 @@ export default function EventsPage() {
                     <h3 className="text-xl font-semibold text-slate-900 mb-2 group-hover:text-blue-600 transition-colors">{event.title}</h3>
                     <p className="text-slate-500 mb-2">{event.description}</p>
                     <p className="text-slate-400 text-sm">
-                      {language === 'en' ? 'Instructor:' : 'Վարորդ:'} <span className="text-blue-600">{event.instructor}</span>
+                      {t.common.instructor} <span className="text-blue-600">{event.instructor}</span>
                     </p>
                   </div>
                   <a
@@ -88,7 +87,7 @@ export default function EventsPage() {
                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
                     </svg>
-                    {language === 'en' ? 'Join' : 'Միանալ'}
+                    {t.common.join}
                   </a>
                 </div>
               </div>

@@ -13,7 +13,7 @@ export default function NewsPage() {
         className="mb-8"
       />
       <div className="max-w-7xl mx-auto text-center py-20 text-slate-500">
-        <p>No news yet.</p>
+        <p>{t.common.noNews}</p>
       </div>
     </main>
   );

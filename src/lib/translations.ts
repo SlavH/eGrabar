@@ -11,6 +11,12 @@ export const translations = {
       "amaras": "Amaras Center",
       "donate": "Donate"
     },
+    "contacts": {
+      "contactUsAt": "Contact us at:",
+      "whatsappViber": "Whatsapp Viber",
+      "facebook": "Facebook",
+      "instagram": "Instagram"
+    },
     "home": {
       "tagline": "Preserving Armenian Scientific Heritage",
       "title": "eGrabar",
@@ -24,6 +30,8 @@ export const translations = {
       "libraryDesc": "Access thousands of research papers, manuscripts, and historical documents.",
       "videoHub": "Video Hub",
       "videoHubDesc": "Watch educational lectures, documentary videos and scientific presentations.",
+      "presentations": "Presentations",
+      "presentationsDesc": "Access PowerPoint presentations and slides from our educational programs.",
       "courses": "Courses",
       "coursesDesc": "Join upcoming courses and seminars with leading Armenian scholars."
     },
@@ -36,7 +44,17 @@ export const translations = {
     },
     "common": {
       "learnMore": "Learn more",
-      "viewAll": "View all"
+      "viewAll": "View all",
+      "noVideosYet": "No videos yet",
+      "noVideosHint": "Check back soon for educational content",
+      "noPresentationsYet": "No presentations yet",
+      "noPresentationsHint": "Check back soon for slide decks",
+      "noEventsYet": "No upcoming events",
+      "noEventsHint": "Check back soon for scheduled courses and seminars",
+      "instructor": "Instructor:",
+      "join": "Join",
+      "download": "Download",
+      "noNews": "No news yet."
     }
   },
   "hy": {
@@ -51,6 +69,12 @@ export const translations = {
       "amaras": "Ամարաս",
       "donate": "Նվիրաբերեք"
     },
+    "contacts": {
+      "contactUsAt": "Կապնվեք մեզ հետ՝",
+      "whatsappViber": "Whatsapp Viber",
+      "facebook": "Facebook",
+      "instagram": "Instagram"
+    },
     "home": {
       "tagline": "Պահպանելով դարերի գիտական նվաճումները և մշակութային գիտելիքները սերունդների համար:",
       "title": "eGrabar",
@@ -60,23 +84,35 @@ export const translations = {
       "scroll": "Scroll"
     },
     "sections": {
-      "library": "Library",
-      "libraryDesc": "Access thousands of documents",
-      "videoHub": "Video Hub",
-      "videoHubDesc": "Watch videos",
-      "courses": "Courses",
-      "coursesDesc": "Join courses"
-    },
-    "library": {
-      "search": "Search",
-      "noResults": "No results",
-      "noResultsHint": "Try adjusting",
-      "preview": "Preview",
-      "download": "Download"
+      "library": "Գրադարան",
+      "libraryDesc": "Մուտք գործեք հազարավոր հետազոտությունների, ձեռագրերի և պատմական փաստաթղթերի:",
+      "videoHub": "Տեսանյութեր",
+      "videoHubDesc": "Դիտեք կրթություն դասընթացներ, փաստագրական տեսանյութեր և գիտական ներկայացումներ:",
+      "presentations": "Ներկայացումներ",
+      "presentationsDesc": "Մուտք գործեք PowerPoint ներկայացումներ և սլայդեր մեր կրթական ծրագրերից:",
+      "courses": "Դասընթացներ",
+      "coursesDesc": "Միանացեք գալիք դասընթացներին և սեմինարներին հայ գիտնականների հետ:"
     },
     "common": {
-      "learnMore": "Learn more",
-      "viewAll": "View all"
+      "learnMore": "Իմանալ ավելին",
+      "viewAll": "Տեսնել բոլորը",
+      "noVideosYet": "Դեռ տեսանյութեր չկան",
+      "noVideosHint": "Ստուգեք շուտով կրթական բովանդակությունը",
+      "noPresentationsYet": "Դեռ ներկայացումներ չկան",
+      "noPresentationsHint": "Ստուգեք շուտով սլայդերի հավաքածուն",
+      "noEventsYet": "Դեռ իրադարձություններ չկան",
+      "noEventsHint": "Ստուգեք շուտով նախատեսված դասընթացներն ու սեմինարները",
+      "instructor": "Վարորդ",
+      "join": "Միանալ",
+      "download": "Ներբեռնել",
+      "noNews": "Լրումներ չկան"
+    },
+    "library": {
+      "search": "Որոնել գրքեր, հոդվածներ, ձեռագրեր...",
+      "noResults": "Գրքեր չեն գտնվել",
+      "noResultsHint": "Փորձեք փոխել որոնման չափանիշները",
+      "preview": "Դիտել",
+      "download": "Ներբեռնել"
     }
   }
 } as const;
@@ -84,13 +120,15 @@ export const translations = {
 export type Language = 'en' | 'hy';
 
 type Nav = { home: string; library: string; videos: string; presentations: string; courses: string; news: string; contacts: string; amaras: string; donate: string };
+type Contacts = { contactUsAt: string; whatsappViber: string; facebook: string; instagram: string };
 type Home = { tagline: string; title: string; subtitle: string; explore: string; about: string; scroll: string };
-type Sections = { library: string; libraryDesc: string; videoHub: string; videoHubDesc: string; courses: string; coursesDesc: string };
+type Sections = { library: string; libraryDesc: string; videoHub: string; videoHubDesc: string; presentations: string; presentationsDesc: string; courses: string; coursesDesc: string };
 type Library = { search: string; noResults: string; noResultsHint: string; preview: string; download: string };
-type Common = { learnMore: string; viewAll: string };
+type Common = { learnMore: string; viewAll: string; noVideosYet: string; noVideosHint: string; noPresentationsYet: string; noPresentationsHint: string; noEventsYet: string; noEventsHint: string; instructor: string; join: string; download: string; noNews: string };
 
 export interface Translation {
   nav: Nav;
+  contacts: Contacts;
   home: Home;
   sections: Sections;
   library: Library;
