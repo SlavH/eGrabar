@@ -12,7 +12,7 @@ export default function Background3D() {
     <div className="fixed inset-0 -z-10 overflow-hidden pointer-events-none">
       <div 
         className="absolute inset-0 w-full h-full bg-cover bg-center bg-no-repeat bg-fixed"
-        style={{ backgroundImage: 'url(/magaghat.jpeg)' }}
+        style={{ backgroundImage: 'url(/background.jpeg)' }}
       />
     </div>
   );
