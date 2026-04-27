@@ -46,13 +46,13 @@ export const translations = {
       "videos": "Տեսանյութեր",
       "presentations": "Ներկայացումներ",
       "courses": "Դասընթացներ",
-      "news": "Լ",
-      "contacts": "Կ",
-      "amaras": "Ա",
-      "donate": "Ն"
+      "news": "Լրաշար",
+      "contacts": "Կոնտակտներ",
+      "amaras": "Ամարաս",
+      "donate": "Նվիրաբերեք"
     },
     "home": {
-      "tagline": "Պահպանե",
+      "tagline": "Պահպանելով դարերի գիտական նվաճումները և մշակութային գիտելիքները սերունդների համար:",
       "title": "eGrabar",
       "subtitle": "A sanctuary for Armenian scholarship",
       "explore": "Explore Library",
