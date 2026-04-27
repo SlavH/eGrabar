@@ -11,9 +11,12 @@ const inter = Inter({
   subsets: ["latin"],
 });
 
-const oldtimer = localFont({
-  src: "./fonts/Oldtimer.woff2",
-  variable: "--font-oldtimer",
+const googlesans = localFont({
+  src: [
+    { path: "./fonts/GoogleSans-Regular.woff2", weight: "400", style: "normal" },
+    { path: "./fonts/GoogleSans-Bold.woff2", weight: "700", style: "normal" },
+  ],
+  variable: "--font-googlesans",
   display: "swap",
 });
 
@@ -29,7 +32,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.variable} ${oldtimer.variable} min-h-screen`}>
+      <body className={`${inter.variable} ${googlesans.variable} min-h-screen`}>
         <Background3D />
         <AppProvider>
           <Navigation />
