@@ -52,31 +52,31 @@ export const translations = {
       "donate": "Ն"
     },
     "home": {
-      "tagline": "Պահպանելով հ",
-      "title": "Գ",
-      "subtitle": "Հ",
-      "explore": "Ո",
-      "about": "Գ",
-      "scroll": "Ս"
+      "tagline": "Պահպանե",
+      "title": "eGrabar",
+      "subtitle": "A sanctuary for Armenian scholarship",
+      "explore": "Explore Library",
+      "about": "About eGrabar",
+      "scroll": "Scroll"
     },
     "sections": {
-      "library": "Գ",
-      "libraryDesc": "Մ",
-      "videoHub": "Տ",
-      "videoHubDesc": "Դ",
-      "courses": "Դ",
-      "coursesDesc": "Մ"
+      "library": "Library",
+      "libraryDesc": "Access thousands of documents",
+      "videoHub": "Video Hub",
+      "videoHubDesc": "Watch videos",
+      "courses": "Courses",
+      "coursesDesc": "Join courses"
     },
     "library": {
-      "search": "Ո",
-      "noResults": "Գ",
-      "noResultsHint": "Փ",
-      "preview": "Դ",
-      "download": "Ն"
+      "search": "Search",
+      "noResults": "No results",
+      "noResultsHint": "Try adjusting",
+      "preview": "Preview",
+      "download": "Download"
     },
     "common": {
-      "learnMore": "Ա",
-      "viewAll": "Տ"
+      "learnMore": "Learn more",
+      "viewAll": "View all"
     }
   }
 } as const;
