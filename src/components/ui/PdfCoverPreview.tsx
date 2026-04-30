@@ -34,13 +34,12 @@ export default function PdfCoverPreview({ src, className = '' }: PdfCoverPreview
         const viewport = page.getViewport({ scale });
         const canvas = canvasRef.current;
         
-        if (canvas && !cancelled) {
-          const context = canvas.getContext('2d');
-          canvas.width = viewport.width;
-          canvas.height = viewport.height;
-          
-          await page.render({ canvasContext: context!, viewport }).promise;
-        }
+          if (canvas && !cancelled) {
+            canvas.width = viewport.width;
+            canvas.height = viewport.height;
+            
+            await page.render({ canvas, viewport }).promise;
+          }
       } catch (err) {
         console.error('Failed to render PDF cover:', err);
         if (!cancelled) setError(true);
