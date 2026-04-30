@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Book } from '@/types';
 import { useApp } from '@/lib/context';
 import RichTextEditor from '@/components/ui/RichTextEditor';
@@ -19,11 +19,13 @@ export default function AdminBooksPage() {
   const [books, setBooks] = useState<Book[]>([]);
   const [loading, setLoading] = useState(true);
   const [showForm, setShowForm] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
   const [form, setForm] = useState<BookForm>({ 
     title_en: '', title_hy: '', author_en: '', author_hy: '', 
     description_en: '', description_hy: '', pdf_file: '' 
   });
   const { t, language } = useApp();
+  const submittedRef = useRef(false);
 
   useEffect(() => {
     fetchBooks();
@@ -38,21 +40,32 @@ export default function AdminBooksPage() {
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    const { supabase } = await import('@/lib/supabase');
     
-    await supabase.from('books').insert([{
-      title_en: form.title_en,
-      title_hy: form.title_hy,
-      author_en: form.author_en,
-      author_hy: form.author_hy,
-      description_en: form.description_en,
-      description_hy: form.description_hy,
-      pdf_file: form.pdf_file,
-    }]);
+    if (submittedRef.current || submitting) return;
+    submittedRef.current = true;
+    setSubmitting(true);
     
-    setForm({ title_en: '', title_hy: '', author_en: '', author_hy: '', description_en: '', description_hy: '', pdf_file: '' });
-    setShowForm(false);
-    fetchBooks();
+    try {
+      const { supabase } = await import('@/lib/supabase');
+      
+      await supabase.from('books').insert([{
+        title_en: form.title_en,
+        title_hy: form.title_hy,
+        author_en: form.author_en,
+        author_hy: form.author_hy,
+        description_en: form.description_en,
+        description_hy: form.description_hy,
+        pdf_file: form.pdf_file,
+      }]);
+      
+      setForm({ title_en: '', title_hy: '', author_en: '', author_hy: '', description_en: '', description_hy: '', pdf_file: '' });
+      setShowForm(false);
+      await fetchBooks();
+    } finally {
+      setSubmitting(false);
+    }
+    
+    setTimeout(() => { submittedRef.current = false; }, 1000);
   }
 
   async function handleDelete(id: string) {
@@ -111,7 +124,9 @@ export default function AdminBooksPage() {
               <input type="file" accept="application/pdf" onChange={handleFileUpload} />
             </label>
           </div>
-          <button type="submit" className="px-6 py-2 bg-blue-600 text-white font-semibold rounded-lg mt-4">{t.admin.save}</button>
+          <button type="submit" disabled={submitting} className="px-6 py-2 bg-blue-600 text-white font-semibold rounded-lg mt-4 disabled:opacity-50">
+            {submitting ? 'Saving...' : t.admin.save}
+          </button>
         </form>
       )}
 

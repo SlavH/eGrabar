@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { Book } from '@/types';
 import { useApp } from '@/lib/context';
 import { GlassCard, GlassCardContent, GlassCardTitle, GlassCardDescription } from '@/components/ui/glass-card';
+import PdfCoverPreview from '@/components/ui/PdfCoverPreview';
 
 interface LibraryGridProps {
   initialBooks?: Book[];
@@ -51,17 +52,23 @@ export default function LibraryGrid({ initialBooks = [] }: LibraryGridProps) {
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
         {filteredBooks.map((book) => (
-          <GlassCard key={book.id} className="card-hover">
-            <div className="relative aspect-[3/4] bg-zinc-900/50 flex items-center justify-center text-gold">
-              Book
-            </div>
-            <GlassCardContent>
-              <GlassCardTitle className="text-foreground group-hover:text-gold transition-colors">
-                {language === 'en' ? book.title_en : book.title_hy}
-              </GlassCardTitle>
-              <GlassCardDescription className="text-foreground/60">{language === 'en' ? book.author_en : book.author_hy}</GlassCardDescription>
-            </GlassCardContent>
-          </GlassCard>
+          <a
+            key={book.id}
+            href={book.pdf_file || '#'}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="block"
+          >
+            <GlassCard className="card-hover">
+              <PdfCoverPreview src={book.pdf_file || ''} className="aspect-[3/4]" />
+              <GlassCardContent>
+                <GlassCardTitle className="text-foreground group-hover:text-gold transition-colors">
+                  {language === 'en' ? book.title_en : book.title_hy}
+                </GlassCardTitle>
+                <GlassCardDescription className="text-foreground/60">{language === 'en' ? book.author_en : book.author_hy}</GlassCardDescription>
+              </GlassCardContent>
+            </GlassCard>
+          </a>
         ))}
       </div>
     </div>
