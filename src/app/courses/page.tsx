@@ -5,11 +5,6 @@ import { Event } from '@/types';
 import { useApp } from '@/lib/context';
 import Hero from '@/components/Hero';
 
-const mockEvents: Event[] = [
-  { id: '1', title: 'Armenian Medieval History Seminar', description: 'Deep dive into 12th century.', date: '2026-05-10', time: '14:00', zoom_link: 'https://zoom.us', instructor: 'Dr. Arzumanyan', created_at: new Date().toISOString() },
-  { id: '2', title: 'Khachkar Art Workshop', description: 'Traditional stonework techniques.', date: '2026-05-15', time: '10:00', zoom_link: 'https://zoom.us', instructor: 'Prof. Sargsyan', created_at: new Date().toISOString() },
-];
-
 export default function EventsPage() {
   const { t, language, getLocalizedText } = useApp();
   const [events, setEvents] = useState<Event[]>([]);
@@ -21,8 +16,6 @@ export default function EventsPage() {
       const { data } = await supabase.from('events').select('*').gte('date', new Date().toISOString().split('T')[0]).order('date', { ascending: true });
       if (data && data.length > 0) {
         setEvents(data);
-      } else {
-        setEvents(mockEvents);
       }
       setLoading(false);
     }
@@ -42,7 +35,6 @@ export default function EventsPage() {
         className="mb-8"
       />
       <div className="max-w-7xl mx-auto">
-
         {loading ? (
           <div className="space-y-4">
             {[...Array(3)].map((_, i) => (
@@ -79,17 +71,19 @@ export default function EventsPage() {
                       {t.common.instructor}: <span className="text-blue-600">{getLocalizedText(event, 'instructor')}</span>
                     </p>
                   </div>
-                  <a
-                    href={event.zoom_link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-600-light text-white font-semibold rounded-xl transition-colors"
-                  >
-                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
-                    </svg>
-                    {t.common.join}
-                  </a>
+                  {event.link && (
+                    <a
+                      href={event.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-600-light text-white font-semibold rounded-xl transition-colors"
+                    >
+                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
+                      </svg>
+                      {t.common.join}
+                    </a>
+                  )}
                 </div>
               </div>
             ))}

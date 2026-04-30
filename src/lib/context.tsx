@@ -18,7 +18,7 @@ interface AppContextType {
   logout: () => Promise<void>;
   isAuthenticated: boolean;
   authLoading: boolean;
-  getLocalizedText: <T extends { [key: string]: any }>(item: T, field: keyof T) => string;
+  getLocalizedText: (item: { [key: string]: any }, field: string) => string;
 }
 
 const AppContext = createContext<AppContextType | undefined>(undefined);
@@ -89,14 +89,10 @@ export function AppProvider({ children }: { children: ReactNode }) {
     setUser(null);
   };
 
-  const getLocalizedText = <T extends { [key: string]: any }>(item: T, field: keyof T): string => {
-    const langField = `${String(field)}_${language}` as keyof T;
-    const fallbackField = field as keyof T;
+  const getLocalizedText = (item: { [key: string]: any }, field: string): string => {
+    const langField = `${field}_${language}`;
     if (item[langField] && item[langField] !== '') {
       return item[langField] as string;
-    }
-    if (item[fallbackField] && item[fallbackField] !== '') {
-      return item[fallbackField] as string;
     }
     return '';
   };

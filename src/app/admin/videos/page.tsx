@@ -10,10 +10,7 @@ interface VideoForm {
   title_hy: string;
   description_en: string;
   description_hy: string;
-  thumbnail_url: string;
-  video_url: string;
-  youtube_id: string;
-  duration: number;
+  video_file: string;
 }
 
 export default function AdminVideosPage() {
@@ -21,8 +18,7 @@ export default function AdminVideosPage() {
   const [loading, setLoading] = useState(true);
   const [showForm, setShowForm] = useState(false);
   const [form, setForm] = useState<VideoForm>({ 
-    title_en: '', title_hy: '', description_en: '', description_hy: '', 
-    thumbnail_url: '', video_url: '', youtube_id: '', duration: 0 
+    title_en: '', title_hy: '', description_en: '', description_hy: '', video_file: '' 
   });
   const { t, language } = useApp();
 
@@ -42,19 +38,14 @@ export default function AdminVideosPage() {
     const { supabase } = await import('@/lib/supabase');
     
     await supabase.from('videos').insert([{
-      title: form.title_en || form.title_hy,
       title_en: form.title_en,
       title_hy: form.title_hy,
-      description: form.description_en || form.description_hy,
       description_en: form.description_en,
       description_hy: form.description_hy,
-      thumbnail_url: form.thumbnail_url,
-      video_url: form.video_url,
-      youtube_id: form.youtube_id,
-      duration: form.duration,
+      video_file: form.video_file,
     }]);
     
-    setForm({ title_en: '', title_hy: '', description_en: '', description_hy: '', thumbnail_url: '', video_url: '', youtube_id: '', duration: 0 });
+    setForm({ title_en: '', title_hy: '', description_en: '', description_hy: '', video_file: '' });
     setShowForm(false);
     fetchVideos();
   }
@@ -64,6 +55,17 @@ export default function AdminVideosPage() {
     await supabase.from('videos').delete().eq('id', id);
     fetchVideos();
   }
+
+  const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (!e.target.files?.[0]) return;
+    const file = e.target.files[0];
+    const { supabase: sb } = await import('@/lib/supabase');
+    const { data, error } = await sb.storage.from('videos').upload(`${Date.now()}_${file.name}`, file);
+    if (error) { console.error(error); return; }
+    const { data: urlData } = sb.storage.from('videos').getPublicUrl(`${Date.now()}_${file.name}`);
+    const url = urlData?.publicUrl ?? '';
+    setForm({ ...form, video_file: url });
+  };
 
   return (
     <div>
@@ -89,12 +91,10 @@ export default function AdminVideosPage() {
               <RichTextEditor value={form.description_hy} onChange={description_hy => setForm({...form, description_hy})} placeholder={t.admin.descriptionHy} />
             </div>
             
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <input type="text" placeholder={t.admin.youtubeId} value={form.youtube_id} onChange={e => setForm({...form, youtube_id: e.target.value})} className="px-4 py-2 bg-white border border-slate-200 rounded-lg text-slate-800" />
-              <input type="text" placeholder={t.admin.thumbnailUrl} value={form.thumbnail_url} onChange={e => setForm({...form, thumbnail_url: e.target.value})} className="px-4 py-2 bg-white border border-slate-200 rounded-lg text-slate-800" />
-              <input type="text" placeholder={t.admin.videoUrl} value={form.video_url} onChange={e => setForm({...form, video_url: e.target.value})} className="px-4 py-2 bg-white border border-slate-200 rounded-lg text-slate-800" />
-              <input type="number" placeholder={t.admin.duration} value={form.duration} onChange={e => setForm({...form, duration: parseInt(e.target.value) || 0})} className="px-4 py-2 bg-white border border-slate-200 rounded-lg text-slate-800" />
-            </div>
+            <label className="flex flex-col gap-2">
+              <span>Video File:</span>
+              <input type="file" accept="video/*" onChange={handleFileUpload} />
+            </label>
           </div>
           <button type="submit" className="px-6 py-2 bg-blue-600 text-white font-semibold rounded-lg mt-4">{t.admin.save}</button>
         </form>
@@ -104,21 +104,19 @@ export default function AdminVideosPage() {
         <div className="space-y-4">{[...Array(3)].map((_, i) => <div key={i} className="h-16 bg-slate-50 rounded-lg animate-pulse" />)}</div>
       ) : (
         <div className="bg-slate-50 rounded-xl border border-slate-200 overflow-x-auto">
-          <table className="w-full min-w-[600px]">
+          <table className="w-full min-w-[400px]">
             <thead className="border-b border-slate-200">
               <tr className="text-left text-slate-500 text-sm">
                 <th className="p-4">{language === 'en' ? 'English Title' : 'Վերնագիր (EN)'}</th>
                 <th className="p-4">{language === 'hy' ? 'Հայերեն Վերնագիր' : 'Armenian Title'}</th>
-                <th className="p-4">{t.admin.youtubeId}</th>
                 <th className="p-4 w-24"></th>
               </tr>
             </thead>
             <tbody>
               {videos.map(video => (
                 <tr key={video.id} className="border-b border-slate-200">
-                  <td className="p-4 text-slate-900">{video.title_en || video.title || '-'}</td>
-                  <td className="p-4 text-slate-900">{video.title_hy || '-'}</td>
-                  <td className="p-4 text-slate-600">{video.youtube_id || '-'}</td>
+                  <td className="p-4 text-slate-900">{video.title_en}</td>
+                  <td className="p-4 text-slate-900">{video.title_hy}</td>
                   <td className="p-4">
                     <button onClick={() => handleDelete(video.id)} className="text-red-500 hover:text-red-400 text-sm">{t.admin.delete}</button>
                   </td>

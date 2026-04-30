@@ -10,8 +10,7 @@ interface PresentationForm {
   title_hy: string;
   description_en: string;
   description_hy: string;
-  thumbnail_url: string;
-  pptx_url: string;
+  pdf_file: string;
 }
 
 export default function AdminPresentationsPage() {
@@ -19,8 +18,7 @@ export default function AdminPresentationsPage() {
   const [loading, setLoading] = useState(true);
   const [showForm, setShowForm] = useState(false);
   const [form, setForm] = useState<PresentationForm>({ 
-    title_en: '', title_hy: '', description_en: '', description_hy: '', 
-    thumbnail_url: '', pptx_url: '' 
+    title_en: '', title_hy: '', description_en: '', description_hy: '', pdf_file: '' 
   });
   const { t, language } = useApp();
 
@@ -40,17 +38,14 @@ export default function AdminPresentationsPage() {
     const { supabase } = await import('@/lib/supabase');
     
     await supabase.from('presentations').insert([{
-      title: form.title_en || form.title_hy,
       title_en: form.title_en,
       title_hy: form.title_hy,
-      description: form.description_en || form.description_hy,
       description_en: form.description_en,
       description_hy: form.description_hy,
-      thumbnail_url: form.thumbnail_url,
-      pptx_url: form.pptx_url,
+      pdf_file: form.pdf_file,
     }]);
     
-    setForm({ title_en: '', title_hy: '', description_en: '', description_hy: '', thumbnail_url: '', pptx_url: '' });
+    setForm({ title_en: '', title_hy: '', description_en: '', description_hy: '', pdf_file: '' });
     setShowForm(false);
     fetchPresentations();
   }
@@ -60,6 +55,17 @@ export default function AdminPresentationsPage() {
     await supabase.from('presentations').delete().eq('id', id);
     fetchPresentations();
   }
+
+  const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (!e.target.files?.[0]) return;
+    const file = e.target.files[0];
+    const { supabase: sb } = await import('@/lib/supabase');
+    const { data, error } = await sb.storage.from('presentations').upload(`${Date.now()}_${file.name}`, file);
+    if (error) { console.error(error); return; }
+    const { data: urlData } = sb.storage.from('presentations').getPublicUrl(`${Date.now()}_${file.name}`);
+    const url = urlData?.publicUrl ?? '';
+    setForm({ ...form, pdf_file: url });
+  };
 
   return (
     <div>
@@ -85,10 +91,10 @@ export default function AdminPresentationsPage() {
               <RichTextEditor value={form.description_hy} onChange={description_hy => setForm({...form, description_hy})} placeholder={t.admin.descriptionHy} />
             </div>
             
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <input type="text" placeholder={t.admin.thumbnailUrl} value={form.thumbnail_url} onChange={e => setForm({...form, thumbnail_url: e.target.value})} className="px-4 py-2 bg-white border border-slate-200 rounded-lg text-slate-800" />
-              <input type="text" placeholder={t.admin.pptxUrl} value={form.pptx_url} onChange={e => setForm({...form, pptx_url: e.target.value})} className="px-4 py-2 bg-white border border-slate-200 rounded-lg text-slate-800" />
-            </div>
+            <label className="flex flex-col gap-2">
+              <span>PDF File:</span>
+              <input type="file" accept="application/pdf" onChange={handleFileUpload} />
+            </label>
           </div>
           <button type="submit" className="px-6 py-2 bg-blue-600 text-white font-semibold rounded-lg mt-4">{t.admin.save}</button>
         </form>
@@ -98,21 +104,19 @@ export default function AdminPresentationsPage() {
         <div className="space-y-4">{[...Array(3)].map((_, i) => <div key={i} className="h-16 bg-slate-50 rounded-lg animate-pulse" />)}</div>
       ) : (
         <div className="bg-slate-50 rounded-xl border border-slate-200 overflow-x-auto">
-          <table className="w-full min-w-[700px]">
+          <table className="w-full min-w-[400px]">
             <thead className="border-b border-slate-200">
               <tr className="text-left text-slate-500 text-sm">
                 <th className="p-4">{language === 'en' ? 'English Title' : 'Վերնագիր (EN)'}</th>
                 <th className="p-4">{language === 'hy' ? 'Հայերեն Վերնագիր' : 'Armenian Title'}</th>
-                <th className="p-4">URL</th>
                 <th className="p-4 w-24"></th>
               </tr>
             </thead>
             <tbody>
               {presentations.map(ppt => (
                 <tr key={ppt.id} className="border-b border-slate-200">
-                  <td className="p-4 text-slate-900">{ppt.title_en || ppt.title || '-'}</td>
-                  <td className="p-4 text-slate-900">{ppt.title_hy || '-'}</td>
-                  <td className="p-4 text-slate-600 truncate max-w-xs">{ppt.pptx_url}</td>
+                  <td className="p-4 text-slate-900">{ppt.title_en}</td>
+                  <td className="p-4 text-slate-900">{ppt.title_hy}</td>
                   <td className="p-4">
                     <button onClick={() => handleDelete(ppt.id)} className="text-red-500 hover:text-red-400 text-sm">{t.admin.delete}</button>
                   </td>

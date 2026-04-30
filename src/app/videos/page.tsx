@@ -5,11 +5,6 @@ import { Video } from '@/types';
 import { useApp } from '@/lib/context';
 import Hero from '@/components/Hero';
 
-const mockVideos: Video[] = [
-  { id: '1', title: 'Ancient Armenian Astronomy', description: 'A detailed look at historical star charts.', thumbnail_url: '', video_url: '', youtube_id: '123', duration: 1800, created_at: new Date().toISOString(), views: 100 },
-  { id: '2', title: 'Architecture of Khachkars', description: 'Understanding the geometry of stone cross-stones.', thumbnail_url: '', video_url: '', youtube_id: '456', duration: 2400, created_at: new Date().toISOString(), views: 250 },
-];
-
 export default function VideosPage() {
   const [videos, setVideos] = useState<Video[]>([]);
   const [loading, setLoading] = useState(true);
@@ -21,8 +16,6 @@ export default function VideosPage() {
       const { data } = await supabase.from('videos').select('*').order('created_at', { ascending: false });
       if (data && data.length > 0) {
         setVideos(data);
-      } else {
-        setVideos(mockVideos);
       }
       setLoading(false);
     }
@@ -57,9 +50,9 @@ export default function VideosPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {videos.map((video) => (
               <div key={video.id} className="group bg-slate-50 rounded-xl overflow-hidden border border-slate-200 card-hover">
-                <div className="relative aspect-video bg-white">
-                  {video.thumbnail_url ? (
-                    <img src={video.thumbnail_url} alt={getLocalizedText(video, 'title')} className="w-full h-full object-cover" />
+                <div className="relative aspect-video bg-black">
+                  {video.video_file ? (
+                    <video src={video.video_file} className="w-full h-full object-cover" controls preload="metadata" />
                   ) : (
                     <div className="w-full h-full flex items-center justify-center">
                       <svg className="w-16 h-16 text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -68,13 +61,6 @@ export default function VideosPage() {
                       </svg>
                     </div>
                   )}
-                  <div className="absolute inset-0 bg-white/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                    <div className="w-16 h-16 rounded-full bg-blue-600/90 flex items-center justify-center">
-                      <svg className="w-8 h-8 text-white ml-1" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M8 5v14l11-7z" />
-                      </svg>
-                    </div>
-                  </div>
                 </div>
                 <div className="p-4">
                   <h3 className="font-semibold text-slate-900 line-clamp-2 mb-1 group-hover:text-blue-600 transition-colors">{getLocalizedText(video, 'title')}</h3>

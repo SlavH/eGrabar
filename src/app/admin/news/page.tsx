@@ -33,14 +33,9 @@ export default function AdminNewsPage() {
     e.preventDefault();
     const { supabase } = await import('@/lib/supabase');
     
-    const title = form.title_en || form.title_hy;
-    const content = form.content_en || form.content_hy;
-    
     await supabase.from('news').insert([{
-      title,
       title_en: form.title_en,
       title_hy: form.title_hy,
-      content,
       content_en: form.content_en,
       content_hy: form.content_hy,
     }]);
@@ -121,8 +116,8 @@ export default function AdminNewsPage() {
             <tbody>
               {news.map(item => (
                 <tr key={item.id} className="border-b border-slate-200">
-                  <td className="p-4 text-slate-900">{item.title_en || item.title || '-'}</td>
-                  <td className="p-4 text-slate-900">{item.title_hy || '-'}</td>
+                  <td className="p-4 text-slate-900">{item.title_en}</td>
+                  <td className="p-4 text-slate-900">{item.title_hy}</td>
                   <td className="p-4">
                     <button onClick={() => handleDelete(item.id)} className="text-red-500 hover:text-red-400 text-sm">
                       {language === 'en' ? 'Delete' : 'Ջնջել'}

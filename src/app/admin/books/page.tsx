@@ -12,9 +12,7 @@ interface BookForm {
   author_hy: string;
   description_en: string;
   description_hy: string;
-  category: string;
-  cover_url: string;
-  pdf_url: string;
+  pdf_file: string;
 }
 
 export default function AdminBooksPage() {
@@ -23,7 +21,7 @@ export default function AdminBooksPage() {
   const [showForm, setShowForm] = useState(false);
   const [form, setForm] = useState<BookForm>({ 
     title_en: '', title_hy: '', author_en: '', author_hy: '', 
-    description_en: '', description_hy: '', category: 'science', cover_url: '', pdf_url: '' 
+    description_en: '', description_hy: '', pdf_file: '' 
   });
   const { t, language } = useApp();
 
@@ -43,21 +41,16 @@ export default function AdminBooksPage() {
     const { supabase } = await import('@/lib/supabase');
     
     await supabase.from('books').insert([{
-      title: form.title_en || form.title_hy,
       title_en: form.title_en,
       title_hy: form.title_hy,
-      author: form.author_en || form.author_hy,
       author_en: form.author_en,
       author_hy: form.author_hy,
-      description: form.description_en || form.description_hy,
       description_en: form.description_en,
       description_hy: form.description_hy,
-      category: form.category,
-      cover_url: form.cover_url,
-      pdf_url: form.pdf_url,
+      pdf_file: form.pdf_file,
     }]);
     
-    setForm({ title_en: '', title_hy: '', author_en: '', author_hy: '', description_en: '', description_hy: '', category: 'science', cover_url: '', pdf_url: '' });
+    setForm({ title_en: '', title_hy: '', author_en: '', author_hy: '', description_en: '', description_hy: '', pdf_file: '' });
     setShowForm(false);
     fetchBooks();
   }
@@ -68,7 +61,7 @@ export default function AdminBooksPage() {
     fetchBooks();
   }
 
-  const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>, field: 'cover_url' | 'pdf_url') => {
+  const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files?.[0]) return;
     const file = e.target.files[0];
     const { supabase: sb } = await import('@/lib/supabase');
@@ -76,7 +69,7 @@ export default function AdminBooksPage() {
     if (error) { console.error(error); return; }
     const { data: urlData } = sb.storage.from('books').getPublicUrl(`${Date.now()}_${file.name}`);
     const url = urlData?.publicUrl ?? '';
-    setForm({ ...form, [field]: url });
+    setForm({ ...form, pdf_file: url });
   };
 
   return (
@@ -96,7 +89,6 @@ export default function AdminBooksPage() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <input type="text" placeholder={t.admin.titleEn} value={form.title_en} onChange={e => setForm({...form, title_en: e.target.value})} className="px-4 py-2 bg-white border border-slate-200 rounded-lg text-slate-800" />
                 <input type="text" placeholder={t.admin.authorEn} value={form.author_en} onChange={e => setForm({...form, author_en: e.target.value})} className="px-4 py-2 bg-white border border-slate-200 rounded-lg text-slate-800" />
-                <input type="text" placeholder={t.admin.category} value={form.category} onChange={e => setForm({...form, category: e.target.value})} className="px-4 py-2 bg-white border border-slate-200 rounded-lg text-slate-800" />
               </div>
               <div className="mt-3">
                 <RichTextEditor value={form.description_en} onChange={description_en => setForm({...form, description_en})} placeholder={t.admin.descriptionEn} />
@@ -114,17 +106,10 @@ export default function AdminBooksPage() {
               </div>
             </div>
             
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <label className="flex items-center gap-2">
-                <span>{t.admin.coverImage}:</span>
-                <input type="file" accept="image/*" onChange={e => handleFileUpload(e, 'cover_url')} />
-              </label>
-              <label className="flex items-center gap-2">
-                <span>{t.admin.pdfFile}:</span>
-                <input type="file" accept="application/pdf" onChange={e => handleFileUpload(e, 'pdf_url')} />
-              </label>
-            </div>
-            <input type="text" placeholder={t.admin.pdfUrl} value={form.pdf_url} onChange={e => setForm({...form, pdf_url: e.target.value})} className="px-4 py-2 bg-white border border-slate-200 rounded-lg text-slate-800 w-full" />
+            <label className="flex flex-col gap-2">
+              <span>{t.admin.pdfFile}:</span>
+              <input type="file" accept="application/pdf" onChange={handleFileUpload} />
+            </label>
           </div>
           <button type="submit" className="px-6 py-2 bg-blue-600 text-white font-semibold rounded-lg mt-4">{t.admin.save}</button>
         </form>
@@ -139,16 +124,14 @@ export default function AdminBooksPage() {
               <tr className="text-left text-slate-500 text-sm">
                 <th className="p-4">{language === 'en' ? 'English Title' : 'Վերնագիր (EN)'}</th>
                 <th className="p-4">{language === 'hy' ? 'Հայերեն Վերնագիր' : 'Armenian Title'}</th>
-                <th className="p-4">{t.admin.category}</th>
                 <th className="p-4 w-24"></th>
               </tr>
             </thead>
             <tbody>
               {books.map(book => (
                 <tr key={book.id} className="border-b border-slate-200">
-                  <td className="p-4 text-slate-900">{book.title_en || book.title || '-'}</td>
-                  <td className="p-4 text-slate-900">{book.title_hy || '-'}</td>
-                  <td className="p-4"><span className="px-2 py-1 bg-blue-600/10 text-blue-600 rounded text-xs">{book.category}</span></td>
+                  <td className="p-4 text-slate-900">{book.title_en}</td>
+                  <td className="p-4 text-slate-900">{book.title_hy}</td>
                   <td className="p-4">
                     <button onClick={() => handleDelete(book.id)} className="text-red-500 hover:text-red-400 text-sm">{t.admin.delete}</button>
                   </td>
