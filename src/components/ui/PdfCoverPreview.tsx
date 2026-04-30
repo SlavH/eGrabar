@@ -1,10 +1,6 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import * as pdfjsLib from 'pdfjs-dist';
-
-// Use CDN for worker to avoid webpack config issues
-pdfjsLib.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsLib.version}/pdf.worker.min.js`;
 
 interface PdfCoverPreviewProps {
   src: string;
@@ -23,11 +19,13 @@ export default function PdfCoverPreview({ src, className = '' }: PdfCoverPreview
       return;
     }
 
-    setLoading(true);
-    setError(false);
+    let cancelled = false;
 
     const renderCover = async () => {
       try {
+        const pdfjsLib = await import('pdfjs-dist');
+        pdfjsLib.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsLib.version}/pdf.worker.min.js`;
+        
         const loadingTask = pdfjsLib.getDocument(src);
         const pdf = await loadingTask.promise;
         const page = await pdf.getPage(1);
@@ -36,7 +34,7 @@ export default function PdfCoverPreview({ src, className = '' }: PdfCoverPreview
         const viewport = page.getViewport({ scale });
         const canvas = canvasRef.current;
         
-        if (canvas) {
+        if (canvas && !cancelled) {
           const context = canvas.getContext('2d');
           canvas.width = viewport.width;
           canvas.height = viewport.height;
@@ -45,13 +43,14 @@ export default function PdfCoverPreview({ src, className = '' }: PdfCoverPreview
         }
       } catch (err) {
         console.error('Failed to render PDF cover:', err);
-        setError(true);
+        if (!cancelled) setError(true);
       } finally {
-        setLoading(false);
+        if (!cancelled) setLoading(false);
       }
     };
 
     renderCover();
+    return () => { cancelled = true; };
   }, [src]);
 
   if (error || !src) {
