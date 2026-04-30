@@ -16,7 +16,6 @@ export interface Video {
   title_hy: string;
   description_en: string;
   description_hy: string;
-  video_file: string;
   created_at: string;
 }
 

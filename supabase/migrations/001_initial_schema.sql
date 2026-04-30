@@ -19,7 +19,6 @@ CREATE TABLE IF NOT EXISTS videos (
   title_hy TEXT NOT NULL,
   description_en TEXT DEFAULT '',
   description_hy TEXT DEFAULT '',
-  video_file TEXT DEFAULT '',
   created_at TIMESTAMPTZ DEFAULT NOW()
 );
 

@@ -10,7 +10,6 @@ interface VideoForm {
   title_hy: string;
   description_en: string;
   description_hy: string;
-  video_file: string;
 }
 
 export default function AdminVideosPage() {
@@ -18,7 +17,7 @@ export default function AdminVideosPage() {
   const [loading, setLoading] = useState(true);
   const [showForm, setShowForm] = useState(false);
   const [form, setForm] = useState<VideoForm>({ 
-    title_en: '', title_hy: '', description_en: '', description_hy: '', video_file: '' 
+    title_en: '', title_hy: '', description_en: '', description_hy: '' 
   });
   const { t, language } = useApp();
 
@@ -42,10 +41,9 @@ export default function AdminVideosPage() {
       title_hy: form.title_hy,
       description_en: form.description_en,
       description_hy: form.description_hy,
-      video_file: form.video_file,
     }]);
     
-    setForm({ title_en: '', title_hy: '', description_en: '', description_hy: '', video_file: '' });
+    setForm({ title_en: '', title_hy: '', description_en: '', description_hy: '' });
     setShowForm(false);
     fetchVideos();
   }
@@ -56,16 +54,7 @@ export default function AdminVideosPage() {
     fetchVideos();
   }
 
-  const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (!e.target.files?.[0]) return;
-    const file = e.target.files[0];
-    const { supabase: sb } = await import('@/lib/supabase');
-    const { data, error } = await sb.storage.from('videos').upload(`${Date.now()}_${file.name}`, file);
-    if (error) { console.error(error); return; }
-    const { data: urlData } = sb.storage.from('videos').getPublicUrl(`${Date.now()}_${file.name}`);
-    const url = urlData?.publicUrl ?? '';
-    setForm({ ...form, video_file: url });
-  };
+
 
   return (
     <div>
@@ -90,11 +79,7 @@ export default function AdminVideosPage() {
               <input type="text" placeholder={t.admin.titleHy} value={form.title_hy} onChange={e => setForm({...form, title_hy: e.target.value})} className="w-full px-4 py-2 bg-white border border-slate-200 rounded-lg text-slate-800 mb-3" dir="rtl" />
               <RichTextEditor value={form.description_hy} onChange={description_hy => setForm({...form, description_hy})} placeholder={t.admin.descriptionHy} />
             </div>
-            
-            <label className="flex flex-col gap-2">
-              <span>Video File:</span>
-              <input type="file" accept="video/*" onChange={handleFileUpload} />
-            </label>
+
           </div>
           <button type="submit" className="px-6 py-2 bg-blue-600 text-white font-semibold rounded-lg mt-4">{t.admin.save}</button>
         </form>
