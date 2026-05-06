@@ -10,8 +10,6 @@ interface BookForm {
   title_hy: string;
   author_en: string;
   author_hy: string;
-  description_en: string;
-  description_hy: string;
   pdf_file: string;
 }
 
@@ -22,7 +20,7 @@ export default function AdminBooksPage() {
   const [submitting, setSubmitting] = useState(false);
   const [form, setForm] = useState<BookForm>({ 
     title_en: '', title_hy: '', author_en: '', author_hy: '', 
-    description_en: '', description_hy: '', pdf_file: '' 
+    pdf_file: '' 
   });
   const { t, language } = useApp();
   const submittedRef = useRef(false);
@@ -53,12 +51,10 @@ export default function AdminBooksPage() {
         title_hy: form.title_hy,
         author_en: form.author_en,
         author_hy: form.author_hy,
-        description_en: form.description_en,
-        description_hy: form.description_hy,
         pdf_file: form.pdf_file,
       }]);
       
-      setForm({ title_en: '', title_hy: '', author_en: '', author_hy: '', description_en: '', description_hy: '', pdf_file: '' });
+      setForm({ title_en: '', title_hy: '', author_en: '', author_hy: '', pdf_file: '' });
       setShowForm(false);
       await fetchBooks();
     } finally {
@@ -103,9 +99,6 @@ export default function AdminBooksPage() {
                 <input type="text" placeholder={t.admin.titleEn} value={form.title_en} onChange={e => setForm({...form, title_en: e.target.value})} className="px-4 py-2 bg-white border border-slate-200 rounded-lg text-slate-800" />
                 <input type="text" placeholder={t.admin.authorEn} value={form.author_en} onChange={e => setForm({...form, author_en: e.target.value})} className="px-4 py-2 bg-white border border-slate-200 rounded-lg text-slate-800" />
               </div>
-              <div className="mt-3">
-                <RichTextEditor value={form.description_en} onChange={description_en => setForm({...form, description_en})} placeholder={t.admin.descriptionEn} />
-              </div>
             </div>
             
             <div className="pb-4">
@@ -113,9 +106,6 @@ export default function AdminBooksPage() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <input type="text" placeholder={t.admin.titleHy} value={form.title_hy} onChange={e => setForm({...form, title_hy: e.target.value})} className="px-4 py-2 bg-white border border-slate-200 rounded-lg text-slate-800" dir="rtl" />
                 <input type="text" placeholder={t.admin.authorHy} value={form.author_hy} onChange={e => setForm({...form, author_hy: e.target.value})} className="px-4 py-2 bg-white border border-slate-200 rounded-lg text-slate-800" dir="rtl" />
-              </div>
-              <div className="mt-3">
-                <RichTextEditor value={form.description_hy} onChange={description_hy => setForm({...form, description_hy})} placeholder={t.admin.descriptionHy} />
               </div>
             </div>
             

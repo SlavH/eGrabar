@@ -3,13 +3,10 @@
 import { useState, useEffect } from 'react';
 import { Event } from '@/types';
 import { useApp } from '@/lib/context';
-import RichTextEditor from '@/components/ui/RichTextEditor';
 
 interface EventForm {
   title_en: string;
   title_hy: string;
-  description_en: string;
-  description_hy: string;
   instructor_en: string;
   instructor_hy: string;
   date: string;
@@ -22,7 +19,7 @@ export default function AdminEventsPage() {
   const [loading, setLoading] = useState(true);
   const [showForm, setShowForm] = useState(false);
   const [form, setForm] = useState<EventForm>({ 
-    title_en: '', title_hy: '', description_en: '', description_hy: '', 
+    title_en: '', title_hy: '', 
     instructor_en: '', instructor_hy: '', date: '', time: '', link: '' 
   });
   const { t, language } = useApp();
@@ -45,8 +42,6 @@ export default function AdminEventsPage() {
     await supabase.from('events').insert([{
       title_en: form.title_en,
       title_hy: form.title_hy,
-      description_en: form.description_en,
-      description_hy: form.description_hy,
       instructor_en: form.instructor_en,
       instructor_hy: form.instructor_hy,
       date: form.date,
@@ -54,7 +49,7 @@ export default function AdminEventsPage() {
       link: form.link,
     }]);
     
-    setForm({ title_en: '', title_hy: '', description_en: '', description_hy: '', instructor_en: '', instructor_hy: '', date: '', time: '', link: '' });
+    setForm({ title_en: '', title_hy: '', instructor_en: '', instructor_hy: '', date: '', time: '', link: '' });
     setShowForm(false);
     fetchEvents();
   }
@@ -83,9 +78,6 @@ export default function AdminEventsPage() {
                 <input type="text" placeholder={t.admin.titleEn} value={form.title_en} onChange={e => setForm({...form, title_en: e.target.value})} className="px-4 py-2 bg-white/5 border border-white/20 rounded-lg text-slate-100" />
                 <input type="text" placeholder={t.admin.instructorEn} value={form.instructor_en} onChange={e => setForm({...form, instructor_en: e.target.value})} className="px-4 py-2 bg-white/5 border border-white/20 rounded-lg text-slate-100" />
               </div>
-              <div className="mt-3">
-                <RichTextEditor value={form.description_en} onChange={description_en => setForm({...form, description_en})} placeholder={t.admin.descriptionEn} />
-              </div>
             </div>
             
             <div className="pb-4">
@@ -93,9 +85,6 @@ export default function AdminEventsPage() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <input type="text" placeholder={t.admin.titleHy} value={form.title_hy} onChange={e => setForm({...form, title_hy: e.target.value})} className="px-4 py-2 bg-white/5 border border-white/20 rounded-lg text-slate-100" dir="rtl" />
                 <input type="text" placeholder={t.admin.instructorHy} value={form.instructor_hy} onChange={e => setForm({...form, instructor_hy: e.target.value})} className="px-4 py-2 bg-white/5 border border-white/20 rounded-lg text-slate-100" dir="rtl" />
-              </div>
-              <div className="mt-3">
-                <RichTextEditor value={form.description_hy} onChange={description_hy => setForm({...form, description_hy})} placeholder={t.admin.descriptionHy} />
               </div>
             </div>
             

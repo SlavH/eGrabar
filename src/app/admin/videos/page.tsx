@@ -3,13 +3,10 @@
 import { useState, useEffect } from 'react';
 import { Video } from '@/types';
 import { useApp } from '@/lib/context';
-import RichTextEditor from '@/components/ui/RichTextEditor';
 
 interface VideoForm {
   title_en: string;
   title_hy: string;
-  description_en: string;
-  description_hy: string;
 }
 
 export default function AdminVideosPage() {
@@ -17,7 +14,7 @@ export default function AdminVideosPage() {
   const [loading, setLoading] = useState(true);
   const [showForm, setShowForm] = useState(false);
   const [form, setForm] = useState<VideoForm>({ 
-    title_en: '', title_hy: '', description_en: '', description_hy: '' 
+    title_en: '', title_hy: '' 
   });
   const { t, language } = useApp();
 
@@ -39,11 +36,9 @@ export default function AdminVideosPage() {
     await supabase.from('videos').insert([{
       title_en: form.title_en,
       title_hy: form.title_hy,
-      description_en: form.description_en,
-      description_hy: form.description_hy,
     }]);
     
-    setForm({ title_en: '', title_hy: '', description_en: '', description_hy: '' });
+    setForm({ title_en: '', title_hy: '' });
     setShowForm(false);
     fetchVideos();
   }
@@ -70,14 +65,12 @@ export default function AdminVideosPage() {
           <div className="space-y-6">
             <div className="border-b border-slate-200 pb-4">
               <h3 className="text-lg font-semibold text-slate-700 mb-3">{t.admin.english}</h3>
-              <input type="text" placeholder={t.admin.titleEn} value={form.title_en} onChange={e => setForm({...form, title_en: e.target.value})} className="w-full px-4 py-2 bg-white border border-slate-200 rounded-lg text-slate-800 mb-3" />
-              <RichTextEditor value={form.description_en} onChange={description_en => setForm({...form, description_en})} placeholder={t.admin.descriptionEn} />
+              <input type="text" placeholder={t.admin.titleEn} value={form.title_en} onChange={e => setForm({...form, title_en: e.target.value})} className="w-full px-4 py-2 bg-white border border-slate-200 rounded-lg text-slate-800" />
             </div>
             
             <div className="pb-4">
               <h3 className="text-lg font-semibold text-slate-700 mb-3">{t.admin.armenian}</h3>
-              <input type="text" placeholder={t.admin.titleHy} value={form.title_hy} onChange={e => setForm({...form, title_hy: e.target.value})} className="w-full px-4 py-2 bg-white border border-slate-200 rounded-lg text-slate-800 mb-3" dir="rtl" />
-              <RichTextEditor value={form.description_hy} onChange={description_hy => setForm({...form, description_hy})} placeholder={t.admin.descriptionHy} />
+              <input type="text" placeholder={t.admin.titleHy} value={form.title_hy} onChange={e => setForm({...form, title_hy: e.target.value})} className="w-full px-4 py-2 bg-white border border-slate-200 rounded-lg text-slate-800" dir="rtl" />
             </div>
 
           </div>

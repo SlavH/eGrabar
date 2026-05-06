@@ -51,7 +51,11 @@ export default function NewsPage() {
                   {new Date(item.created_at).toLocaleDateString(language === 'hy' ? 'hy-AM' : 'en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
                 </time>
                 <h3 className="text-xl font-semibold mb-3 text-slate-100">{getLocalizedText(item, 'title')}</h3>
-                <div className="text-slate-300 text-sm leading-relaxed" dangerouslySetInnerHTML={{ __html: getLocalizedText(item, 'content') }} />
+                <div 
+                  className="text-slate-300 text-sm leading-relaxed prose prose-invert prose-sm max-w-none 
+                  [&_img]:max-w-full [&_img]:h-auto [&_img]:rounded-lg [&_img]:my-4" 
+                  dangerouslySetInnerHTML={{ __html: getLocalizedText(item, 'content') }} 
+                />
               </GlassCard>
             ))}
           </div>
