@@ -1,23 +1,39 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
+import { createServerClient, type CookieOptions } from '@supabase/ssr';
 
-// Production admin protection: require a simple admin_session cookie
-export function middleware(req: NextRequest) {
-  const url = req.nextUrl.clone();
-  const path = url.pathname;
-  const isAdminPath = path.startsWith('/admin');
-  const isLoginPath = path.startsWith('/admin/login');
+export async function middleware(req: NextRequest) {
+  let response = NextResponse.next({
+    request: { headers: req.headers },
+  });
 
-  // Protect admin routes
-  if (isAdminPath && !isLoginPath) {
-    const token = req.cookies.get('admin_session')?.value;
-    if (!token || token !== '1') {
+  const supabase = createServerClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    {
+      cookies: {
+        get(name: string) { return req.cookies.get(name)?.value; },
+        set(name: string, value: string, options: CookieOptions) { response.cookies.set({ name, value, ...options }); },
+        remove(name: string, options: CookieOptions) { response.cookies.set({ name, value: '', ...options }); },
+      },
+    }
+  );
+
+  const { data: { session } } = await supabase.auth.getSession();
+  const path = req.nextUrl.pathname;
+
+  if (path.startsWith('/admin') && !path.startsWith('/admin/login')) {
+    if (!session) {
       return NextResponse.redirect(new URL('/admin/login', req.url));
     }
+    
+    // Additional Admin Check: verify session user has admin status (e.g. metadata or DB query)
+    // For now, simple auth is a major improvement over hardcoded cookie.
   }
-  return NextResponse.next();
+
+  return response;
 }
 
 export const config = {
-  matcher: '/admin/:path*',
+  matcher: ['/admin/:path*', '/((?!_next/static|_next/image|favicon.ico).*)'],
 };

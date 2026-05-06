@@ -2,6 +2,7 @@
 
 import { useState, useCallback, useRef, useEffect } from 'react';
 import dynamic from 'next/dynamic';
+import { uploadImageAdapter } from '@/lib/ckeditorUploadAdapter';
 
 const CKEditorComponent = dynamic(
   () => import('@ckeditor/ckeditor5-react').then((mod) => mod.CKEditor),
@@ -29,6 +30,12 @@ export default function RichTextEditor({ value, onChange, placeholder }: { value
 
   const handleReady = useCallback((editor: any) => {
     editorRef.current = editor;
+    
+    // @ts-ignore
+    editor.plugins.get('FileRepository').createUploadAdapter = (loader: any) => {
+      return uploadImageAdapter(loader);
+    };
+
     if (value) editor.setData(value);
     if (placeholder) {
       editor.ui.view.editable.element?.setAttribute('placeholder', placeholder);
