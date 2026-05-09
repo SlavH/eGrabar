@@ -14,6 +14,7 @@ export default function AdminPresentationsPage() {
   const [presentations, setPresentations] = useState<Presentation[]>([]);
   const [loading, setLoading] = useState(true);
   const [showForm, setShowForm] = useState(false);
+  const [editingId, setEditingId] = useState<string | null>(null);
   const [form, setForm] = useState<PresentationForm>({ 
     title_en: '', title_hy: '', pdf_file: '' 
   });
@@ -25,29 +26,56 @@ export default function AdminPresentationsPage() {
 
   async function fetchPresentations() {
     const { supabase } = await import('@/lib/supabase');
-    const { data } = await supabase.from('presentations').select('*').order('created_at', { ascending: false });
+    const { data, error } = await supabase.from('presentations').select('*').order('created_at', { ascending: false });
+    if (error) console.error(error);
     if (data) setPresentations(data);
     setLoading(false);
   }
 
+  function handleEdit(ppt: Presentation) {
+    setEditingId(ppt.id);
+    setForm({
+      title_en: ppt.title_en,
+      title_hy: ppt.title_hy,
+      pdf_file: ppt.pdf_file,
+    });
+    setShowForm(true);
+  }
+
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    const { supabase } = await import('@/lib/supabase');
-    
-    await supabase.from('presentations').insert([{
-      title_en: form.title_en,
-      title_hy: form.title_hy,
-      pdf_file: form.pdf_file,
-    }]);
-    
-    setForm({ title_en: '', title_hy: '', pdf_file: '' });
-    setShowForm(false);
-    fetchPresentations();
+    try {
+      const { supabase } = await import('@/lib/supabase');
+      
+      if (editingId) {
+        const { error } = await supabase.from('presentations').update({
+          title_en: form.title_en,
+          title_hy: form.title_hy,
+          pdf_file: form.pdf_file,
+        }).eq('id', editingId);
+        if (error) console.error(error);
+      } else {
+        const { error } = await supabase.from('presentations').insert([{
+          title_en: form.title_en,
+          title_hy: form.title_hy,
+          pdf_file: form.pdf_file,
+        }]);
+        if (error) console.error(error);
+      }
+      
+      setForm({ title_en: '', title_hy: '', pdf_file: '' });
+      setEditingId(null);
+      setShowForm(false);
+      fetchPresentations();
+    } catch (err) {
+      console.error(err);
+    }
   }
 
   async function handleDelete(id: string) {
     const { supabase } = await import('@/lib/supabase');
-    await supabase.from('presentations').delete().eq('id', id);
+    const { error } = await supabase.from('presentations').delete().eq('id', id);
+    if (error) console.error(error);
     fetchPresentations();
   }
 
@@ -66,7 +94,15 @@ export default function AdminPresentationsPage() {
     <div>
       <div className="flex justify-between items-center mb-8">
         <h1 className="text-3xl font-bold text-blue-600">{t.admin.managePresentations}</h1>
-        <button onClick={() => setShowForm(!showForm)} className="px-4 py-2 bg-gradient-to-br from-blue-600 to-blue-800 text-white font-semibold rounded-lg">
+        <button onClick={() => {
+          if (showForm) {
+            setShowForm(false);
+            setEditingId(null);
+            setForm({ title_en: '', title_hy: '', pdf_file: '' });
+          } else {
+            setShowForm(true);
+          }
+        }} className="px-4 py-2 bg-gradient-to-br from-blue-600 to-blue-800 text-white font-semibold rounded-lg">
           {showForm ? t.admin.cancel : t.admin.addPresentation}
         </button>
       </div>
@@ -111,6 +147,7 @@ export default function AdminPresentationsPage() {
                   <td className="p-4 text-slate-900">{ppt.title_en}</td>
                   <td className="p-4 text-slate-900">{ppt.title_hy}</td>
                   <td className="p-4">
+                    <button onClick={() => handleEdit(ppt)} className="text-blue-500 hover:text-blue-400 text-sm mr-4">{t.admin.edit}</button>
                     <button onClick={() => handleDelete(ppt.id)} className="text-red-500 hover:text-red-400 text-sm">{t.admin.delete}</button>
                   </td>
                 </tr>

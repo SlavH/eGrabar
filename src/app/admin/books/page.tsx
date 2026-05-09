@@ -17,6 +17,7 @@ export default function AdminBooksPage() {
   const [books, setBooks] = useState<Book[]>([]);
   const [loading, setLoading] = useState(true);
   const [showForm, setShowForm] = useState(false);
+  const [editingId, setEditingId] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
   const [form, setForm] = useState<BookForm>({ 
     title_en: '', title_hy: '', author_en: '', author_hy: '', 
@@ -31,9 +32,22 @@ export default function AdminBooksPage() {
 
   async function fetchBooks() {
     const { supabase } = await import('@/lib/supabase');
-    const { data } = await supabase.from('books').select('*').order('created_at', { ascending: false });
+    const { data, error } = await supabase.from('books').select('*').order('created_at', { ascending: false });
+    if (error) console.error(error);
     if (data) setBooks(data);
     setLoading(false);
+  }
+
+  function handleEdit(book: Book) {
+    setEditingId(book.id);
+    setForm({
+      title_en: book.title_en,
+      title_hy: book.title_hy,
+      author_en: book.author_en,
+      author_hy: book.author_hy,
+      pdf_file: book.pdf_file,
+    });
+    setShowForm(true);
   }
 
   async function handleSubmit(e: React.FormEvent) {
@@ -46,17 +60,32 @@ export default function AdminBooksPage() {
     try {
       const { supabase } = await import('@/lib/supabase');
       
-      await supabase.from('books').insert([{
-        title_en: form.title_en,
-        title_hy: form.title_hy,
-        author_en: form.author_en,
-        author_hy: form.author_hy,
-        pdf_file: form.pdf_file,
-      }]);
+      if (editingId) {
+        const { error } = await supabase.from('books').update({
+          title_en: form.title_en,
+          title_hy: form.title_hy,
+          author_en: form.author_en,
+          author_hy: form.author_hy,
+          pdf_file: form.pdf_file,
+        }).eq('id', editingId);
+        if (error) console.error(error);
+      } else {
+        const { error } = await supabase.from('books').insert([{
+          title_en: form.title_en,
+          title_hy: form.title_hy,
+          author_en: form.author_en,
+          author_hy: form.author_hy,
+          pdf_file: form.pdf_file,
+        }]);
+        if (error) console.error(error);
+      }
       
       setForm({ title_en: '', title_hy: '', author_en: '', author_hy: '', pdf_file: '' });
+      setEditingId(null);
       setShowForm(false);
       await fetchBooks();
+    } catch (err) {
+      console.error(err);
     } finally {
       setSubmitting(false);
     }
@@ -66,7 +95,8 @@ export default function AdminBooksPage() {
 
   async function handleDelete(id: string) {
     const { supabase } = await import('@/lib/supabase');
-    await supabase.from('books').delete().eq('id', id);
+    const { error } = await supabase.from('books').delete().eq('id', id);
+    if (error) console.error(error);
     fetchBooks();
   }
 
@@ -85,7 +115,15 @@ export default function AdminBooksPage() {
     <div>
       <div className="flex justify-between items-center mb-8">
         <h1 className="text-3xl font-bold text-blue-600">{t.admin.manageBooks}</h1>
-        <button onClick={() => setShowForm(!showForm)} className="px-4 py-2 bg-gradient-to-br from-blue-600 to-blue-800 text-white font-semibold rounded-lg">
+        <button onClick={() => {
+          if (showForm) {
+            setShowForm(false);
+            setEditingId(null);
+            setForm({ title_en: '', title_hy: '', author_en: '', author_hy: '', pdf_file: '' });
+          } else {
+            setShowForm(true);
+          }
+        }} className="px-4 py-2 bg-gradient-to-br from-blue-600 to-blue-800 text-white font-semibold rounded-lg">
           {showForm ? t.admin.cancel : t.admin.addBook}
         </button>
       </div>
@@ -138,6 +176,7 @@ export default function AdminBooksPage() {
                   <td className="p-4 text-slate-900">{book.title_en}</td>
                   <td className="p-4 text-slate-900">{book.title_hy}</td>
                   <td className="p-4">
+                    <button onClick={() => handleEdit(book)} className="text-blue-500 hover:text-blue-400 text-sm mr-4">{t.admin.edit}</button>
                     <button onClick={() => handleDelete(book.id)} className="text-red-500 hover:text-red-400 text-sm">{t.admin.delete}</button>
                   </td>
                 </tr>

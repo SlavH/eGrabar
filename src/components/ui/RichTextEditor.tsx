@@ -52,24 +52,27 @@ export default function RichTextEditor({ value, onChange, placeholder }: { value
   }
 
   return (
-    <div className="border border-slate-200 rounded-lg overflow-hidden bg-white ckeditor-wrapper">
+    <div className="border border-slate-200 rounded-lg overflow-hidden bg-white ckeditor-wrapper prose-custom">
       <style jsx global>{`
         .ckeditor-wrapper .ck-editor__editable {
           min-height: 150px;
           padding: 12px 16px;
         }
-        .ckeditor-wrapper .ck-editor__editable[placeholder]:empty::before {
-          content: attr(placeholder);
-          color: #9ca3af;
-          float: left;
-          pointer-events: none;
+        /* Override CKEditor default styles to match our site theme */
+        .ck-content {
+          font-family: inherit;
         }
-        .ckeditor-wrapper .ck.ck-toolbar {
-          background: #f8fafc;
-          border-bottom: 1px solid #e2e8f0;
+        .ck-content h1, .ck-content h2, .ck-content h3 {
+          font-weight: bold;
+          margin: 1rem 0;
         }
-        .ckeditor-wrapper .ck.ck-editor__main > .ck-editor__editable {
-          background: #fff;
+        .ck-content p {
+          margin-bottom: 1rem;
+        }
+        .ck-content img {
+          max-width: 100%;
+          border-radius: 0.75rem;
+          margin: 1.5rem 0;
         }
       `}</style>
       <CKEditorComponent

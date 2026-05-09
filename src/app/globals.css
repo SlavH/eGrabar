@@ -1,29 +1,23 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
 @layer base {
-  * {
-    font-family: var(--font-googlesans), var(--font-inter), sans-serif;
+  .prose-custom {
+    @apply prose prose-invert prose-sm sm:prose-base max-w-none;
   }
-  body {
-    @apply bg-transparent text-slate-900;
-    font-family: var(--font-googlesans), var(--font-inter), sans-serif;
+  .prose-custom p {
+    @apply mb-4 leading-7;
   }
-  h1, h2, h3, h4, h5, h6 {
-    font-family: var(--font-googlesans), var(--font-inter), sans-serif;
+  .prose-custom h1, .prose-custom h2, .prose-custom h3 {
+    @apply font-bold text-slate-100 mb-4 mt-6;
   }
-}
-
-.glass {
-  @apply bg-white/10 backdrop-blur-md border border-white/20;
-}
-
-.card-hover {
-  @apply transition-all duration-300 ease-in-out;
-}
-
-.card-hover:hover {
-  @apply -translate-y-1;
-  box-shadow: 0 20px 40px rgba(15, 92, 158, 0.12);
+  .prose-custom ul {
+    @apply list-disc list-inside mb-4;
+  }
+  .prose-custom ol {
+    @apply list-decimal list-inside mb-4;
+  }
+  .prose-custom img {
+    @apply rounded-xl shadow-lg my-6;
+  }
+  .prose-custom a {
+    @apply text-blue-400 hover:text-blue-300 underline;
+  }
 }

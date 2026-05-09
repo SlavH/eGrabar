@@ -18,6 +18,7 @@ export default function AdminEventsPage() {
   const [events, setEvents] = useState<Event[]>([]);
   const [loading, setLoading] = useState(true);
   const [showForm, setShowForm] = useState(false);
+  const [editingId, setEditingId] = useState<string | null>(null);
   const [form, setForm] = useState<EventForm>({ 
     title_en: '', title_hy: '', 
     instructor_en: '', instructor_hy: '', date: '', time: '', link: '' 
@@ -30,33 +31,68 @@ export default function AdminEventsPage() {
 
   async function fetchEvents() {
     const { supabase } = await import('@/lib/supabase');
-    const { data } = await supabase.from('events').select('*').order('date', { ascending: false });
+    const { data, error } = await supabase.from('events').select('*').order('date', { ascending: false });
+    if (error) console.error(error);
     if (data) setEvents(data);
     setLoading(false);
   }
 
+  function handleEdit(event: Event) {
+    setEditingId(event.id);
+    setForm({
+      title_en: event.title_en,
+      title_hy: event.title_hy,
+      instructor_en: event.instructor_en,
+      instructor_hy: event.instructor_hy,
+      date: event.date,
+      time: event.time,
+      link: event.link,
+    });
+    setShowForm(true);
+  }
+
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    const { supabase } = await import('@/lib/supabase');
-    
-    await supabase.from('events').insert([{
-      title_en: form.title_en,
-      title_hy: form.title_hy,
-      instructor_en: form.instructor_en,
-      instructor_hy: form.instructor_hy,
-      date: form.date,
-      time: form.time,
-      link: form.link,
-    }]);
-    
-    setForm({ title_en: '', title_hy: '', instructor_en: '', instructor_hy: '', date: '', time: '', link: '' });
-    setShowForm(false);
-    fetchEvents();
+    try {
+      const { supabase } = await import('@/lib/supabase');
+      
+      if (editingId) {
+        const { error } = await supabase.from('events').update({
+          title_en: form.title_en,
+          title_hy: form.title_hy,
+          instructor_en: form.instructor_en,
+          instructor_hy: form.instructor_hy,
+          date: form.date,
+          time: form.time,
+          link: form.link,
+        }).eq('id', editingId);
+        if (error) console.error(error);
+      } else {
+        const { error } = await supabase.from('events').insert([{
+          title_en: form.title_en,
+          title_hy: form.title_hy,
+          instructor_en: form.instructor_en,
+          instructor_hy: form.instructor_hy,
+          date: form.date,
+          time: form.time,
+          link: form.link,
+        }]);
+        if (error) console.error(error);
+      }
+      
+      setForm({ title_en: '', title_hy: '', instructor_en: '', instructor_hy: '', date: '', time: '', link: '' });
+      setEditingId(null);
+      setShowForm(false);
+      fetchEvents();
+    } catch (err) {
+      console.error(err);
+    }
   }
 
   async function handleDelete(id: string) {
     const { supabase } = await import('@/lib/supabase');
-    await supabase.from('events').delete().eq('id', id);
+    const { error } = await supabase.from('events').delete().eq('id', id);
+    if (error) console.error(error);
     fetchEvents();
   }
 
@@ -64,7 +100,15 @@ export default function AdminEventsPage() {
     <div>
       <div className="flex justify-between items-center mb-8">
         <h1 className="text-3xl font-bold text-blue-600">{t.admin.manageCourses}</h1>
-        <button onClick={() => setShowForm(!showForm)} className="px-4 py-2 bg-gradient-to-br from-blue-600 to-blue-800 text-white font-semibold rounded-lg">
+        <button onClick={() => {
+          if (showForm) {
+            setShowForm(false);
+            setEditingId(null);
+            setForm({ title_en: '', title_hy: '', instructor_en: '', instructor_hy: '', date: '', time: '', link: '' });
+          } else {
+            setShowForm(true);
+          }
+        }} className="px-4 py-2 bg-gradient-to-br from-blue-600 to-blue-800 text-white font-semibold rounded-lg">
           {showForm ? t.admin.cancel : t.admin.addCourse}
         </button>
       </div>
@@ -120,6 +164,7 @@ export default function AdminEventsPage() {
                   <td className="p-4 text-slate-300">{event.date} {event.time}</td>
                   <td className="p-4 text-slate-300">{language === 'en' ? event.instructor_en : event.instructor_hy}</td>
                   <td className="p-4">
+                    <button onClick={() => handleEdit(event)} className="text-blue-500 hover:text-blue-400 text-sm mr-4">{t.admin.edit}</button>
                     <button onClick={() => handleDelete(event.id)} className="text-red-500 hover:text-red-400 text-sm">{t.admin.delete}</button>
                   </td>
                 </tr>

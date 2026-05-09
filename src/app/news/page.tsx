@@ -52,8 +52,7 @@ export default function NewsPage() {
                 </time>
                 <h3 className="text-xl font-semibold mb-3 text-slate-100">{getLocalizedText(item, 'title')}</h3>
                 <div 
-                  className="text-slate-300 text-sm leading-relaxed prose prose-invert prose-sm max-w-none 
-                  [&_img]:max-w-full [&_img]:h-auto [&_img]:rounded-lg [&_img]:my-4" 
+                  className="text-slate-300 text-sm leading-relaxed prose-custom" 
                   dangerouslySetInnerHTML={{ __html: getLocalizedText(item, 'content') }} 
                 />
               </GlassCard>

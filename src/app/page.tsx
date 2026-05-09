@@ -23,7 +23,7 @@ export default function Home() {
       
       <section className="relative min-h-screen flex items-center justify-center px-2 sm:px-4 md:px-6 pt-20">
         <div className="max-w-5xl w-full mx-auto text-center">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-400/20 border border-blue-400/30 text-blue-300 text-xs sm:text-sm mb-8">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-400/20 border border-blue-400/30 text-blue-300 text-xs sm:text-sm mb-8 backdrop-blur-md">
             <span className="w-2 h-2 rounded-full bg-blue-300 animate-pulse" />
             {t.home.tagline}
           </div>
@@ -67,7 +67,7 @@ export default function Home() {
               {news.map((item) => (
                 <GlassCard key={item.id} className="p-6 bg-white/10 border-white/20 backdrop-blur-md">
                   <h3 className="text-xl font-semibold mb-3 text-slate-100">{getLocalizedText(item, 'title')}</h3>
-                  <div className="text-slate-300 text-sm line-clamp-3" dangerouslySetInnerHTML={{ __html: getLocalizedText(item, 'content') }} />
+                  <div className="text-slate-300 text-sm line-clamp-3 prose-custom" dangerouslySetInnerHTML={{ __html: getLocalizedText(item, 'content') }} />
                 </GlassCard>
               ))}
             </div>
