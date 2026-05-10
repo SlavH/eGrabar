@@ -20,6 +20,7 @@ export async function middleware(req: NextRequest) {
   );
 
   const { data: { session } } = await supabase.auth.getSession();
+  const path = req.nextUrl.pathname;
   console.log("Middleware session check:", !!session, "Path:", path);
   
   if (path.startsWith('/admin') && !path.startsWith('/admin/login')) {
