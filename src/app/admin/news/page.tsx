@@ -19,16 +19,14 @@ export default function AdminNewsPage() {
   const [editingId, setEditingId] = useState<string | null>(null);
   const [form, setForm] = useState<NewsForm>({ title_en: '', title_hy: '', content_en: '', content_hy: '', show_on_home: false });
   const { language } = useApp();
-...
-  async function handleSubmit(e: React.FormEvent) {
-    e.preventDefault();
+
+  async function fetchNews() {
     const { supabase } = await import('@/lib/supabase');
-    
-    if (editingId) {
-      await supabase.from('news').update(form).eq('id', editingId);
-    } else {
-      await supabase.from('news').insert([form]);
-    }
+    const { data } = await supabase.from('news').select('*').order('created_at', { ascending: false });
+    if (data) setNews(data);
+    setLoading(false);
+  }
+
     
     setForm({ title_en: '', title_hy: '', content_en: '', content_hy: '', show_on_home: false });
     setEditingId(null);
