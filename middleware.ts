@@ -20,15 +20,13 @@ export async function middleware(req: NextRequest) {
   );
 
   const { data: { session } } = await supabase.auth.getSession();
-  const path = req.nextUrl.pathname;
-
+  console.log("Middleware session check:", !!session, "Path:", path);
+  
   if (path.startsWith('/admin') && !path.startsWith('/admin/login')) {
     if (!session) {
+      console.log("No session, redirecting to login...");
       return NextResponse.redirect(new URL('/admin/login', req.url));
     }
-    
-    // Additional Admin Check: verify session user has admin status (e.g. metadata or DB query)
-    // For now, simple auth is a major improvement over hardcoded cookie.
   }
 
   return response;
