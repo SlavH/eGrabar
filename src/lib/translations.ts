@@ -26,6 +26,7 @@ export const translations = {
       "cancel": "Cancel",
       "save": "Save",
       "delete": "Delete",
+      "edit": "Edit",
       "title": "Title",
       "titleEn": "Title (English)",
       "titleHy": "Title (Armenian)",
@@ -134,6 +135,7 @@ export const translations = {
       "cancel": "Չեղարկել",
       "save": "Պահպանել",
       "delete": "Ջնջել",
+      "edit": "Խմբագրել",
       "title": "Վերնագիր",
       "titleEn": "Վերնագիր (Անգլերեն)",
       "titleHy": "Վերնագիր (Հայերեն)",
@@ -223,7 +225,8 @@ type Nav = { home: string; library: string; videos: string; presentations: strin
 type Admin = { 
   manageBooks: string; manageNews: string; manageVideos: string; managePresentations: string; 
   manageCourses: string; manageDonations: string; addBook: string; addNews: string; addVideo: string; 
-  addPresentation: string; addCourse: string; cancel: string; save: string; delete: string; 
+  addPresentation: string; addCourse: string; cancel: string; save: string; delete: string; edit: string;
+
   title: string; titleEn: string; titleHy: string; author: string; authorEn: string; authorHy: string;
   description: string; descriptionEn: string; descriptionHy: string; content: string; contentEn: string; contentHy: string;
   category: string; coverImage: string; pdfFile: string; pdfUrl: string; thumbnailUrl: string;
