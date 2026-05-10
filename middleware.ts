@@ -21,11 +21,13 @@ export async function middleware(req: NextRequest) {
 
   const { data: { session } } = await supabase.auth.getSession();
   const path = req.nextUrl.pathname;
-  console.log("Middleware session check:", !!session, "Path:", path);
+  
+  // LOGGING to verify in Vercel logs
+  console.log("Middleware auth check for path:", path, "Has session:", !!session);
   
   if (path.startsWith('/admin') && !path.startsWith('/admin/login')) {
     if (!session) {
-      console.log("No session, redirecting to login...");
+      console.log("No session found, redirecting to login");
       return NextResponse.redirect(new URL('/admin/login', req.url));
     }
   }
