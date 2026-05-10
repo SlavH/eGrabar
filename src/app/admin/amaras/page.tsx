@@ -9,7 +9,6 @@ interface AmarasForm {
   title_hy: string;
   content_en: string;
   content_hy: string;
-  image_url: string;
 }
 
 export default function AdminAmarasPage() {
@@ -17,8 +16,7 @@ export default function AdminAmarasPage() {
   const [loading, setLoading] = useState(true);
   const [showForm, setShowForm] = useState(false);
   const [editingId, setEditingId] = useState<string | null>(null);
-  const [form, setForm] = useState<AmarasForm>({ title_en: '', title_hy: '', content_en: '', content_hy: '', image_url: '' });
-  const [uploading, setUploading] = useState(false);
+  const [form, setForm] = useState<AmarasForm>({ title_en: '', title_hy: '', content_en: '', content_hy: '' });
   const { language } = useApp();
 
   useEffect(() => {
@@ -32,24 +30,6 @@ export default function AdminAmarasPage() {
     setLoading(false);
   }
 
-  async function handleFileUpload(e: React.ChangeEvent<HTMLInputElement>) {
-    if (!e.target.files || e.target.files.length === 0) return;
-    setUploading(true);
-    const { supabase } = await import('@/lib/supabase');
-    const file = e.target.files[0];
-    const fileExt = file.name.split('.').pop();
-    const fileName = `${Math.random()}.${fileExt}`;
-    
-    const { error: uploadError } = await supabase.storage.from('amaras').upload(fileName, file);
-    if (uploadError) {
-      alert(uploadError.message);
-    } else {
-      const { data } = supabase.storage.from('amaras').getPublicUrl(fileName);
-      setForm({ ...form, image_url: data.publicUrl });
-    }
-    setUploading(false);
-  }
-
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     const { supabase } = await import('@/lib/supabase');
@@ -60,7 +40,7 @@ export default function AdminAmarasPage() {
       await supabase.from('amaras').insert([form]);
     }
     
-    setForm({ title_en: '', title_hy: '', content_en: '', content_hy: '', image_url: '' });
+    setForm({ title_en: '', title_hy: '', content_en: '', content_hy: '' });
     setEditingId(null);
     setShowForm(false);
     fetchAmaras();
@@ -72,8 +52,7 @@ export default function AdminAmarasPage() {
       title_en: item.title_en, 
       title_hy: item.title_hy, 
       content_en: item.content_en, 
-      content_hy: item.content_hy,
-      image_url: item.image_url || ''
+      content_hy: item.content_hy
     });
     setShowForm(true);
   }
@@ -100,11 +79,6 @@ export default function AdminAmarasPage() {
           <input className="w-full mb-4 p-2 border rounded" placeholder="Title (HY)" value={form.title_hy} onChange={e => setForm({...form, title_hy: e.target.value})} required />
           <RichTextEditor value={form.content_en} onChange={v => setForm({...form, content_en: v})} placeholder="Content (EN)" />
           <RichTextEditor value={form.content_hy} onChange={v => setForm({...form, content_hy: v})} placeholder="Content (HY)" />
-          <div className="mt-4">
-            <input type="file" onChange={handleFileUpload} accept="image/*" />
-            {uploading && <p>Uploading...</p>}
-            {form.image_url && <img src={form.image_url} className="w-32 mt-2" />}
-          </div>
           <button className="bg-green-600 text-white px-6 py-2 rounded mt-4">Save</button>
         </form>
       )}
