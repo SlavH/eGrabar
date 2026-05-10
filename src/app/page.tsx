@@ -9,14 +9,14 @@ export default function Home() {
   const { t, language, getLocalizedText } = useApp();
   const [news, setNews] = useState<any[]>([]);
 
-  useEffect(() => {
-    async function fetchNews() {
-      const { supabase } = await import('@/lib/supabase');
-      const { data } = await supabase.from('news').select('*').limit(3).order('created_at', { ascending: false });
-      if (data) setNews(data);
-    }
-    fetchNews();
-  }, []);
+      useEffect(() => {
+        async function fetchNews() {
+          const { supabase } = await import('@/lib/supabase');
+          const { data } = await supabase.from('news').select('*').eq('show_on_home', true).order('created_at', { ascending: false }).limit(3);
+          if (data) setNews(data);
+        }
+        fetchNews();
+      }, []);
 
   return (
     <main className="min-h-screen">
@@ -44,10 +44,10 @@ export default function Home() {
               {t.home.explore}
             </Link>
             <Link
-              href="/center"
+              href="/amaras"
               className="px-6 py-3 sm:px-8 sm:py-4 border border-slate-500 rounded-xl text-slate-300 font-semibold hover:border-blue-400 hover:text-blue-300 transition-all text-sm sm:text-base"
             >
-              {t.home.about}
+              {language === 'en' ? 'Amaras Center' : 'Ամարաս Կենտրոն'}
             </Link>
           </div>
         </div>

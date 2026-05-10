@@ -44,7 +44,7 @@ export default function NewsPage() {
             <h3 className="text-xl font-semibold text-slate-600 mb-2">{t.common.noNews}</h3>
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
             {news.map((item) => (
               <GlassCard key={item.id} className="p-6 border border-white/20 backdrop-blur-md">
                 <time className="text-xs text-slate-400 mb-3 block">

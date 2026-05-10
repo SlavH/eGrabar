@@ -16,13 +16,13 @@ export default function ContactsPage() {
         <p className="text-slate-300">
           {t.contacts.contactUsAt}
         </p>
-        <a href="mailto:amarascenter@gmail.com" className="block text-blue-600 hover:text-blue-800 text-lg">
+        <a href="mailto:amarascenter@gmail.com" className="block text-blue-300 hover:text-white text-lg">
           amarascenter@gmail.com
         </a>
-        <div className="flex justify-center gap-6 pt-4 text-blue-600">
-          <span className="flex items-center gap-2">
+        <div className="flex justify-center gap-6 pt-4 text-blue-300">
+          <a href="tel:+17472039694" className="flex items-center gap-2 hover:text-white">
             <strong>{t.contacts.whatsappViber}:</strong> +1-747-203-9694
-          </span>
+          </a>
         </div>
         <div className="flex justify-center gap-6 pt-4">
           <a 

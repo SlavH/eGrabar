@@ -59,32 +59,18 @@ export default function DonatePage() {
             </h3>
           </div>
         ) : (
-          <form onSubmit={handleSubmit} className="bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-8">
-            <div className="mb-6">
-              <label className="block text-slate-300 mb-2">{language === 'en' ? 'Donation Amount ($)' : 'Նվիրաբերություն ($)'}</label>
-              <input
-                type="number"
-                value={amount}
-                onChange={(e) => setAmount(e.target.value)}
-                placeholder="Other amount"
-                className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-slate-100 placeholder-slate-400 focus:outline-none focus:border-blue-400"
-              />
-              <input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder={language === 'en' ? 'Email (for receipt)' : 'Էլ. Փոստ (հարգանքին համար)'}
-                className="w-full mt-4 px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-slate-100 placeholder-slate-400 focus:outline-none focus:border-blue-400"
-              />
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-8">
+              <h3 className="text-xl font-semibold text-slate-100 mb-4">{language === 'en' ? 'Bank Transfer' : 'Բանկային փոխանցում'}</h3>
+              <p className="text-slate-300">Bank Name: ...</p>
+              <p className="text-slate-300">Account: ...</p>
             </div>
-            <button
-              type="submit"
-              disabled={!amount}
-              className="w-full py-4 bg-gradient-to-br from-blue-500 to-blue-700 rounded-xl text-white font-semibold hover:shadow-lg hover:shadow-blue-500/20 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
-            >
-              {language === 'en' ? 'Donate Now' : 'Նվիրաբերել Հիմա'}
-            </button>
-          </form>
+            <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-8">
+              <h3 className="text-xl font-semibold text-slate-100 mb-4">{language === 'en' ? 'Crypto' : 'Կրիպտո'}</h3>
+              <p className="text-slate-300">BTC: ...</p>
+              <p className="text-slate-300">ETH: ...</p>
+            </div>
+          </div>
         )}
       </div>
     </main>

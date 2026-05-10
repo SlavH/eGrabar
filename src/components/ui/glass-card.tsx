@@ -4,7 +4,7 @@ export function GlassCard({ className, ...props }: React.ComponentProps<"div">) 
   return (
     <div
       className={cn(
-        "bg-primary-foreground/30 border-primary-foreground/30 flex flex-col gap-6 rounded-2xl border py-6 backdrop-blur-md min-w-0",
+        "bg-white/10 border-white/20 flex flex-col gap-6 rounded-2xl border py-6 backdrop-blur-md min-w-0",
         className,
       )}
       {...props}
