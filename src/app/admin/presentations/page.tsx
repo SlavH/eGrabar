@@ -108,34 +108,34 @@ export default function AdminPresentationsPage() {
       </div>
 
       {showForm && (
-        <form onSubmit={handleSubmit} className="bg-slate-50 rounded-xl border border-slate-200 p-6 mb-8">
+        <form onSubmit={handleSubmit} className="bg-white/10 backdrop-blur-md border border-white/20 rounded-xl p-6 mb-8">
           <div className="space-y-6">
-            <div className="border-b border-slate-200 pb-4">
-              <h3 className="text-lg font-semibold text-slate-700 mb-3">{t.admin.english}</h3>
-              <input type="text" placeholder={t.admin.titleEn} value={form.title_en} onChange={e => setForm({...form, title_en: e.target.value})} className="w-full px-4 py-2 bg-white border border-slate-200 rounded-lg text-slate-800" />
+            <div className="border-b border-white/10 pb-4">
+              <h3 className="text-lg font-semibold text-slate-100 mb-3">{t.admin.english}</h3>
+              <input type="text" placeholder={t.admin.titleEn} value={form.title_en} onChange={e => setForm({...form, title_en: e.target.value})} className="w-full px-4 py-2 bg-white/5 border border-white/10 rounded-lg text-slate-100 placeholder-slate-400" />
             </div>
             
             <div className="pb-4">
-              <h3 className="text-lg font-semibold text-slate-700 mb-3">{t.admin.armenian}</h3>
-              <input type="text" placeholder={t.admin.titleHy} value={form.title_hy} onChange={e => setForm({...form, title_hy: e.target.value})} className="w-full px-4 py-2 bg-white border border-slate-200 rounded-lg text-slate-800" dir="rtl" />
+              <h3 className="text-lg font-semibold text-slate-100 mb-3">{t.admin.armenian}</h3>
+              <input type="text" placeholder={t.admin.titleHy} value={form.title_hy} onChange={e => setForm({...form, title_hy: e.target.value})} className="w-full px-4 py-2 bg-white/5 border border-white/10 rounded-lg text-slate-100 placeholder-slate-400" dir="rtl" />
             </div>
             
-            <label className="flex flex-col gap-2">
+            <label className="flex flex-col gap-2 text-slate-300">
               <span>PDF File:</span>
-              <input type="file" accept="application/pdf" onChange={handleFileUpload} />
+              <input type="file" accept="application/pdf" onChange={handleFileUpload} className="text-slate-100" />
             </label>
           </div>
-          <button type="submit" className="px-6 py-2 bg-blue-600 text-white font-semibold rounded-lg mt-4">{t.admin.save}</button>
+          <button type="submit" className="px-6 py-2 bg-blue-600/80 backdrop-blur-md text-white font-semibold rounded-lg mt-4 hover:bg-blue-600 transition-colors">{t.admin.save}</button>
         </form>
       )}
 
       {loading ? (
-        <div className="space-y-4">{[...Array(3)].map((_, i) => <div key={i} className="h-16 bg-slate-50 rounded-lg animate-pulse" />)}</div>
+        <div className="space-y-4">{[...Array(3)].map((_, i) => <div key={i} className="h-16 bg-white/5 rounded-lg animate-pulse" />)}</div>
       ) : (
-        <div className="bg-slate-50 rounded-xl border border-slate-200 overflow-x-auto">
+        <div className="bg-white/5 backdrop-blur-md rounded-xl border border-white/10 overflow-x-auto">
           <table className="w-full min-w-[400px]">
-            <thead className="border-b border-slate-200">
-              <tr className="text-left text-slate-500 text-sm">
+            <thead className="border-b border-white/10">
+              <tr className="text-left text-slate-300 text-sm">
                 <th className="p-4">{language === 'en' ? 'English Title' : 'Վերնագիր (EN)'}</th>
                 <th className="p-4">{language === 'hy' ? 'Հայերեն Վերնագիր' : 'Armenian Title'}</th>
                 <th className="p-4 w-24"></th>
@@ -143,12 +143,12 @@ export default function AdminPresentationsPage() {
             </thead>
             <tbody>
               {presentations.map(ppt => (
-                <tr key={ppt.id} className="border-b border-slate-200">
-                  <td className="p-4 text-slate-900">{ppt.title_en}</td>
-                  <td className="p-4 text-slate-900">{ppt.title_hy}</td>
+                <tr key={ppt.id} className="border-b border-white/5">
+                  <td className="p-4 text-slate-100">{ppt.title_en}</td>
+                  <td className="p-4 text-slate-100">{ppt.title_hy}</td>
                   <td className="p-4">
-                    <button onClick={() => handleEdit(ppt)} className="text-blue-500 hover:text-blue-400 text-sm mr-4">{t.admin.edit}</button>
-                    <button onClick={() => handleDelete(ppt.id)} className="text-red-500 hover:text-red-400 text-sm">{t.admin.delete}</button>
+                    <button onClick={() => handleEdit(ppt)} className="text-blue-300 hover:text-blue-200 text-sm mr-4">{t.admin.edit}</button>
+                    <button onClick={() => handleDelete(ppt.id)} className="text-red-300 hover:text-red-200 text-sm">{t.admin.delete}</button>
                   </td>
                 </tr>
               ))}

@@ -65,39 +65,43 @@ export default function AdminAmarasPage() {
   }
 
   return (
-    <div className="p-8 max-w-6xl mx-auto">
-      <div className="flex justify-between items-center mb-6">
-        <h1 className="text-2xl font-bold text-slate-800">Amaras Content Management</h1>
-        <button onClick={() => setShowForm(!showForm)} className="bg-blue-600 text-white px-4 py-2 rounded">
+    <div>
+      <div className="flex justify-between items-center mb-8">
+        <h1 className="text-3xl font-bold text-blue-600">Amaras Content Management</h1>
+        <button onClick={() => setShowForm(!showForm)} className="px-4 py-2 bg-gradient-to-br from-blue-600 to-blue-800 text-white font-semibold rounded-lg">
           {showForm ? 'Cancel' : 'Add New Section'}
         </button>
       </div>
 
       {showForm && (
-        <form onSubmit={handleSubmit} className="bg-white p-6 rounded-lg shadow-md mb-8">
-          <input className="w-full mb-4 p-2 border rounded" placeholder="Title (EN)" value={form.title_en} onChange={e => setForm({...form, title_en: e.target.value})} required />
-          <input className="w-full mb-4 p-2 border rounded" placeholder="Title (HY)" value={form.title_hy} onChange={e => setForm({...form, title_hy: e.target.value})} required />
-          <RichTextEditor value={form.content_en} onChange={v => setForm({...form, content_en: v})} placeholder="Content (EN)" />
-          <RichTextEditor value={form.content_hy} onChange={v => setForm({...form, content_hy: v})} placeholder="Content (HY)" />
-          <button className="bg-green-600 text-white px-6 py-2 rounded mt-4">Save</button>
+        <form onSubmit={handleSubmit} className="bg-white/10 backdrop-blur-md border border-white/20 rounded-xl p-6 mb-8">
+          <input className="w-full mb-4 p-2 bg-white/5 border border-white/10 rounded-lg text-slate-100 placeholder-slate-400" placeholder="Title (EN)" value={form.title_en} onChange={e => setForm({...form, title_en: e.target.value})} required />
+          <input className="w-full mb-4 p-2 bg-white/5 border border-white/10 rounded-lg text-slate-100 placeholder-slate-400" placeholder="Title (HY)" value={form.title_hy} onChange={e => setForm({...form, title_hy: e.target.value})} required />
+          <div className="mb-4">
+            <RichTextEditor value={form.content_en} onChange={v => setForm({...form, content_en: v})} placeholder="Content (EN)" />
+          </div>
+          <div className="mb-4">
+            <RichTextEditor value={form.content_hy} onChange={v => setForm({...form, content_hy: v})} placeholder="Content (HY)" />
+          </div>
+          <button className="px-6 py-2 bg-blue-600/80 backdrop-blur-md text-white font-semibold rounded-lg mt-4 hover:bg-blue-600 transition-colors">Save</button>
         </form>
       )}
 
-      <div className="bg-white rounded-lg shadow overflow-hidden">
+      <div className="bg-white/5 backdrop-blur-md rounded-xl border border-white/10 overflow-x-auto">
         <table className="w-full">
           <thead>
-            <tr className="bg-slate-50">
-              <th className="p-4 text-left">Title (EN)</th>
-              <th className="p-4 text-left">Actions</th>
+            <tr className="text-left text-slate-300 text-sm border-b border-white/10">
+              <th className="p-4">Title (EN)</th>
+              <th className="p-4">Actions</th>
             </tr>
           </thead>
           <tbody>
             {amaras.map(item => (
-              <tr key={item.id} className="border-t">
-                <td className="p-4">{item.title_en}</td>
+              <tr key={item.id} className="border-b border-white/5">
+                <td className="p-4 text-slate-100">{item.title_en}</td>
                 <td className="p-4">
-                  <button onClick={() => handleEdit(item)} className="text-blue-500 mr-4">Edit</button>
-                  <button onClick={() => handleDelete(item.id)} className="text-red-500">Delete</button>
+                  <button onClick={() => handleEdit(item)} className="text-blue-300 hover:text-blue-200 text-sm mr-4">Edit</button>
+                  <button onClick={() => handleDelete(item.id)} className="text-red-300 hover:text-red-200 text-sm">Delete</button>
                 </td>
               </tr>
             ))}
