@@ -3,7 +3,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { Book } from '@/types';
 import { useApp } from '@/lib/context';
-import RichTextEditor from '@/components/ui/RichTextEditor';
 
 interface BookForm {
   title_en: string;
@@ -178,53 +177,6 @@ export default function AdminBooksPage() {
                   <td className="p-4">
                     <button onClick={() => handleEdit(book)} className="text-blue-300 hover:text-blue-200 text-sm mr-4">{t.admin.edit}</button>
                     <button onClick={() => handleDelete(book.id)} className="text-red-300 hover:text-red-200 text-sm">{t.admin.delete}</button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-            </div>
-            
-            <div className="pb-4">
-              <h3 className="text-lg font-semibold text-slate-700 mb-3">{t.admin.armenian}</h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <input type="text" placeholder={t.admin.titleHy} value={form.title_hy} onChange={e => setForm({...form, title_hy: e.target.value})} className="px-4 py-2 bg-white border border-slate-200 rounded-lg text-slate-800" dir="rtl" />
-                <input type="text" placeholder={t.admin.authorHy} value={form.author_hy} onChange={e => setForm({...form, author_hy: e.target.value})} className="px-4 py-2 bg-white border border-slate-200 rounded-lg text-slate-800" dir="rtl" />
-              </div>
-            </div>
-            
-            <label className="flex flex-col gap-2">
-              <span>{t.admin.pdfFile}:</span>
-              <input type="file" accept="application/pdf" onChange={handleFileUpload} />
-            </label>
-          </div>
-          <button type="submit" disabled={submitting} className="px-6 py-2 bg-blue-600 text-white font-semibold rounded-lg mt-4 disabled:opacity-50">
-            {submitting ? 'Saving...' : t.admin.save}
-          </button>
-        </form>
-      )}
-
-      {loading ? (
-        <div className="space-y-4">{[...Array(3)].map((_, i) => <div key={i} className="h-16 bg-slate-50 rounded-lg animate-pulse" />)}</div>
-      ) : (
-        <div className="bg-slate-50 rounded-xl border border-slate-200 overflow-x-auto">
-          <table className="w-full min-w-[600px]">
-            <thead className="border-b border-slate-200">
-              <tr className="text-left text-slate-500 text-sm">
-                <th className="p-4">{language === 'en' ? 'English Title' : 'Վերնագիր (EN)'}</th>
-                <th className="p-4">{language === 'hy' ? 'Հայերեն Վերնագիր' : 'Armenian Title'}</th>
-                <th className="p-4 w-24"></th>
-              </tr>
-            </thead>
-            <tbody>
-              {books.map(book => (
-                <tr key={book.id} className="border-b border-slate-200">
-                  <td className="p-4 text-slate-900">{book.title_en}</td>
-                  <td className="p-4 text-slate-900">{book.title_hy}</td>
-                  <td className="p-4">
-                    <button onClick={() => handleEdit(book)} className="text-blue-500 hover:text-blue-400 text-sm mr-4">{t.admin.edit}</button>
-                    <button onClick={() => handleDelete(book.id)} className="text-red-500 hover:text-red-400 text-sm">{t.admin.delete}</button>
                   </td>
                 </tr>
               ))}
