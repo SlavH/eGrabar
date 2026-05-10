@@ -1,46 +1,37 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { createClient } from '@supabase/supabase-js'
-
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL || '',
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || ''
-)
+import { createServerClient, type CookieOptions } from '@supabase/ssr'
 
 export async function POST(req: NextRequest) {
   try {
     const { email, password } = await req.json()
+    
+    const response = NextResponse.json({ ok: true })
+
+    const supabase = createServerClient(
+      process.env.NEXT_PUBLIC_SUPABASE_URL!,
+      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+      {
+        cookies: {
+          set(name: string, value: string, options: CookieOptions) {
+            response.cookies.set({ name, value, ...options })
+          },
+        },
+      }
+    )
+
     const { data, error } = await supabase.auth.signInWithPassword({ email, password })
     if (error || !data.user) {
-      return new NextResponse(JSON.stringify({ ok: false, error: 'Invalid credentials' }), {
-        status: 401,
-        headers: { 'Content-Type': 'application/json' },
-      })
+      return NextResponse.json({ ok: false, error: 'Invalid credentials' }, { status: 401 })
     }
 
-    const userId = data.user.id
-    // Check admin role (optional RBAC table)
-    const { data: adminRow, error: adminError } = await supabase.from('admin_profiles').select('is_admin').eq('user_id', userId).maybeSingle()
-    const isAdmin = adminRow?.is_admin ?? true
-    if (adminError) {
-      // If table missing, allow by default for test purposes
-      // const isAdmin = true
+    // Role check remains the same
+    const { data: adminRow } = await supabase.from('admin_profiles').select('is_admin').eq('user_id', data.user.id).maybeSingle()
+    if (!adminRow?.is_admin) {
+      return NextResponse.json({ ok: false, error: 'Not authorized' }, { status: 403 })
     }
 
-    if (!isAdmin) {
-      return new NextResponse(JSON.stringify({ ok: false, error: 'Not admin' }), {
-        status: 403,
-        headers: { 'Content-Type': 'application/json' },
-      })
-    }
-
-    // Issue session token (simplified): HttpOnly cookie
-    const res = NextResponse.json({ ok: true })
-    res.headers.set('Set-Cookie', 'admin_session=1; HttpOnly; Path=/; Max-Age=3600')
-    return res
+    return response
   } catch (e) {
-    return new NextResponse(JSON.stringify({ ok: false, error: 'Server error' }), {
-      status: 500,
-      headers: { 'Content-Type': 'application/json' },
-    })
+    return NextResponse.json({ ok: false, error: 'Server error' }, { status: 500 })
   }
 }
