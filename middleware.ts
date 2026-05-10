@@ -3,6 +3,9 @@ import type { NextRequest } from 'next/server';
 import { createServerClient, type CookieOptions } from '@supabase/ssr';
 
 export async function middleware(req: NextRequest) {
+  const path = req.nextUrl.pathname;
+  console.log("Middleware executing for:", path);
+
   let response = NextResponse.next({
     request: { headers: req.headers },
   });
@@ -20,14 +23,11 @@ export async function middleware(req: NextRequest) {
   );
 
   const { data: { session } } = await supabase.auth.getSession();
-  const path = req.nextUrl.pathname;
   
-  // LOGGING to verify in Vercel logs
-  console.log("Middleware auth check for path:", path, "Has session:", !!session);
-  
+  // Если это админка и это не логин
   if (path.startsWith('/admin') && !path.startsWith('/admin/login')) {
     if (!session) {
-      console.log("No session found, redirecting to login");
+      console.log("!!! NO SESSION, REDIRECTING !!!");
       return NextResponse.redirect(new URL('/admin/login', req.url));
     }
   }
@@ -38,3 +38,4 @@ export async function middleware(req: NextRequest) {
 export const config = {
   matcher: ['/admin/:path*'],
 };
+
