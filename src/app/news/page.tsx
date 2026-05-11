@@ -51,7 +51,7 @@ export default function NewsPage() {
                 className={`p-6 border border-white/20 backdrop-blur-md ${index === 0 ? 'xl:col-span-3' : 'xl:col-span-1'}`}
               >
                 <time className="text-xs text-slate-400 mb-3 block">
-                  {new Date(item.created_at).toLocaleDateString(language === 'hy' ? 'hy-AM' : 'en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+                  {new Intl.DateTimeFormat(language === 'hy' ? 'hy-AM' : 'en-US', { year: 'numeric', month: 'long', day: 'numeric' }).format(new Date(item.created_at))}
                 </time>
 
                 <h3 className={`font-semibold mb-3 text-slate-100 ${index === 0 ? 'text-3xl' : 'text-xl'}`}>{getLocalizedText(item, 'title')}</h3>
