@@ -50,8 +50,12 @@ export default function NewsPage() {
                 key={item.id} 
                 className={`p-6 border border-white/20 backdrop-blur-md ${index === 0 ? 'xl:col-span-3' : 'xl:col-span-1'}`}
               >
+import { formatArmenianDate } from '@/lib/dateFormatter';
+...
                 <time className="text-xs text-slate-400 mb-3 block">
-                  {new Intl.DateTimeFormat(language === 'hy' ? 'hy-AM' : 'en-US', { year: 'numeric', month: 'long', day: 'numeric' }).format(new Date(item.created_at))}
+                  {language === 'hy' 
+                    ? formatArmenianDate(item.created_at) 
+                    : new Date(item.created_at).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
                 </time>
 
                 <h3 className={`font-semibold mb-3 text-slate-100 ${index === 0 ? 'text-3xl' : 'text-xl'}`}>{getLocalizedText(item, 'title')}</h3>
