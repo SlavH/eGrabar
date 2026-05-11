@@ -18,8 +18,19 @@
   .prose-custom ol {
     @apply list-decimal list-inside mb-4;
   }
-  .prose-custom img {
-    @apply rounded-xl shadow-lg my-6;
+  /* Remove prose default margin for aligned images */
+  .prose-custom img[style*="float: right"] {
+    @apply float-right ml-6 my-2;
+  }
+  .prose-custom img[style*="float: left"] {
+    @apply float-left mr-6 my-2;
+  }
+  .prose-custom img[style*="float: none"] {
+    @apply float-none mx-auto my-6;
+  }
+  /* Ensure images without explicit float stay centered or block */
+  .prose-custom img:not([style*="float"]) {
+    @apply mx-auto;
   }
   .prose-custom a {
     @apply text-blue-400 hover:text-blue-300 underline;
