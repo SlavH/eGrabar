@@ -45,14 +45,17 @@ export default function NewsPage() {
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
-            {news.map((item) => (
-              <GlassCard key={item.id} className="p-6 border border-white/20 backdrop-blur-md">
+            {news.map((item, index) => (
+              <GlassCard 
+                key={item.id} 
+                className={`p-6 border border-white/20 backdrop-blur-md ${index === 0 ? 'xl:col-span-3' : 'xl:col-span-1'}`}
+              >
                 <time className="text-xs text-slate-400 mb-3 block">
                   {new Date(item.created_at).toLocaleDateString(language === 'hy' ? 'hy-AM' : 'en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
                 </time>
-                <h3 className="text-xl font-semibold mb-3 text-slate-100">{getLocalizedText(item, 'title')}</h3>
+                <h3 className={`font-semibold mb-3 text-slate-100 ${index === 0 ? 'text-3xl' : 'text-xl'}`}>{getLocalizedText(item, 'title')}</h3>
                 <div 
-                  className="text-slate-300 text-sm leading-relaxed prose-custom" 
+                  className={`text-slate-300 text-sm leading-relaxed prose-custom ${index === 0 ? 'prose-lg' : ''}`}
                   dangerouslySetInnerHTML={{ __html: getLocalizedText(item, 'content') }} 
                 />
               </GlassCard>
