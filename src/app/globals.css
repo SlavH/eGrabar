@@ -18,19 +18,21 @@
   .prose-custom ol {
     @apply list-decimal list-inside mb-4;
   }
-  /* Remove prose default margin for aligned images */
-  .prose-custom img[style*="float: right"] {
-    @apply float-right ml-6 my-2;
+  /* Support CKEditor image-style-side classes */
+  .prose-custom .image-style-side {
+    @apply float-right ml-6 my-4 w-1/3;
   }
-  .prose-custom img[style*="float: left"] {
-    @apply float-left mr-6 my-2;
+  .prose-custom .image-style-align-left {
+    @apply float-left mr-6 my-4 w-1/3;
   }
-  .prose-custom img[style*="float: none"] {
-    @apply float-none mx-auto my-6;
+  .prose-custom .image-style-align-right {
+    @apply float-right ml-6 my-4 w-1/3;
   }
-  /* Ensure images without explicit float stay centered or block */
-  .prose-custom img:not([style*="float"]) {
-    @apply mx-auto;
+  .prose-custom .image-style-align-center {
+    @apply float-none mx-auto my-6 block;
+  }
+  .prose-custom img {
+    @apply rounded-xl shadow-lg my-2;
   }
   .prose-custom a {
     @apply text-blue-400 hover:text-blue-300 underline;
