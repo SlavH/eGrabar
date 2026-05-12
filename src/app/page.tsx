@@ -65,10 +65,15 @@ export default function Home() {
             <h2 className="text-3xl font-bold text-slate-100 mb-12 text-center">{t.nav.news}</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {news.map((item) => (
-                <GlassCard key={item.id} className="p-6 bg-white/10 border-white/20 backdrop-blur-md">
-                  <h3 className="text-xl font-semibold mb-3 text-slate-100">{getLocalizedText(item, 'title')}</h3>
-                  <div className="text-slate-300 text-sm line-clamp-3 prose-custom" dangerouslySetInnerHTML={{ __html: getLocalizedText(item, 'content') }} />
-                </GlassCard>
+                  <Link 
+                    href={`/news#${item.id}`} 
+                    key={item.id}
+                  >
+                    <GlassCard className="p-6 bg-white/10 border-white/20 backdrop-blur-md hover:border-blue-500/50 transition-all cursor-pointer">
+                      <h3 className="text-xl font-semibold mb-3 text-slate-100">{getLocalizedText(item, 'title')}</h3>
+                      <div className="text-slate-300 text-sm line-clamp-3 prose-custom" dangerouslySetInnerHTML={{ __html: getLocalizedText(item, 'content') }} />
+                    </GlassCard>
+                  </Link>
               ))}
             </div>
           </div>

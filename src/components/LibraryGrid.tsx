@@ -45,7 +45,7 @@ export default function LibraryGrid({ initialBooks = [] }: LibraryGridProps) {
             placeholder={t.library.search}
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full pl-4 pr-4 py-3 bg-card-bg border border-border rounded-xl text-foreground placeholder-zinc-500 focus:outline-none focus:border-gold transition-colors"
+            className="w-full pl-4 pr-4 py-3 bg-white/5 backdrop-blur-md border border-white/20 rounded-xl text-slate-100 placeholder-slate-400 focus:outline-none focus:border-blue-400 transition-colors"
           />
         </div>
       </div>
