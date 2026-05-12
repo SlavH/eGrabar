@@ -58,9 +58,11 @@ export default function RichTextEditor({ value, onChange, placeholder }: { value
           min-height: 150px;
           padding: 12px 16px;
         }
-        /* Override CKEditor default styles to match our site theme */
+        /* Fix text color and direction */
         .ck-content {
-          font-family: inherit;
+          color: #334155 !important;
+          text-align: left !important;
+          direction: ltr !important;
         }
         .ck-content h1, .ck-content h2, .ck-content h3 {
           font-weight: bold;
