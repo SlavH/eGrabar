@@ -49,17 +49,16 @@ export default function PresentationsPage() {
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {presentations.map((ppt) => (
-              <div key={ppt.id} className="group bg-slate-50 rounded-xl overflow-hidden border border-slate-200 card-hover">
-                <div className="p-6 flex flex-col items-center justify-center min-h-[160px] bg-gradient-to-br from-burgundy/10 to-blue-600/10">
-                  <svg className="w-16 h-16 text-slate-400 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div key={ppt.id} className="group bg-white/10 backdrop-blur-md rounded-xl overflow-hidden border border-white/20 card-hover">
+                <div className="p-6 flex flex-col items-center justify-center min-h-[160px] bg-white/5">
+                  <svg className="w-16 h-16 text-white/30 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
                   </svg>
                 </div>
                 <div className="p-4">
-                  <h3 className="font-semibold text-slate-900 line-clamp-2 mb-1 group-hover:text-blue-600 transition-colors">{getLocalizedText(ppt, 'title')}</h3>
-                  <p className="text-sm text-slate-500 line-clamp-2 mb-3">{getLocalizedText(ppt, 'description')}</p>
+                  <h3 className="font-semibold text-slate-100 line-clamp-2 mb-3 group-hover:text-blue-300 transition-colors">{getLocalizedText(ppt, 'title')}</h3>
                   {ppt.pdf_file && (
-                    <a href={ppt.pdf_file} target="_blank" rel="noopener noreferrer" className="w-full py-2 bg-blue-600 text-white rounded-lg text-sm font-medium hover:bg-blue-600-light transition-colors block text-center">
+                    <a href={ppt.pdf_file} target="_blank" rel="noopener noreferrer" className="w-full py-2 bg-blue-600/80 backdrop-blur-md text-white rounded-lg text-sm font-medium hover:bg-blue-600 transition-colors block text-center">
                       {t.common.download}
                     </a>
                   )}
