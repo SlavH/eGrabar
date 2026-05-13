@@ -37,41 +37,19 @@ export default function DonatePage() {
     <main className="min-h-screen pt-24 pb-16 px-6 bg-background">
       <Hero
         title={t.nav.donate}
-        subtitle={language === 'en' ? 'Support our mission to preserve Armenian scientific heritage.' : 'Սատերեք մեր հանձնառությունը՝ պահպանելու հայկական գիտական ժառանգությունը:'}
         className="mb-8"
       />
-      <div className="max-w-4xl mx-auto">
-        <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-8 mb-12">
-          <div className="flex justify-between text-slate-300 mb-2">
-            <span>{language === 'en' ? 'Raised:' : 'Հավաքվել է:'} ${currentAmount.toLocaleString()}</span>
-            <span>{language === 'en' ? 'Goal:' : 'Նպատակ:'} ${targetAmount.toLocaleString()}</span>
-          </div>
-          <div className="h-4 bg-white/20 rounded-full overflow-hidden">
-            <div className="h-full bg-gradient-to-br from-blue-500 to-blue-700" style={{ width: `${progress}%` }} />
-          </div>
-          <p className="text-center text-slate-300 mt-2">{progress.toFixed(1)}% {language === 'en' ? 'funded' : 'ֆինանսավորված'}</p>
+      <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="p-8 bg-white/10 backdrop-blur-md rounded-2xl border border-white/20 hover:border-blue-500/50 transition-all">
+          <h3 className="text-xl font-bold text-slate-100 mb-4">Bank Transfer</h3>
+          <p className="text-slate-300">Account: XXXX-XXXX-XXXX-XXXX</p>
+          <p className="text-slate-300">Bank: ABC Bank</p>
         </div>
-
-        {submitted ? (
-          <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-8 text-center">
-            <h3 className="text-xl font-semibold text-slate-100 mb-2">
-              {language === 'en' ? 'Thank you for your support!' : 'Շնորհակալ ենք ձեր աջակցության համար:'}
-            </h3>
-          </div>
-        ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-8">
-              <h3 className="text-xl font-semibold text-slate-100 mb-4">{language === 'en' ? 'Bank Transfer' : 'Բանկային փոխանցում'}</h3>
-              <p className="text-slate-300">Bank Name: ...</p>
-              <p className="text-slate-300">Account: ...</p>
-            </div>
-            <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-8">
-              <h3 className="text-xl font-semibold text-slate-100 mb-4">{language === 'en' ? 'Crypto' : 'Կրիպտո'}</h3>
-              <p className="text-slate-300">BTC: ...</p>
-              <p className="text-slate-300">ETH: ...</p>
-            </div>
-          </div>
-        )}
+        <div className="p-8 bg-white/10 backdrop-blur-md rounded-2xl border border-white/20 hover:border-blue-500/50 transition-all">
+          <h3 className="text-xl font-bold text-slate-100 mb-4">Crypto</h3>
+          <p className="text-slate-300">BTC: 1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa</p>
+          <p className="text-slate-300">ETH: 0x71C7656EC7ab88b098defB751B7401B5f6d8976F</p>
+        </div>
       </div>
     </main>
   );
