@@ -58,7 +58,12 @@ export default function LibraryGrid({ initialBooks = [] }: LibraryGridProps) {
             target="_blank"
             rel="noopener noreferrer"
             className="block h-full"
-            download
+            onClick={(e) => {
+              if (!book.pdf_file || book.pdf_file === '#') {
+                e.preventDefault();
+                alert('PDF not available');
+              }
+            }}
           >
             <GlassCard className="card-hover">
               <PdfCoverPreview src={book.pdf_file || ''} className="aspect-[3/4]" />

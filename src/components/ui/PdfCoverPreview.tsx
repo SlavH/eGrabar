@@ -23,14 +23,20 @@ export default function PdfCoverPreview({ src, className = '' }: PdfCoverPreview
 
     const renderCover = async () => {
       try {
+        console.log('Attempting to load PDF from:', src);
         const pdfjsLib = await import('pdfjs-dist');
         // Fallback for worker definition
         const version = pdfjsLib.version || '3.4.120';
         pdfjsLib.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${version}/pdf.worker.min.js`;
         
         const loadingTask = pdfjsLib.getDocument(src);
+        loadingTask.onProgress = (progress) => {
+            console.log('PDF load progress:', progress);
+        };
         const pdf = await loadingTask.promise;
+        console.log('PDF loaded, number of pages:', pdf.numPages);
         const page = await pdf.getPage(1);
+        console.log('Page retrieved');
         
         const scale = 1.5;
         const viewport = page.getViewport({ scale });
@@ -47,8 +53,10 @@ export default function PdfCoverPreview({ src, className = '' }: PdfCoverPreview
                     canvasContext: context,
                     viewport: viewport
                 };
+                console.log('Rendering page...');
                 // @ts-ignore
                 await page.render(renderContext).promise;
+                console.log('Page rendered successfully');
             }
           }
       } catch (err) {
