@@ -45,7 +45,7 @@ export default function LibraryGrid({ initialBooks = [] }: LibraryGridProps) {
             placeholder={t.library.search}
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full pl-4 pr-4 py-3 bg-white/5 backdrop-blur-md border border-white/20 rounded-xl text-slate-100 placeholder-slate-400 focus:outline-none focus:border-blue-400 transition-colors"
+            className="w-full pl-4 pr-4 py-3 bg-white/10 backdrop-blur-xl border border-white/20 rounded-2xl text-slate-100 placeholder-slate-400 focus:outline-none focus:border-blue-400 shadow-[0_4px_30px_rgba(0,0,0,0.1)] transition-all"
           />
         </div>
       </div>
@@ -57,7 +57,8 @@ export default function LibraryGrid({ initialBooks = [] }: LibraryGridProps) {
             href={book.pdf_file || '#'}
             target="_blank"
             rel="noopener noreferrer"
-            className="block"
+            className="block h-full"
+            download
           >
             <GlassCard className="card-hover">
               <PdfCoverPreview src={book.pdf_file || ''} className="aspect-[3/4]" />

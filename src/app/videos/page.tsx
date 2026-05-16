@@ -50,11 +50,15 @@ export default function VideosPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {videos.map((video) => (
               <div key={video.id} className="group bg-white/10 backdrop-blur-md rounded-xl overflow-hidden border border-white/20 card-hover">
-                <div className="relative aspect-video bg-white/5 flex items-center justify-center">
-                  <svg className="w-16 h-16 text-white/30" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                  </svg>
+                <div className="relative aspect-video bg-black rounded-t-xl overflow-hidden">
+                  <iframe
+                    className="absolute inset-0 w-full h-full"
+                    src={`https://www.youtube.com/embed/${video.youtube_url?.includes('v=') ? video.youtube_url.split('v=')[1].split('&')[0] : video.youtube_url?.split('/').pop()}`}
+                    title={getLocalizedText(video, 'title')}
+                    frameBorder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                  />
                 </div>
                 <div className="p-4">
                   <h3 className="font-semibold text-slate-100 line-clamp-2 mb-1 group-hover:text-blue-300 transition-colors">{getLocalizedText(video, 'title')}</h3>

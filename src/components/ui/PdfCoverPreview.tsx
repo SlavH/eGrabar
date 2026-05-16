@@ -24,7 +24,9 @@ export default function PdfCoverPreview({ src, className = '' }: PdfCoverPreview
     const renderCover = async () => {
       try {
         const pdfjsLib = await import('pdfjs-dist');
-        pdfjsLib.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsLib.version}/pdf.worker.min.js`;
+        // Fallback for worker definition
+        const version = pdfjsLib.version || '3.4.120';
+        pdfjsLib.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${version}/pdf.worker.min.js`;
         
         const loadingTask = pdfjsLib.getDocument(src);
         const pdf = await loadingTask.promise;
@@ -38,7 +40,10 @@ export default function PdfCoverPreview({ src, className = '' }: PdfCoverPreview
             canvas.width = viewport.width;
             canvas.height = viewport.height;
             
-            await page.render({ canvas, viewport }).promise;
+            const context = canvas.getContext('2d');
+            if (context) {
+                await page.render({ canvasContext: context, viewport }).promise;
+            }
           }
       } catch (err) {
         console.error('Failed to render PDF cover:', err);

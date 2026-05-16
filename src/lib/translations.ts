@@ -72,10 +72,11 @@ export const translations = {
       "tagline": "Preserving Armenian Scientific Heritage",
       "title": "eGrabar",
       "subtitle": "A sanctuary for Armenian scholarship, preserving centuries of scientific achievement and cultural knowledge for future generations.",
-      "explore": "Explore the Library",
+      "explore": "Explore Library",
       "about": "About eGrabar",
       "scroll": "Scroll to explore"
     },
+
     "sections": {
       "library": "Library",
       "libraryDesc": "Access thousands of research papers, manuscripts, and historical documents.",
@@ -178,13 +179,14 @@ export const translations = {
       "instagram": "Instagram"
     },
     "home": {
-      "tagline": "Պահպանելով դարերի գիտական նվաճումները և մշակութային գիտելիքները սերունդների համար:",
+      "tagline": "Հայկական գիտական ժառանգության պահպանումը",
       "title": "eGrabar",
-      "subtitle": "A sanctuary for Armenian scholarship",
-      "explore": "Explore Library",
-      "about": "About eGrabar",
-      "scroll": "Scroll"
+      "subtitle": "Հայագիտության օջախ՝ պահպանելով դարավոր գիտական նվաճումներն ու մշակութային գիտելիքները ապագա սերունդների համար։",
+      "explore": "Ուսումնասիրել գրադարանը",
+      "about": "Ամարաս Կենտրոն",
+      "scroll": "Ոլորեք՝ ուսումնասիրելու համար"
     },
+
     "sections": {
       "library": "Գրադարան",
       "libraryDesc": "Մուտք գործեք հազարավոր հետազոտությունների, ձեռագրերի և պատմական փաստաթղթերի:",

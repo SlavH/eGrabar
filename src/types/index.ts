@@ -14,6 +14,7 @@ export interface Video {
   id: string;
   title_en: string;
   title_hy: string;
+  youtube_url: string;
   description_en: string;
   description_hy: string;
   created_at: string;
