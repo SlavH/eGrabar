@@ -42,7 +42,11 @@ export default function PdfCoverPreview({ src, className = '' }: PdfCoverPreview
             
             const context = canvas.getContext('2d');
             if (context) {
-                await page.render({ canvasContext: context, viewport }).promise;
+                const renderContext = {
+                    canvasContext: context,
+                    viewport: viewport
+                };
+                await page.render(renderContext).promise;
             }
           }
       } catch (err) {
