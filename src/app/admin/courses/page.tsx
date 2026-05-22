@@ -127,8 +127,8 @@ export default function AdminEventsPage() {
             <div className="pb-4">
               <h3 className="text-lg font-semibold text-slate-200 mb-3">{t.admin.armenian}</h3>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <input type="text" placeholder={t.admin.titleHy} value={form.title_hy} onChange={e => setForm({...form, title_hy: e.target.value})} className="px-4 py-2 bg-white/5 border border-white/20 rounded-lg text-slate-100" dir="rtl" />
-                <input type="text" placeholder={t.admin.instructorHy} value={form.instructor_hy} onChange={e => setForm({...form, instructor_hy: e.target.value})} className="px-4 py-2 bg-white/5 border border-white/20 rounded-lg text-slate-100" dir="rtl" />
+                <input type="text" placeholder={t.admin.titleHy} value={form.title_hy} onChange={e => setForm({...form, title_hy: e.target.value})} className="px-4 py-2 bg-white/5 border border-white/20 rounded-lg text-slate-100" />
+                <input type="text" placeholder={t.admin.instructorHy} value={form.instructor_hy} onChange={e => setForm({...form, instructor_hy: e.target.value})} className="px-4 py-2 bg-white/5 border border-white/20 rounded-lg text-slate-100" />
               </div>
             </div>
             

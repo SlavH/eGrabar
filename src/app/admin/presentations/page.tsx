@@ -117,7 +117,7 @@ export default function AdminPresentationsPage() {
             
             <div className="pb-4">
               <h3 className="text-lg font-semibold text-slate-100 mb-3">{t.admin.armenian}</h3>
-              <input type="text" placeholder={t.admin.titleHy} value={form.title_hy} onChange={e => setForm({...form, title_hy: e.target.value})} className="w-full px-4 py-2 bg-white/5 border border-white/10 rounded-lg text-slate-100 placeholder-slate-400" dir="rtl" />
+              <input type="text" placeholder={t.admin.titleHy} value={form.title_hy} onChange={e => setForm({...form, title_hy: e.target.value})} className="w-full px-4 py-2 bg-white/5 border border-white/10 rounded-lg text-slate-100 placeholder-slate-400" />
             </div>
             
             <label className="flex flex-col gap-2 text-slate-300">
