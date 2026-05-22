@@ -43,9 +43,9 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     { href: '/admin/books', label: language === 'en' ? 'Books' : 'Գրքեր', icon: '📚' },
     { href: '/admin/videos', label: language === 'en' ? 'Videos' : 'Տեսանյութեր', icon: '🎥' },
     { href: '/admin/presentations', label: language === 'en' ? 'Presentations' : 'Ներկայացումներ', icon: '📊' },
-    { href: '/admin/courses', label: language === 'en' ? 'Courses' : 'Դասընթացներ', icon: '📅' },
-    { href: '/admin/donations', label: language === 'en' ? 'Donations' : 'Նվիրաբերություններ', icon: '💰' },
+    { href: '/admin/courses', label: language === 'en' ? 'Courses' : 'Դասընթացներ', icon: '🎓' },
   ];
+
 
   return (
     <div className="min-h-screen pt-20">

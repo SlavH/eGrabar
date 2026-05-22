@@ -8,25 +8,23 @@ export default function AdminDashboard() {
   const { t, language, isAuthenticated, authLoading } = useApp();
   const cookieOn = typeof window !== 'undefined' && document.cookie.includes('admin_session=1');
   const isAuthorized = isAuthenticated || cookieOn;
-  const [stats, setStats] = useState({ books: 0, videos: 0, presentations: 0, events: 0, donations: 0 });
+  const [stats, setStats] = useState({ books: 0, videos: 0, presentations: 0, events: 0 });
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function fetchStats() {
       const { supabase } = await import('@/lib/supabase');
-      const [books, videos, presentations, events, donations] = await Promise.all([
+      const [books, videos, presentations, events] = await Promise.all([
         supabase.from('books').select('id', { count: 'exact', head: true }),
         supabase.from('videos').select('id', { count: 'exact', head: true }),
         supabase.from('presentations').select('id', { count: 'exact', head: true }),
         supabase.from('events').select('id', { count: 'exact', head: true }),
-        supabase.from('donations').select('id', { count: 'exact', head: true }),
       ]);
       setStats({
         books: books.count || 0,
         videos: videos.count || 0,
         presentations: presentations.count || 0,
         events: events.count || 0,
-        donations: donations.count || 0,
       });
       setLoading(false);
     }
@@ -56,7 +54,6 @@ export default function AdminDashboard() {
     { label: language === 'en' ? 'Videos' : 'Տեսանյութեր', value: stats.videos, icon: '🎥', color: 'bg-sky-600/10 text-sky-600' },
     { label: language === 'en' ? 'Presentations' : 'Ներկայացումներ', value: stats.presentations, icon: '📊', color: 'bg-blue-500/10 text-blue-500' },
     { label: language === 'en' ? 'Events' : 'Միջոցառումներ', value: stats.events, icon: '📅', color: 'bg-green-500/10 text-green-500' },
-    { label: language === 'en' ? 'Donations' : 'Նվիրաբերություններ', value: stats.donations, icon: '💰', color: 'bg-purple-500/10 text-purple-500' },
   ];
 
   return (
@@ -65,7 +62,7 @@ export default function AdminDashboard() {
         {language === 'en' ? 'Dashboard' : 'Վահանակ'}
       </h1>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
         {statCards.map((stat, i) => (
           <div key={i} className="bg-slate-50 rounded-xl border border-slate-200 p-6">
             <div className={`w-12 h-12 rounded-lg ${stat.color} flex items-center justify-center text-2xl mb-4`}>

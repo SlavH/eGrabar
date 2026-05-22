@@ -103,9 +103,10 @@ export default function AdminBooksPage() {
     if (!e.target.files?.[0]) return;
     const file = e.target.files[0];
     const { supabase: sb } = await import('@/lib/supabase');
-    const { data, error } = await sb.storage.from('books').upload(`${Date.now()}_${file.name}`, file);
+    const fileName = `${Date.now()}_${file.name.replace(/[^a-zA-Z0-9.-]/g, '_')}`;
+    const { data, error } = await sb.storage.from('books').upload(fileName, file);
     if (error) { console.error(error); return; }
-    const { data: urlData } = sb.storage.from('books').getPublicUrl(`${Date.now()}_${file.name}`);
+    const { data: urlData } = sb.storage.from('books').getPublicUrl(fileName);
     const url = urlData?.publicUrl ?? '';
     setForm({ ...form, pdf_file: url });
   };
