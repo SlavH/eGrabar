@@ -24,12 +24,14 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     );
   }
 
+  const cookieOn = typeof window !== 'undefined' && document.cookie.includes('admin_session=1');
+  
   // Allow access to login page
-  if (!isAuthenticated && pathname === '/admin/login') {
+  if (pathname === '/admin/login') {
     return <main className="pt-20">{children}</main>;
   }
 
-  if (!isAuthenticated) {
+  if (!isAuthenticated && !cookieOn) {
     return null;
   }
 
