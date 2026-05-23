@@ -50,8 +50,8 @@ export default function PresentationsPage() {
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {presentations.map((ppt) => (
-              <div key={ppt.id} className="group bg-white/10 backdrop-blur-md rounded-xl overflow-hidden border border-white/20 card-hover">
-                <a href={ppt.pdf_file} target="_blank" rel="noopener noreferrer" className="aspect-[3/4] relative overflow-hidden bg-white/5 block">
+              <div key={ppt.id} className="group bg-white/10 backdrop-blur-md rounded-xl overflow-hidden border border-white/20 card-hover flex flex-col">
+                <a href={ppt.pdf_file} target="_blank" rel="noopener noreferrer" className="aspect-[3/4] relative overflow-hidden bg-white/5 block flex-shrink-0">
                   {ppt.pdf_file ? (
                     <PdfCoverPreview src={ppt.pdf_file} className="w-full h-full object-cover" />
                   ) : (
@@ -62,7 +62,7 @@ export default function PresentationsPage() {
                     </div>
                   )}
                 </a>
-                <div className="p-4">
+                <div className="p-4 flex-grow flex flex-col justify-between">
                   <h3 className="font-semibold text-slate-100 line-clamp-2 mb-3 group-hover:text-blue-300 transition-colors">{getLocalizedText(ppt, 'title')}</h3>
                   {ppt.pdf_file && (
                     <a href={ppt.pdf_file} target="_blank" rel="noopener noreferrer" className="w-full py-2 bg-blue-600/80 backdrop-blur-md text-white rounded-lg text-sm font-medium hover:bg-blue-600 transition-colors block text-center">

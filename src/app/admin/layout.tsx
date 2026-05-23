@@ -39,7 +39,8 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 
   const adminNav = [
     { href: '/admin', label: language === 'en' ? 'Dashboard' : 'Վահանակ', icon: '📊' },
-    { href: '/admin/news', label: language === 'en' ? 'News' : 'Լրաշարք', icon: '📰' },
+    { href: '/admin/amaras', label: language === 'en' ? 'Amaras' : 'Ամարաս', icon: '🏛️' },
+    { href: '/admin/news', label: language === 'en' ? 'News' : 'Լրաշար', icon: '📰' },
     { href: '/admin/books', label: language === 'en' ? 'Books' : 'Գրքեր', icon: '📚' },
     { href: '/admin/videos', label: language === 'en' ? 'Videos' : 'Տեսանյութեր', icon: '🎥' },
     { href: '/admin/presentations', label: language === 'en' ? 'Presentations' : 'Ներկայացումներ', icon: '📊' },
@@ -75,7 +76,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           </div>
         </aside>
         
-        <main className="flex-1 p-8">
+        <main className="flex-1 p-8 text-white [&_h1]:text-white [&_h1]:brightness-150">
           {children}
         </main>
       </div>

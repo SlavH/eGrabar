@@ -120,7 +120,7 @@ export default function AdminEventsPage() {
               <h3 className="text-lg font-semibold text-slate-200 mb-3">{t.admin.english}</h3>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <input type="text" placeholder={t.admin.titleEn} value={form.title_en} onChange={e => setForm({...form, title_en: e.target.value})} className="px-4 py-2 bg-white/5 border border-white/20 rounded-lg text-slate-100" />
-                <input type="text" placeholder={t.admin.instructorEn} value={form.instructor_en} onChange={e => setForm({...form, instructor_en: e.target.value})} className="px-4 py-2 bg-white/5 border border-white/20 rounded-lg text-slate-100" />
+                 <input type="text" placeholder={t.admin.instructorEn} value={form.instructor_en} onChange={e => setForm({...form, instructor_en: e.target.value})} className="px-4 py-2 bg-white/5 border border-white/20 rounded-lg text-slate-100 placeholder-slate-400" />
               </div>
             </div>
             
@@ -128,7 +128,7 @@ export default function AdminEventsPage() {
               <h3 className="text-lg font-semibold text-slate-200 mb-3">{t.admin.armenian}</h3>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <input type="text" placeholder={t.admin.titleHy} value={form.title_hy} onChange={e => setForm({...form, title_hy: e.target.value})} className="px-4 py-2 bg-white/5 border border-white/20 rounded-lg text-slate-100" />
-                <input type="text" placeholder={t.admin.instructorHy} value={form.instructor_hy} onChange={e => setForm({...form, instructor_hy: e.target.value})} className="px-4 py-2 bg-white/5 border border-white/20 rounded-lg text-slate-100" />
+                 <input type="text" placeholder={t.admin.instructorHy} value={form.instructor_hy} onChange={e => setForm({...form, instructor_hy: e.target.value})} className="px-4 py-2 bg-white/5 border border-white/20 rounded-lg text-slate-100 placeholder-slate-400" />
               </div>
             </div>
             

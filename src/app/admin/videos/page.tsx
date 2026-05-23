@@ -8,6 +8,8 @@ interface VideoForm {
   title_en: string;
   title_hy: string;
   youtube_url: string;
+  description_en: string;
+  description_hy: string;
 }
 
 export default function AdminVideosPage() {
@@ -16,7 +18,7 @@ export default function AdminVideosPage() {
   const [showForm, setShowForm] = useState(false);
   const [editingId, setEditingId] = useState<string | null>(null);
   const [form, setForm] = useState<VideoForm>({ 
-    title_en: '', title_hy: '', youtube_url: '' 
+    title_en: '', title_hy: '', youtube_url: '', description_en: '', description_hy: '' 
   });
   const { t, language } = useApp();
 
@@ -38,6 +40,8 @@ export default function AdminVideosPage() {
       title_en: video.title_en,
       title_hy: video.title_hy,
       youtube_url: video.youtube_url || '',
+      description_en: video.description_en || '',
+      description_hy: video.description_hy || '',
     });
     setShowForm(true);
   }
@@ -52,6 +56,8 @@ export default function AdminVideosPage() {
           title_en: form.title_en,
           title_hy: form.title_hy,
           youtube_url: form.youtube_url,
+          description_en: form.description_en,
+          description_hy: form.description_hy,
         }).eq('id', editingId);
         if (error) console.error(error);
       } else {
@@ -59,6 +65,8 @@ export default function AdminVideosPage() {
           title_en: form.title_en,
           title_hy: form.title_hy,
           youtube_url: form.youtube_url,
+          description_en: form.description_en,
+          description_hy: form.description_hy,
         }]);
         if (error) console.error(error);
       }
@@ -87,7 +95,7 @@ export default function AdminVideosPage() {
           if (showForm) {
             setShowForm(false);
             setEditingId(null);
-            setForm({ title_en: '', title_hy: '', youtube_url: '' });
+      setForm({ title_en: '', title_hy: '', youtube_url: '', description_en: '', description_hy: '' });
           } else {
             setShowForm(true);
           }
@@ -101,12 +109,14 @@ export default function AdminVideosPage() {
           <div className="space-y-6">
             <div className="border-b border-white/10 pb-4">
               <h3 className="text-lg font-semibold text-slate-100 mb-3">{t.admin.english}</h3>
-              <input type="text" placeholder={t.admin.titleEn} value={form.title_en} onChange={e => setForm({...form, title_en: e.target.value})} className="w-full px-4 py-2 bg-white/5 border border-white/10 rounded-lg text-slate-100 placeholder-slate-400" />
+              <input type="text" placeholder={t.admin.titleEn} value={form.title_en} onChange={e => setForm({...form, title_en: e.target.value})} className="w-full px-4 py-2 bg-white/5 border border-white/10 rounded-lg text-slate-100 placeholder-slate-400 mb-2" />
+              <textarea placeholder={t.admin.descriptionEn} value={form.description_en} onChange={e => setForm({...form, description_en: e.target.value})} className="w-full px-4 py-2 bg-white/5 border border-white/10 rounded-lg text-slate-100 placeholder-slate-400" />
             </div>
             
             <div className="border-b border-white/10 pb-4">
               <h3 className="text-lg font-semibold text-slate-100 mb-3">{t.admin.armenian}</h3>
-              <input type="text" placeholder={t.admin.titleHy} value={form.title_hy} onChange={e => setForm({...form, title_hy: e.target.value})} className="w-full px-4 py-2 bg-white/5 border border-white/10 rounded-lg text-slate-100 placeholder-slate-400" />
+              <input type="text" placeholder={t.admin.titleHy} value={form.title_hy} onChange={e => setForm({...form, title_hy: e.target.value})} className="w-full px-4 py-2 bg-white/5 border border-white/10 rounded-lg text-slate-100 placeholder-slate-400 mb-2" />
+              <textarea placeholder={t.admin.descriptionHy} value={form.description_hy} onChange={e => setForm({...form, description_hy: e.target.value})} className="w-full px-4 py-2 bg-white/5 border border-white/10 rounded-lg text-slate-100 placeholder-slate-400" />
             </div>
 
             <div className="pb-4">

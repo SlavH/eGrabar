@@ -83,9 +83,10 @@ export default function AdminPresentationsPage() {
     if (!e.target.files?.[0]) return;
     const file = e.target.files[0];
     const { supabase: sb } = await import('@/lib/supabase');
-    const { data, error } = await sb.storage.from('presentations').upload(`${Date.now()}_${file.name}`, file);
+    const fileName = `${Date.now()}_${file.name.replace(/[^a-zA-Z0-9.-]/g, '_')}`;
+    const { data, error } = await sb.storage.from('presentations').upload(fileName, file);
     if (error) { console.error(error); return; }
-    const { data: urlData } = sb.storage.from('presentations').getPublicUrl(`${Date.now()}_${file.name}`);
+    const { data: urlData } = sb.storage.from('presentations').getPublicUrl(fileName);
     const url = urlData?.publicUrl ?? '';
     setForm({ ...form, pdf_file: url });
   };

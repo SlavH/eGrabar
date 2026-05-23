@@ -30,34 +30,34 @@ export default function Navigation() {
   }, []);
 
   return (
-    <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled ? 'glass py-3' : 'bg-transparent py-5'
-      }`}
-    >
-      <div className="max-w-[90rem] mx-auto px-6 flex items-center justify-between">
-        <Link href="/" className="flex items-center gap-1.5 group">
-          <img src="/nur.png" alt="Logo" className="w-10 h-10 rounded-lg" />
-          <span className="text-2xl font-semibold tracking-wide whitespace-nowrap">
-            <span className="text-blue-200">{language === 'en' ? 'eGrabar' : 'Գրաբար'}</span>
-          </span>
-        </Link>
+      <nav
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+          isScrolled ? 'glass py-3' : 'bg-transparent py-5'
+        }`}
+      >
+        <div className="max-w-[90rem] mx-auto px-6 flex items-center justify-between relative">
+          <Link href="/" className="flex items-center gap-1.5 group relative z-[120]">
+            <img src="/nur.png" alt="Logo" className="w-10 h-10 rounded-lg" />
+            <span className="text-2xl font-semibold tracking-wide whitespace-nowrap">
+              <span className="text-blue-200">{language === 'en' ? 'eGrabar' : 'Գրաբար'}</span>
+            </span>
+          </Link>
 
-        <div className="hidden lg:flex items-center gap-6">
-          {navLinks.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              className="text-sm font-medium text-slate-200 hover:text-blue-300 transition-colors relative group whitespace-nowrap"
-            >
-              {t.nav[link.key as keyof typeof t.nav]}
-              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-blue-600 transition-all group-hover:w-full" />
-            </Link>
-          ))}
-        </div>
+          <div className="hidden lg:flex items-center gap-6">
+            {navLinks.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                className="text-sm font-medium text-slate-200 hover:text-blue-300 transition-colors relative group whitespace-nowrap"
+              >
+                {t.nav[link.key as keyof typeof t.nav]}
+                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-blue-600 transition-all group-hover:w-full" />
+              </Link>
+            ))}
+          </div>
 
-        <div className="flex items-center gap-3 relative z-[110]">
-          <div className="flex rounded-lg overflow-hidden border border-white/20 relative z-[120]">
+          <div className="flex items-center gap-3 relative z-[120]">
+            <div className="flex rounded-lg overflow-hidden border border-white/20 bg-slate-950/20 backdrop-blur-sm">
             <button
               onClick={(e) => { e.stopPropagation(); setLanguage('hy'); }}
               className={`px-2 py-1 text-xs font-medium transition-colors ${
@@ -113,7 +113,7 @@ export default function Navigation() {
       </div>
 
       {isOpen && (
-        <div className="lg:hidden bg-slate-950/80 backdrop-blur-md absolute top-full left-0 w-full p-4 border-t border-white/20 z-[100] max-h-[80vh] overflow-y-auto">
+        <div className="lg:hidden bg-slate-950/90 backdrop-blur-2xl absolute top-full left-0 w-full p-4 border-t border-white/20 z-[100] max-h-[80vh] overflow-y-auto">
           {navLinks.map((link) => (
             <Link
               key={link.href}
