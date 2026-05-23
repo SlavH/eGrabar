@@ -11,7 +11,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 
   useEffect(() => {
     if (!authLoading && !isAuthenticated) {
-      // router.push('/admin/login'); // BYPASS ENABLED
+      router.push('/admin/login');
     }
   }, [authLoading, isAuthenticated, router]);
 
@@ -23,18 +23,8 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     );
   }
 
-  if (false) {
-    // Show a friendly login prompt instead of rendering nothing
-    return (
-      <div className="min-h-screen flex items-center justify-center p-6">
-        <div className="text-center text-slate-300">
-          <p>{language === 'en' ? 'Not authenticated' : 'Անձնական մուտքը չի հաստատված'}</p>
-          <Link href="/admin/login" className="mt-2 inline-block text-blue-300 font-semibold">
-            {language === 'en' ? 'Go to Admin Login' : 'Գործարկել ադմին մուտք'}
-          </Link>
-        </div>
-      </div>
-    );
+  if (!isAuthenticated) {
+    return null;
   }
 
   const adminNav = [
