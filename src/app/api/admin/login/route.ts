@@ -25,13 +25,20 @@ export async function POST(req: NextRequest) {
     }
 
     // Role check remains the same
-    const { data: adminRow } = await supabase.from('admin_profiles').select('is_admin').eq('user_id', data.user.id).maybeSingle()
+    const { data: adminRow, error: adminError } = await supabase.from('admin_profiles').select('is_admin').eq('user_id', data.user.id).maybeSingle()
+    
+    if (adminError) {
+      console.error('Admin profile query error:', adminError);
+      return NextResponse.json({ ok: false, error: 'Database error' }, { status: 500 })
+    }
+
     if (!adminRow?.is_admin) {
       return NextResponse.json({ ok: false, error: 'Not authorized' }, { status: 403 })
     }
 
     return response
   } catch (e) {
+    console.error('Login error:', e);
     return NextResponse.json({ ok: false, error: 'Server error' }, { status: 500 })
   }
 }
