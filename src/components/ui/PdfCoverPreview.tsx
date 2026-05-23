@@ -24,12 +24,21 @@ export default function PdfCoverPreview({ src, className = '' }: PdfCoverPreview
     const renderCover = async () => {
       try {
         console.log('Attempting to load PDF from:', src);
+        
+        // Ensure the source URL is treated as a string
+        const pdfUrl = typeof src === 'string' ? src : '';
+        if (!pdfUrl) throw new Error('Invalid PDF URL');
+
         const pdfjsLib = await import('pdfjs-dist');
         // Fallback for worker definition
         const version = pdfjsLib.version || '3.4.120';
         pdfjsLib.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${version}/pdf.worker.min.js`;
         
-        const loadingTask = pdfjsLib.getDocument(src);
+        const loadingTask = pdfjsLib.getDocument({
+          url: pdfUrl,
+          cMapUrl: `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${version}/cmaps/`,
+          cMapPacked: true,
+        });
         loadingTask.onProgress = (progress) => {
             console.log('PDF load progress:', progress);
         };
