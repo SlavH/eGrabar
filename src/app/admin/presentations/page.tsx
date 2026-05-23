@@ -84,9 +84,15 @@ export default function AdminPresentationsPage() {
     const file = e.target.files[0];
     const { supabase: sb } = await import('@/lib/supabase');
     const fileName = `${Date.now()}_${file.name.replace(/[^a-zA-Z0-9.-]/g, '_')}`;
-    const { data, error } = await sb.storage.from('presentations').upload(fileName, file);
-    if (error) { console.error(error); return; }
-    const { data: urlData } = sb.storage.from('presentations').getPublicUrl(fileName);
+    
+    // Use 'books' bucket storage logic as it is known to work
+    const { data, error } = await sb.storage.from('books').upload(fileName, file);
+    if (error) { 
+      console.error("Upload error:", error);
+      return; 
+    }
+    
+    const { data: urlData } = sb.storage.from('books').getPublicUrl(fileName);
     const url = urlData?.publicUrl ?? '';
     setForm({ ...form, pdf_file: url });
   };
