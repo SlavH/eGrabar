@@ -58,21 +58,21 @@ export default function AdminDashboard() {
 
   return (
     <div>
-      <h1 className="text-3xl font-bold text-blue-600 mb-8">
+      <h1 className="text-3xl font-bold text-white mb-8">
         {language === 'en' ? 'Dashboard' : 'Վահանակ'}
       </h1>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
         {statCards.map((stat, i) => (
-          <div key={i} className="bg-slate-50 rounded-xl border border-slate-200 p-6">
+          <div key={i} className="glass rounded-xl border border-white/20 p-6">
             <div className={`w-12 h-12 rounded-lg ${stat.color} flex items-center justify-center text-2xl mb-4`}>
               {stat.icon}
             </div>
-            <p className="text-slate-500 text-sm">{stat.label}</p>
+            <p className="text-slate-300 text-sm">{stat.label}</p>
             {loading ? (
-              <div className="h-8 bg-zinc-800 rounded animate-pulse mt-1" />
+              <div className="h-8 bg-white/10 rounded animate-pulse mt-1" />
             ) : (
-              <p className="text-2xl font-bold text-slate-900">{stat.value}</p>
+              <p className="text-2xl font-bold text-white">{stat.value}</p>
             )}
           </div>
         ))}

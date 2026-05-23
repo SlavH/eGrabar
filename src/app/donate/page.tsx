@@ -39,16 +39,14 @@ export default function DonatePage() {
         title={t.nav.donate}
         className="mb-8"
       />
-      <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
-        <div className="p-8 bg-white/10 backdrop-blur-md rounded-2xl border border-white/20 hover:border-blue-500/50 transition-all">
-          <h3 className="text-xl font-bold text-slate-100 mb-4">Bank Transfer</h3>
-          <p className="text-slate-300">Account: XXXX-XXXX-XXXX-XXXX</p>
-          <p className="text-slate-300">Bank: ABC Bank</p>
-        </div>
-        <div className="p-8 bg-white/10 backdrop-blur-md rounded-2xl border border-white/20 hover:border-blue-500/50 transition-all">
-          <h3 className="text-xl font-bold text-slate-100 mb-4">Crypto</h3>
-          <p className="text-slate-300">BTC: 1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa</p>
-          <p className="text-slate-300">ETH: 0x71C7656EC7ab88b098defB751B7401B5f6d8976F</p>
+      <div className="max-w-4xl mx-auto gap-8">
+        <div className="p-8 bg-white/10 backdrop-blur-md rounded-2xl border border-white/20 hover:border-blue-500/50 transition-all text-center">
+          <h3 className="text-xl font-bold text-slate-100 mb-4">{language === 'en' ? 'Support Our Mission' : 'Աջակցեք մեր առաքելությանը'}</h3>
+          <p className="text-slate-300">
+            {language === 'en' 
+              ? 'Your contributions help us digitize and preserve the Grabar heritage. Thank you for your support.'
+              : 'Ձեր ներդրումները օգնում են մեզ թվայնացնել և պահպանել Գրաբարի ժառանգությունը: Շնորհակալություն ձեր աջակցության համար:'}
+          </p>
         </div>
       </div>
     </main>
