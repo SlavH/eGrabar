@@ -8,6 +8,9 @@ export default function AdminDashboard() {
   const { t, language, isAuthenticated, authLoading } = useApp();
   const cookieOn = typeof window !== 'undefined' && document.cookie.includes('admin_session=1');
   const isAuthorized = isAuthenticated || cookieOn;
+  
+  console.log('Auth Check:', { isAuthenticated, cookieOn, isAuthorized });
+  
   const [stats, setStats] = useState({ books: 0, videos: 0, presentations: 0, events: 0 });
   const [loading, setLoading] = useState(true);
 
