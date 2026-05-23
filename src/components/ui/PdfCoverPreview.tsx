@@ -29,10 +29,10 @@ export default function PdfCoverPreview({ src, className = '' }: PdfCoverPreview
         const pdfUrl = typeof src === 'string' ? src : '';
         if (!pdfUrl) throw new Error('Invalid PDF URL');
 
-        const pdfjsLib = await import('pdfjs-dist');
+        const pdfjsLib = await import('pdfjs-dist/build/pdf.mjs');
         // Fallback for worker definition
-        const version = pdfjsLib.version || '3.4.120';
-        pdfjsLib.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${version}/pdf.worker.min.js`;
+        const workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js`;
+        pdfjsLib.GlobalWorkerOptions.workerSrc = workerSrc;
         
         const loadingTask = pdfjsLib.getDocument({
           url: pdfUrl,
