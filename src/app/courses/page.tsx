@@ -23,23 +23,14 @@ export default function EventsPage() {
     fetchEvents();
   }, []);
 
+import { formatArmenianDate } from '@/lib/dateFormatter';
+
+// ... (in your component)
+
   const formatDate = (dateStr: string) => {
-    console.log("Formatting date:", dateStr, "Language:", language);
-    // Split date string: YYYY-MM-DD
-    const [year, month, day] = dateStr.split('-').map(Number);
-    // Use UTC to create the date correctly
-    const date = new Date(Date.UTC(year, month - 1, day));
-    
-    // Explicitly pass the language code and format options
-    const formatted = date.toLocaleDateString(language === 'hy' ? 'hy-AM' : 'en-US', { 
-        weekday: 'long', 
-        year: 'numeric', 
-        month: 'long', 
-        day: 'numeric',
-        timeZone: 'UTC' 
-    });
-    console.log("Formatted result:", formatted);
-    return formatted;
+    return language === 'hy' 
+      ? formatArmenianDate(dateStr) 
+      : new Date(dateStr).toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
   };
 
   return (
