@@ -57,6 +57,7 @@ export default function PresentationsPage() {
                     rel="noopener noreferrer" 
                     className="aspect-[3/4] relative overflow-hidden bg-white/5 block flex-shrink-0"
                     onClick={(e) => {
+                      console.log("PDF URL:", ppt.pdf_file);
                       if (!ppt.pdf_file || ppt.pdf_file === '' || ppt.pdf_file === '#') {
                         e.preventDefault();
                         alert('PDF not available');
