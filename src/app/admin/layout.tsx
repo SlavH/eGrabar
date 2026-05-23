@@ -1,19 +1,58 @@
 'use client';
 
-import { useEffect } from 'react';
-import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { useApp } from '@/lib/context';
+import { useRouter } from 'next/navigation';
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
-  const { isAuthenticated, logout, t, language, authLoading } = useApp();
+  const { logout, t, language } = useApp();
   const router = useRouter();
-  const pathname = typeof window !== 'undefined' ? window.location.pathname : '';
 
-  useEffect(() => {
-    if (!authLoading && !isAuthenticated && pathname !== '/admin/login') {
-      router.push('/admin/login');
-    }
+  const adminNav = [
+    { href: '/admin', label: language === 'en' ? 'Dashboard' : 'Վահանակ', icon: '📊' },
+    { href: '/admin/amaras', label: language === 'en' ? 'Amaras' : 'Ամարաս', icon: '🏛️' },
+    { href: '/admin/news', label: language === 'en' ? 'News' : 'Լրաշար', icon: '📰' },
+    { href: '/admin/books', label: language === 'en' ? 'Books' : 'Գրքեր', icon: '📚' },
+    { href: '/admin/videos', label: language === 'en' ? 'Videos' : 'Տեսանյութեր', icon: '🎥' },
+    { href: '/admin/presentations', label: language === 'en' ? 'Presentations' : 'Ներկայացումները', icon: '📊' },
+    { href: '/admin/courses', label: language === 'en' ? 'Courses' : 'Դասընթացները', icon: '🎓' },
+  ];
+
+  return (
+    <div className="min-h-screen pt-20">
+      <div className="flex">
+        <aside className="w-64 min-h-[calc(100vh-5rem)] bg-white/10 backdrop-blur-md border-r border-white/20 p-4">
+          <nav className="space-y-1">
+            {adminNav.map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                className="flex items-center gap-3 px-4 py-3 text-slate-300 hover:text-blue-300 hover:bg-white/10 rounded-lg transition-colors"
+              >
+                <span>{item.icon}</span>
+                <span>{item.label}</span>
+              </Link>
+            ))}
+          </nav>
+          
+          <div className="mt-8 pt-4 border-t border-white/20">
+            <button
+              onClick={async () => { await logout(); router.push('/'); }}
+              className="flex items-center gap-3 w-full px-4 py-3 text-slate-300 hover:text-red-400 hover:bg-white/10 rounded-lg transition-colors"
+            >
+              <span>🚪</span>
+              <span>{language === 'en' ? 'Logout' : 'Ելք'}</span>
+            </button>
+          </div>
+        </aside>
+        
+        <main className="flex-1 p-8 text-white [&_h1]:text-white [&_h1]:brightness-150">
+          {children}
+        </main>
+      </div>
+    </div>
+  );
+}
   }, [authLoading, isAuthenticated, router, pathname]);
 
   if (authLoading) {
