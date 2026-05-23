@@ -10,11 +10,13 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   const router = useRouter();
   const pathname = usePathname();
 
+  const cookieOn = typeof window !== 'undefined' && document.cookie.includes('admin_session=1');
+
   useEffect(() => {
-    if (!authLoading && !isAuthenticated && pathname !== '/admin/login') {
+    if (!authLoading && !isAuthenticated && !cookieOn && pathname !== '/admin/login') {
       router.push('/admin/login');
     }
-  }, [authLoading, isAuthenticated, router, pathname]);
+  }, [authLoading, isAuthenticated, cookieOn, router, pathname]);
 
   if (authLoading) {
     return (
@@ -29,7 +31,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     return <main className="pt-20">{children}</main>;
   }
 
-  if (!isAuthenticated) {
+  if (!isAuthenticated && !cookieOn) {
     return null;
   }
 
