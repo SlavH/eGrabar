@@ -35,7 +35,7 @@ export default function PdfCoverPreview({ src, className = '' }: PdfCoverPreview
         
         const loadingTask = pdfjsLib.getDocument({
           url: pdfUrl,
-          cMapUrl: `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${version}/cmaps/`,
+          cMapUrl: `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/cmaps/`,
           cMapPacked: true,
         });
         loadingTask.onProgress = (progress) => {
