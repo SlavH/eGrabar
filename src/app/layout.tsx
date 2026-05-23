@@ -23,6 +23,9 @@ const googlesans = localFont({
 export const metadata: Metadata = {
   title: 'eGrabar | իԳրաբար',
   description: 'Preserving Armenian scientific heritage and cultural knowledge',
+  icons: {
+    icon: '/favicon.ico',
+  },
 };
 
 export default function RootLayout({

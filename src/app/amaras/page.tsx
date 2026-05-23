@@ -27,6 +27,10 @@ export default function AmarasCenterPage() {
         subtitle={language === 'en' ? 'Preserving Armenian Knowledge through Digital Innovation' : 'Հայկական գիտելիքի պահպանումը թվային նորարարության միջոցով'}
         className="mb-12"
       />
+      
+      <div className="text-center mb-12">
+        <img src="/amaras.png" alt="Amaras Center" className="w-24 h-24 mx-auto hover:opacity-80 transition-opacity" />
+      </div>
 
       <div className="max-w-7xl mx-auto">
         {loading ? (
