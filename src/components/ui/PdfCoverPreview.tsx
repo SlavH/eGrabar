@@ -30,14 +30,16 @@ export default function PdfCoverPreview({ src, className = '' }: PdfCoverPreview
         if (!pdfUrl) throw new Error('Invalid PDF URL');
 
         const pdfjsLib = await import('pdfjs-dist/build/pdf.mjs');
-        // Use standard versioned worker or local worker if available
-        pdfjsLib.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js`;
+        // Use matching version for worker and cMaps
+        const version = '3.11.174';
+        pdfjsLib.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${version}/pdf.worker.min.js`;
         
         const loadingTask = pdfjsLib.getDocument({
           url: pdfUrl,
-          cMapUrl: `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/cmaps/`,
+          cMapUrl: `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${version}/cmaps/`,
           cMapPacked: true,
         });
+
         loadingTask.onProgress = (progress) => {
             console.log('PDF load progress:', progress);
         };
