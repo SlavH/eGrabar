@@ -1,13 +1,11 @@
-import { NextResponse } from 'next/server';
-import type { NextRequest } from 'next/server';
+import { NextResponse, type NextRequest } from 'next/server';
 import { createServerClient, type CookieOptions } from '@supabase/ssr';
 
-export async function middleware(req: NextRequest) {
-  const path = req.nextUrl.pathname;
-  console.log("Middleware executing for:", path);
-
+export async function middleware(request: NextRequest) {
   let response = NextResponse.next({
-    request: { headers: req.headers },
+    request: {
+      headers: request.headers,
+    },
   });
 
   const supabase = createServerClient(
@@ -15,20 +13,37 @@ export async function middleware(req: NextRequest) {
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
     {
       cookies: {
-        get(name: string) { return req.cookies.get(name)?.value; },
-        set(name: string, value: string, options: CookieOptions) { response.cookies.set({ name, value, ...options }); },
-        remove(name: string, options: CookieOptions) { response.cookies.set({ name, value: '', ...options }); },
+        getAll() {
+          return request.cookies.getAll();
+        },
+        setAll(cookiesToSet) {
+          cookiesToSet.forEach(({ name, value, options }) => {
+            request.cookies.set(name, value);
+            response = NextResponse.next({ request });
+            response.cookies.set(name, value, options);
+          });
+        },
       },
     }
   );
 
   const { data: { session } } = await supabase.auth.getSession();
-  
-  // Если это админка и это не логин
-  if (path.startsWith('/admin') && !path.startsWith('/admin/login')) {
+
+  // Protect all /admin routes except /admin/login
+  if (request.nextUrl.pathname.startsWith('/admin') && request.nextUrl.pathname !== '/admin/login') {
     if (!session) {
-      console.log("!!! NO SESSION, REDIRECTING !!!");
-      return NextResponse.redirect(new URL('/admin/login', req.url));
+      return NextResponse.redirect(new URL('/admin/login', request.url));
+    }
+
+    // Role-based authorization check (e.g., check admin_profiles)
+    const { data: adminProfile } = await supabase
+      .from('admin_profiles')
+      .select('is_admin')
+      .eq('user_id', session.user.id)
+      .maybeSingle();
+
+    if (!adminProfile?.is_admin) {
+      return NextResponse.redirect(new URL('/', request.url));
     }
   }
 
@@ -36,6 +51,9 @@ export async function middleware(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/admin/:path*'],
+  matcher: [
+    '/admin/:path*',
+    // Exclude API routes and static assets if necessary
+    '/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)',
+  ],
 };
-
