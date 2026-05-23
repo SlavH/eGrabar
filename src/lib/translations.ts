@@ -76,7 +76,6 @@ export const translations = {
       "about": "About eGrabar",
       "scroll": "Scroll to explore"
     },
-
     "sections": {
       "library": "Library",
       "libraryDesc": "Access thousands of research papers, manuscripts, and historical documents.",
@@ -124,12 +123,46 @@ export const translations = {
     "admin": {
       "manageBooks": "Կառավարել Գրքերը",
       "manageNews": "Կառավարել Լրաշար",
+      "manageVideos": "Կառավարել Տեսանյութերը",
+      "managePresentations": "Կառավարել Ներկայացումները",
+      "manageCourses": "Կառավարել Դասընթացները",
+      "manageDonations": "Կառավարել Նվիրաբերությունները",
+      "addBook": "Ավելացնել Գիրք",
       "addNews": "Ավելացնել Նորություն",
-...
+      "addVideo": "Ավելացնել Տեսանյութ",
+      "addPresentation": "Ավելացնել Ներկայացում",
+      "addCourse": "Ավելացնել Դասընթաց",
+      "cancel": "Չեղարկել",
+      "save": "Պահպանել",
+      "delete": "Ջնջել",
+      "edit": "Խմբագրել",
+      "title": "Վերնագիր",
+      "titleEn": "Վերնագիր (Անգլերեն)",
+      "titleHy": "Վերնագիր (Հայերեն)",
+      "author": "Հեղինակ",
+      "authorEn": "Հեղինակ (Անգլերեն)",
+      "authorHy": "Հեղինակ (Հայերեն)",
+      "description": "Նկարագրություն",
+      "descriptionEn": "Նկարագրություն (Անգլերեն)",
+      "descriptionHy": "Նկարագրություն (Հայերեն)",
+      "content": "Բովանդակություն",
+      "contentEn": "Բովանդակություն (Անգլերեն)",
+      "contentHy": "Բովանդակություն (Հայերեն)",
+      "category": "Կատեգորիա",
+      "coverImage": "Նկար",
+      "pdfFile": "PDF ֆայլ",
+      "pdfUrl": "PDF URL",
+      "thumbnailUrl": "Նկար URL",
+      "videoUrl": "Տեսանյութ URL",
+      "youtubeId": "YouTube ID",
+      "duration": "Տևողություն",
+      "pptxUrl": "PPTX URL",
+      "date": "Ամսաթիվ",
+      "time": "Ժամ",
+      "zoomLink": "Zoom հղում",
       "instructor": "Վարող",
       "instructorEn": "Վարող (Անգլերեն)",
       "instructorHy": "Վարող (Հայերեն)",
-
       "donorName": "Նվիրողի Անուն",
       "amount": "Գումար",
       "message": "Հաղորդագրություն",
@@ -152,7 +185,6 @@ export const translations = {
       "about": "Ամարաս Կենտրոն",
       "scroll": "Ոլորեք՝ ուսումնասիրելու համար"
     },
-
     "sections": {
       "library": "Գրադարան",
       "libraryDesc": "Մուտք գործեք հազարավոր հետազոտությունների, ձեռագրերի և պատմական փաստաթղթերի:",
@@ -163,21 +195,20 @@ export const translations = {
       "courses": "Դասընթացներ",
       "coursesDesc": "Միանացեք գալիք դասընթացներին և սեմինարներին հայ գիտնականների հետ:"
     },
-      "common": {
-        "learnMore": "Իմանալ ավելին",
-        "viewAll": "Տեսնել բոլորը",
-        "noVideosYet": "Դեռ տեսանյութեր չկան",
-        "noVideosHint": "Ստուգեք շուտով կրթական բովանդակությունը",
-        "noPresentationsYet": "Դեռ ներկայացումներ չկան",
-        "noPresentationsHint": "Ստուգեք շուտով սլայդերի հավաքածուն",
-        "noEventsYet": "Դեռ իրադարձություններ չկան",
-        "noEventsHint": "Ստուգեք շուտով նախատեսված դասընթացներն ու սեմինարները",
-        "instructor": "Վարող:",
-        "join": "Միանալ",
-        "download": "Ներբեռնել",
-        "noNews": "Լրումներ չկան"
-      },
-
+    "common": {
+      "learnMore": "Իմանալ ավելին",
+      "viewAll": "Տեսնել բոլորը",
+      "noVideosYet": "Դեռ տեսանյութեր չկան",
+      "noVideosHint": "Ստուգեք շուտով կրթական բովանդակությունը",
+      "noPresentationsYet": "Դեռ ներկայացումներ չկան",
+      "noPresentationsHint": "Ստուգեք շուտով սլայդերի հավաքածուն",
+      "noEventsYet": "Դեռ իրադարձություններ չկան",
+      "noEventsHint": "Ստուգեք շուտով նախատեսված դասընթացներն ու սեմինարները",
+      "instructor": "Վարող:",
+      "join": "Միանալ",
+      "download": "Ներբեռնել",
+      "noNews": "Լրումներ չկան"
+    },
     "library": {
       "search": "Որոնել գրքեր, հոդվածներ, ձեռագրեր...",
       "noResults": "Գրքեր չեն գտնվել",
@@ -219,3 +250,4 @@ export interface Translation {
   library: Library;
   common: Common;
 }
+',filePath:
