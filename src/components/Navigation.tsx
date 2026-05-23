@@ -38,7 +38,7 @@ export default function Navigation() {
         <div className="max-w-[90rem] mx-auto px-6 flex items-center justify-between relative">
           <Link href="/" className="flex items-center gap-1.5 group relative z-[120]">
             <img src="/nur.png" alt="Logo" className="w-10 h-10 rounded-lg" />
-            <span className="text-2xl font-semibold tracking-wide whitespace-nowrap">
+            <span className="text-xl lg:text-2xl font-semibold tracking-wide whitespace-nowrap">
               <span className="text-blue-200">{language === 'en' ? 'eGrabar' : 'Գրաբար'}</span>
             </span>
           </Link>
@@ -113,7 +113,7 @@ export default function Navigation() {
       </div>
 
       {isOpen && (
-        <div className="lg:hidden bg-slate-950/90 backdrop-blur-2xl absolute top-full left-0 w-full p-4 border-t border-white/20 z-[100] max-h-[80vh] overflow-y-auto">
+        <div className="lg:hidden bg-slate-950/70 backdrop-blur-xl absolute top-full left-0 w-full p-4 border-t border-white/20 z-[100] max-h-[80vh] overflow-y-auto">
           {navLinks.map((link) => (
             <Link
               key={link.href}

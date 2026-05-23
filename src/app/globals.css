@@ -32,7 +32,7 @@
     @apply float-none mx-auto my-6 block;
   }
   .prose-custom img {
-    @apply rounded-xl shadow-lg my-2;
+    @apply rounded-xl shadow-lg my-2 max-w-full h-auto;
   }
   .prose-custom a {
     @apply text-blue-400 hover:text-blue-300 underline;
