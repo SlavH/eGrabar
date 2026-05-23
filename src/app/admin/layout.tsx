@@ -8,12 +8,13 @@ import { useApp } from '@/lib/context';
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   const { isAuthenticated, logout, t, language, authLoading } = useApp();
   const router = useRouter();
+  const pathname = typeof window !== 'undefined' ? window.location.pathname : '';
 
   useEffect(() => {
-    if (!authLoading && !isAuthenticated) {
+    if (!authLoading && !isAuthenticated && pathname !== '/admin/login') {
       router.push('/admin/login');
     }
-  }, [authLoading, isAuthenticated, router]);
+  }, [authLoading, isAuthenticated, router, pathname]);
 
   if (authLoading) {
     return (
@@ -21,6 +22,11 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         <div className="w-8 h-8 border-2 border-blue-600 border-t-transparent rounded-full animate-spin" />
       </div>
     );
+  }
+
+  // Allow access to login page
+  if (!isAuthenticated && pathname === '/admin/login') {
+    return <main className="pt-20">{children}</main>;
   }
 
   if (!isAuthenticated) {
