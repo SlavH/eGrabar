@@ -68,10 +68,10 @@ export default function LibraryGrid({ initialBooks = [] }: LibraryGridProps) {
             <GlassCard className="card-hover">
               <PdfCoverPreview src={book.pdf_file || ''} className="aspect-[3/4]" />
               <GlassCardContent>
-                <GlassCardTitle className="text-foreground group-hover:text-gold transition-colors">
+                <GlassCardTitle className="text-slate-100 group-hover:text-blue-300 transition-colors">
                   {language === 'en' ? book.title_en : book.title_hy}
                 </GlassCardTitle>
-                <GlassCardDescription className="text-foreground/60">{language === 'en' ? book.author_en : book.author_hy}</GlassCardDescription>
+                <GlassCardDescription className="text-slate-300/80">{language === 'en' ? book.author_en : book.author_hy}</GlassCardDescription>
               </GlassCardContent>
             </GlassCard>
           </a>
