@@ -23,10 +23,19 @@ export default function EventsPage() {
   }, []);
 
   const formatDate = (dateStr: string) => {
-    // Split date string to avoid timezone issues when parsing
+    // Split date string: YYYY-MM-DD
     const [year, month, day] = dateStr.split('-').map(Number);
-    const date = new Date(year, month - 1, day);
-    return date.toLocaleDateString(language === 'hy' ? 'hy-AM' : 'en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+    // Use UTC to create the date correctly
+    const date = new Date(Date.UTC(year, month - 1, day));
+    
+    // Explicitly pass the language code and format options
+    return date.toLocaleDateString(language === 'hy' ? 'hy-AM' : 'en-US', { 
+        weekday: 'long', 
+        year: 'numeric', 
+        month: 'long', 
+        day: 'numeric',
+        timeZone: 'UTC' 
+    });
   };
 
   return (
