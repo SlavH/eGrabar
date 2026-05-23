@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { Event } from '@/types';
 import { useApp } from '@/lib/context';
 import Hero from '@/components/Hero';
+import { formatArmenianDate } from '@/lib/dateFormatter';
 
 export default function EventsPage() {
   const { t, language, getLocalizedText } = useApp();
@@ -22,10 +23,6 @@ export default function EventsPage() {
     }
     fetchEvents();
   }, []);
-
-import { formatArmenianDate } from '@/lib/dateFormatter';
-
-// ... (in your component)
 
   const formatDate = (dateStr: string) => {
     return language === 'hy' 
