@@ -29,10 +29,8 @@ export default function PdfCoverPreview({ src, className = '' }: PdfCoverPreview
         const pdfUrl = typeof src === 'string' ? src : '';
         if (!pdfUrl) throw new Error('Invalid PDF URL');
 
-        const pdfjsLib = await import('pdfjs-dist/build/pdf.mjs');
-        
-        // Ensure we load from a reliable CDN, let's try a different approach if necessary
-        // but sticking to the correct version found in package.json
+        const pdfjsLib = await import('pdfjs-dist');
+        // Use a version of pdf.js worker that actually exists on cdnjs
         const version = '3.11.174'; 
         pdfjsLib.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${version}/pdf.worker.min.js`;
         
@@ -41,6 +39,7 @@ export default function PdfCoverPreview({ src, className = '' }: PdfCoverPreview
           cMapUrl: `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${version}/cmaps/`,
           cMapPacked: true,
         });
+
 
         loadingTask.onProgress = (progress) => {
             console.log('PDF load progress:', progress);
