@@ -133,8 +133,8 @@ export default function AdminPresentationsPage() {
       {loading ? (
         <div className="space-y-4">{[...Array(3)].map((_, i) => <div key={i} className="h-16 bg-white/5 rounded-lg animate-pulse" />)}</div>
       ) : (
-        <div className="bg-white/5 backdrop-blur-md rounded-xl border border-white/10 overflow-x-auto">
-          <table className="w-full min-w-[400px]">
+        <div className="bg-white/5 backdrop-blur-md rounded-xl border border-white/10 overflow-x-auto p-6">
+        <table className="w-full min-w-[400px] text-white">
             <thead className="border-b border-white/10">
               <tr className="text-left text-slate-300 text-sm">
                 <th className="p-4">{language === 'en' ? 'English Title' : 'Վերնագիր (EN)'}</th>
