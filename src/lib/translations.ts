@@ -172,7 +172,7 @@ export const translations = {
         "noPresentationsHint": "Ստուգեք շուտով սլայդերի հավաքածուն",
         "noEventsYet": "Դեռ իրադարձություններ չկան",
         "noEventsHint": "Ստուգեք շուտով նախատեսված դասընթացներն ու սեմինարները",
-        "instructor": "Վարող",
+        "instructor": "Վարող:",
         "join": "Միանալ",
         "download": "Ներբեռնել",
         "noNews": "Լրումներ չկան"
