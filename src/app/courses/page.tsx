@@ -25,8 +25,7 @@ export default function EventsPage() {
   const formatDate = (dateStr: string) => {
     const date = new Date(dateStr);
     // Force UTC to ensure consistent date representation across timezones
-    const utcDate = new Date(date.getTime() + date.getTimezoneOffset() * 60000);
-    return utcDate.toLocaleDateString(language === 'hy' ? 'hy-AM' : 'en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+    return date.toLocaleDateString(language === 'hy' ? 'hy-AM' : 'en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
   };
 
   return (

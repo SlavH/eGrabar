@@ -51,7 +51,7 @@ export default function PresentationsPage() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {presentations.map((ppt) => (
               <div key={ppt.id} className="group bg-white/10 backdrop-blur-md rounded-xl overflow-hidden border border-white/20 card-hover">
-                <div className="aspect-[3/4] relative overflow-hidden bg-white/5">
+                <a href={ppt.pdf_file} target="_blank" rel="noopener noreferrer" className="aspect-[3/4] relative overflow-hidden bg-white/5 block">
                   {ppt.pdf_file ? (
                     <PdfCoverPreview src={ppt.pdf_file} className="w-full h-full object-cover" />
                   ) : (
@@ -61,7 +61,7 @@ export default function PresentationsPage() {
                         </svg>
                     </div>
                   )}
-                </div>
+                </a>
                 <div className="p-4">
                   <h3 className="font-semibold text-slate-100 line-clamp-2 mb-3 group-hover:text-blue-300 transition-colors">{getLocalizedText(ppt, 'title')}</h3>
                   {ppt.pdf_file && (

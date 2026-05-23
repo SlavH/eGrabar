@@ -113,7 +113,7 @@ export default function Navigation() {
       </div>
 
       {isOpen && (
-        <div className="lg:hidden glass absolute top-full left-0 w-full p-4 border-t border-white/20 z-[100] backdrop-blur-md max-h-[80vh] overflow-y-auto">
+        <div className="lg:hidden bg-slate-950/80 backdrop-blur-md absolute top-full left-0 w-full p-4 border-t border-white/20 z-[100] max-h-[80vh] overflow-y-auto">
           {navLinks.map((link) => (
             <Link
               key={link.href}
