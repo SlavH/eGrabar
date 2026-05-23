@@ -41,6 +41,15 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ ok: false, error: 'Not authorized' }, { status: 403 })
     }
 
+    // Set the session cookie for the frontend check
+    response.cookies.set('admin_session', '1', {
+      httpOnly: false, // Frontend reads it via document.cookie
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'lax',
+      path: '/',
+      maxAge: 60 * 60 * 24 * 7 // 1 week
+    })
+
     return response
   } catch (e) {
     console.error('Login error:', e);
