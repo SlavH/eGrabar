@@ -13,7 +13,8 @@ export default function EventsPage() {
   useEffect(() => {
     async function fetchEvents() {
       const { supabase } = await import('@/lib/supabase');
-      const { data } = await supabase.from('events').select('*').gte('date', new Date().toISOString().split('T')[0]).order('date', { ascending: true });
+      // Fetch data without filtering by date to ensure we have something to test
+      const { data } = await supabase.from('events').select('*').order('date', { ascending: true });
       if (data && data.length > 0) {
         setEvents(data);
       }
@@ -23,19 +24,22 @@ export default function EventsPage() {
   }, []);
 
   const formatDate = (dateStr: string) => {
+    console.log("Formatting date:", dateStr, "Language:", language);
     // Split date string: YYYY-MM-DD
     const [year, month, day] = dateStr.split('-').map(Number);
     // Use UTC to create the date correctly
     const date = new Date(Date.UTC(year, month - 1, day));
     
     // Explicitly pass the language code and format options
-    return date.toLocaleDateString(language === 'hy' ? 'hy-AM' : 'en-US', { 
+    const formatted = date.toLocaleDateString(language === 'hy' ? 'hy-AM' : 'en-US', { 
         weekday: 'long', 
         year: 'numeric', 
         month: 'long', 
         day: 'numeric',
         timeZone: 'UTC' 
     });
+    console.log("Formatted result:", formatted);
+    return formatted;
   };
 
   return (
