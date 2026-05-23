@@ -51,7 +51,18 @@ export default function PresentationsPage() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {presentations.map((ppt) => (
               <div key={ppt.id} className="group bg-white/10 backdrop-blur-md rounded-xl overflow-hidden border border-white/20 card-hover flex flex-col">
-                <a href={ppt.pdf_file} target="_blank" rel="noopener noreferrer" className="aspect-[3/4] relative overflow-hidden bg-white/5 block flex-shrink-0">
+                <a 
+                    href={ppt.pdf_file} 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    className="aspect-[3/4] relative overflow-hidden bg-white/5 block flex-shrink-0"
+                    onClick={(e) => {
+                      if (!ppt.pdf_file || ppt.pdf_file === '' || ppt.pdf_file === '#') {
+                        e.preventDefault();
+                        alert('PDF not available');
+                      }
+                    }}
+                >
                   {ppt.pdf_file ? (
                     <PdfCoverPreview src={ppt.pdf_file} className="w-full h-full object-cover" />
                   ) : (

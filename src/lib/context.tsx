@@ -43,6 +43,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     async function checkAuth() {
       const { data: { session } } = await supabase.auth.getSession();
+      console.log('Context Auth Session:', session);
       if (session?.user) {
         setUser({ id: session.user.id, email: session.user.email || '' });
       }
