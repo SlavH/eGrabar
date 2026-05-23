@@ -71,7 +71,7 @@ export default function AdminVideosPage() {
         if (error) console.error(error);
       }
       
-      setForm({ title_en: '', title_hy: '', youtube_url: '' });
+      setForm({ title_en: '', title_hy: '', youtube_url: '', description_en: '', description_hy: '' });
       setEditingId(null);
       setShowForm(false);
       fetchVideos();
