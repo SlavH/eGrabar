@@ -35,10 +35,20 @@ export default function AdminAmarasPage() {
     e.preventDefault();
     const { supabase } = await import('@/lib/supabase');
     
+    // Remove show_on_home from the update if it's causing issues, or fix the form submission
+    // Based on the error 400 Bad Request, let's explicitly build the object to ensure only valid columns are sent
+    const submissionData = {
+      title_en: form.title_en,
+      title_hy: form.title_hy,
+      content_en: form.content_en,
+      content_hy: form.content_hy,
+      show_on_home: form.show_on_home
+    };
+
     if (editingId) {
-      await supabase.from('amaras').update(form).eq('id', editingId);
+      await supabase.from('amaras').update(submissionData).eq('id', editingId);
     } else {
-      await supabase.from('amaras').insert([form]);
+      await supabase.from('amaras').insert([submissionData]);
     }
     
     setForm({ title_en: '', title_hy: '', content_en: '', content_hy: '', show_on_home: false });
