@@ -35,16 +35,8 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     return null;
   }
 
-  const adminNav = [
-    { href: '/admin', label: language === 'en' ? 'Dashboard' : 'Վահանակ', icon: '📊' },
-    { href: '/admin/amaras', label: language === 'en' ? 'Amaras' : 'Ամարաս', icon: '🏛️' },
-    { href: '/admin/news', label: language === 'en' ? 'News' : 'Լրաշար', icon: '📰' },
-    { href: '/admin/books', label: language === 'en' ? 'Books' : 'Գրքեր', icon: '📚' },
-    { href: '/admin/videos', label: language === 'en' ? 'Videos' : 'Տեսանյութեր', icon: '🎥' },
-    { href: '/admin/presentations', label: language === 'en' ? 'Presentations' : 'Ներկայացումներ', icon: '📊' },
-    { href: '/admin/courses', label: language === 'en' ? 'Courses' : 'Դասընթացներ', icon: '🎓' },
-  ];
-
+  // Debug: Confirm rendering
+  console.log('Rendering AdminLayout children');
   return (
     <div className="min-h-screen pt-20">
       <div className="flex">
