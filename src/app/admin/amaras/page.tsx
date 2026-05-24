@@ -121,14 +121,6 @@ export default function AdminAmarasPage() {
                 onChange={content_hy => setForm({...form, content_hy})} 
                 placeholder="Content (Armenian)" 
               />
-              <label className="flex items-center gap-2 mt-4 text-slate-100">
-                <input 
-                  type="checkbox" 
-                  checked={form.show_on_home} 
-                  onChange={e => setForm({...form, show_on_home: e.target.checked})} 
-                />
-                Show on Home
-              </label>
             </div>
           </div>
           <button type="submit" className="px-6 py-2 bg-blue-600/80 backdrop-blur-md text-white font-semibold rounded-lg mt-4 hover:bg-blue-600 transition-colors">
