@@ -42,12 +42,12 @@ export default function AmarasCenterPage() {
         ) : (
           <div className="grid grid-cols-1 gap-8">
             {amaras.map((item) => (
-              <GlassCard key={item.id} className="p-8">
+              <GlassCard key={item.id} className="p-8 xl:col-span-3">
                 <h3 className="text-3xl font-bold text-blue-300 mb-6">
                   {getLocalizedText(item, 'title')}
                 </h3>
                 <div 
-                  className="text-slate-300 leading-relaxed prose-custom"
+                  className="text-slate-300 leading-relaxed prose-custom prose-lg"
                   dangerouslySetInnerHTML={{ __html: getLocalizedText(item, 'content') }}
                 />
               </GlassCard>
