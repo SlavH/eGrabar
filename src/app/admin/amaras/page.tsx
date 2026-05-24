@@ -40,15 +40,13 @@ export default function AdminAmarasPage() {
           title_en: form.title_en,
           title_hy: form.title_hy,
           content_en: form.content_en,
-          content_hy: form.content_hy,
-          show_on_home: form.show_on_home
+          content_hy: form.content_hy
         }).eq('id', editingId)
       : await supabase.from('amaras').insert([{
           title_en: form.title_en,
           title_hy: form.title_hy,
           content_en: form.content_en,
-          content_hy: form.content_hy,
-          show_on_home: form.show_on_home
+          content_hy: form.content_hy
         }]);
 
     if (error) {
