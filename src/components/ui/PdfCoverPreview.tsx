@@ -85,8 +85,12 @@ export default function PdfCoverPreview({ src, className = '' }: PdfCoverPreview
 
   if (error || !src) {
     return (
-      <div className={`w-full h-full flex items-center justify-center bg-zinc-900/50 text-gold ${className}`}>
-        Book
+      <div className={`w-full h-full flex flex-col items-center justify-center bg-zinc-900/50 text-gold ${className}`}>
+        {error ? (
+          <span className="text-xs text-center px-2">Preview unavailable</span>
+        ) : (
+          <span>Book</span>
+        )}
       </div>
     );
   }
