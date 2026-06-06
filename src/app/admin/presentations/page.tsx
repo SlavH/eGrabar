@@ -90,7 +90,10 @@ export default function AdminPresentationsPage() {
     console.log("Uploading file:", fileName);
 
     const { supabase: sb } = await import('@/lib/supabase');
-    const { data, error } = await sb.storage.from('presentations').upload(fileName, file);
+      const { data, error } = await sb.storage.from('presentations').upload(fileName, file, {
+        upsert: true,
+        cacheControl: '3600',
+      });
     if (error) { 
       console.error("Upload error:", error);
       alert("Upload failed: " + error.message);
