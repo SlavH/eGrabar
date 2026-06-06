@@ -55,18 +55,14 @@ export default function AdminVideosPage() {
         const { error } = await supabase.from('videos').update({
           title_en: form.title_en,
           title_hy: form.title_hy,
-          youtube_url: form.youtube_url,
-          description_en: form.description_en,
-          description_hy: form.description_hy,
+          youtube_url: form.youtube_url
         }).eq('id', editingId);
         if (error) console.error(error);
       } else {
         const { error } = await supabase.from('videos').insert([{
           title_en: form.title_en,
           title_hy: form.title_hy,
-          youtube_url: form.youtube_url,
-          description_en: form.description_en,
-          description_hy: form.description_hy,
+          youtube_url: form.youtube_url
         }]);
         if (error) console.error(error);
       }
