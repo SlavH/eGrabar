@@ -38,6 +38,7 @@ export default function PdfCoverPreview({ src, className = '' }: PdfCoverPreview
           url: pdfUrl,
           cMapUrl: `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${version}/cmaps/`,
           cMapPacked: true,
+          httpHeaders: { 'Access-Control-Allow-Origin': '*' },
         });
 
 
