@@ -155,7 +155,17 @@ export default function AdminBooksPage() {
             </div>
             
             <label className="flex flex-col gap-2 text-slate-300">
-              <span>{t.admin.pdfFile}:</span>
+              <span>{t.admin.pdfFile} (URL):</span>
+              <input 
+                type="text" 
+                placeholder="https://..." 
+                value={form.pdf_file} 
+                onChange={e => setForm({...form, pdf_file: e.target.value})} 
+                className="w-full px-4 py-2 bg-white/5 border border-white/10 rounded-lg text-slate-100 placeholder-slate-400"
+              />
+            </label>
+            <label className="flex flex-col gap-2 text-slate-300">
+              <span>{t.admin.pdfFile} (Upload):</span>
               <input type="file" accept="application/pdf" onChange={handleFileUpload} className="text-slate-100" />
             </label>
           </div>
