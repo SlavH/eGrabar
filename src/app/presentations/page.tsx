@@ -58,12 +58,13 @@ export default function PresentationsPage() {
                     download
                     className="aspect-[3/4] relative overflow-hidden bg-white/5 block flex-shrink-0"
                     onClick={(e) => {
-                      console.log("PDF URL:", ppt.pdf_file);
+                      console.log("PDF URL check:", ppt.pdf_file);
                       if (!ppt.pdf_file || ppt.pdf_file === '' || ppt.pdf_file === '#') {
                         e.preventDefault();
+                        console.log("PDF URL is missing or invalid");
                         alert('PDF not available');
                       } else {
-                          console.log("Attempting to open/download:", ppt.pdf_file);
+                          console.log("PDF URL is valid:", ppt.pdf_file);
                       }
                     }}
                 >
