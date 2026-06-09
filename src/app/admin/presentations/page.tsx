@@ -53,14 +53,22 @@ export default function AdminPresentationsPage() {
           title_hy: form.title_hy,
           pdf_file: form.pdf_file,
         }).eq('id', editingId);
-        if (error) console.error(error);
+        if (error) {
+          console.error("Update error:", error);
+          alert("Failed to update: " + error.message);
+          return;
+        }
       } else {
         const { error } = await supabase.from('presentations').insert([{
           title_en: form.title_en,
           title_hy: form.title_hy,
           pdf_file: form.pdf_file,
         }]);
-        if (error) console.error(error);
+        if (error) {
+          console.error("Insert error:", error);
+          alert("Failed to insert: " + error.message);
+          return;
+        }
       }
       
       setForm({ title_en: '', title_hy: '', pdf_file: '' });
