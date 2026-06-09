@@ -105,9 +105,7 @@ export default function AdminPresentationsPage() {
     }
     
     const { data: urlData } = sb.storage.from('books').getPublicUrl(fileName);
-    const uploadedUrl = urlData?.publicUrl || '';
-    
-    setForm(prev => ({ ...prev, pdf_file: uploadedUrl }));
+    setForm(prev => ({ ...prev, pdf_file: urlData?.publicUrl || '' }));
   };
 
   return (
