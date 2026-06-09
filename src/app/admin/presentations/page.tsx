@@ -15,10 +15,12 @@ export default function AdminPresentationsPage() {
   const [loading, setLoading] = useState(true);
   const [showForm, setShowForm] = useState(false);
   const [editingId, setEditingId] = useState<string | null>(null);
+  const [submitting, setSubmitting] = useState(false);
   const [form, setForm] = useState<PresentationForm>({ 
     title_en: '', title_hy: '', pdf_file: '' 
   });
   const { t, language } = useApp();
+  const submittedRef = useRef(false);
 
   useEffect(() => {
     fetchPresentations();
@@ -41,43 +43,6 @@ export default function AdminPresentationsPage() {
     });
     setShowForm(true);
   }
-
-  const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (!e.target.files?.[0]) return;
-    const file = e.target.files[0];
-    
-    // Clean the filename to be purely alphanumeric and safe
-    const cleanFileName = file.name.replace(/[^a-zA-Z0-9.-]/g, '_');
-    const fileName = `presentation_${Date.now()}_${cleanFileName}`;
-    
-    console.log("Uploading file:", fileName);
-
-    const { supabase: sb } = await import('@/lib/supabase');
-    const { data, error } = await sb.storage.from('books').upload(fileName, file, {
-        upsert: true,
-        cacheControl: '3600',
-    });
-    if (error) { 
-      console.error("Upload error:", error);
-      alert("Upload failed: " + error.message);
-      return; 
-    }
-    
-    // Construct public URL manually
-    const url = `https://otlraznomgebrztljxta.supabase.co/storage/v1/object/public/books/${fileName}`;
-    
-    console.log("Setting pdf_file in form to:", url);
-    // Update the ref or the state in a way that is immediately available
-    setForm(prev => {
-        const next = { ...prev, pdf_file: url };
-        console.log("New form state:", next);
-        return next;
-    });
-  };
-
-  // Use a ref to hold the file URL to avoid React state lag
-  const [submitting, setSubmitting] = useState(false);
-  const submittedRef = useRef(false);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -118,119 +83,6 @@ export default function AdminPresentationsPage() {
     }
   }
 
-  const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (!e.target.files?.[0]) return;
-    const file = e.target.files[0];
-    
-    const { supabase: sb } = await import('@/lib/supabase');
-    const fileName = `${Date.now()}_${file.name.replace(/[^a-zA-Z0-9.-]/g, '_')}`;
-    
-    const { data, error } = await sb.storage.from('books').upload(fileName, file);
-    if (error) { 
-      console.error("Upload error:", error);
-      return; 
-    }
-    
-    const { data: urlData } = sb.storage.from('books').getPublicUrl(fileName);
-    setForm(prev => ({ ...prev, pdf_file: urlData?.publicUrl || '' }));
-  };
-
-    console.log("Submitting payload:", payload);
-    
-    if (!payload.pdf_file) {
-        alert("Wait for the file to finish uploading!");
-        return;
-    }
-    
-    try {
-      const { supabase } = await import('@/lib/supabase');
-      
-      if (editingId) {
-        const { error } = await supabase.from('presentations').update(payload).eq('id', editingId);
-        if (error) {
-          console.error("Update error:", error);
-          alert("Failed to update: " + error.message);
-          return;
-        }
-      } else {
-        const { error } = await supabase.from('presentations').insert([payload]);
-        if (error) {
-          console.error("Insert error:", error);
-          alert("Failed to insert: " + error.message);
-          return;
-        }
-      }
-      
-      alert("Successfully saved!");
-      pdfUrlRef.current = ''; // Reset ref
-      setForm({ title_en: '', title_hy: '', pdf_file: '' });
-      setEditingId(null);
-      setShowForm(false);
-      fetchPresentations();
-    } catch (err) {
-      console.error(err);
-      alert("An unexpected error occurred.");
-    }
-  }
-
-  const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (!e.target.files?.[0]) return;
-    const file = e.target.files[0];
-    const fileName = `presentation_${Date.now()}_${file.name.replace(/[^a-zA-Z0-9.-]/g, '_')}`;
-    
-    const { supabase: sb } = await import('@/lib/supabase');
-    const { error } = await sb.storage.from('books').upload(fileName, file, {
-        upsert: true,
-        cacheControl: '3600',
-    });
-    if (error) { 
-      alert("Upload failed: " + error.message);
-      return; 
-    }
-    
-    const url = `https://otlraznomgebrztljxta.supabase.co/storage/v1/object/public/books/${fileName}`;
-    pdfUrlRef.current = url; // Set ref immediately
-    setForm(prev => ({ ...prev, pdf_file: url })); // Sync state for UI
-  };
-
-
-      console.log("Submitting payload:", payload);
-      
-      if (!payload.pdf_file) {
-        alert("Wait for the file to finish uploading!");
-        return;
-      }
-      
-      if (editingId) {
-        const { error } = await supabase.from('presentations').update(payload).eq('id', editingId);
-        console.log("Update response error:", error);
-        if (error) {
-          console.error("Update error:", error);
-          alert("Failed to update: " + error.message);
-          return;
-        }
-      } else {
-        console.log("Inserting with form:", payload);
-        const { error } = await supabase.from('presentations').insert([payload]);
-        console.log("Insert response error:", error);
-        if (error) {
-          console.error("Insert error:", error);
-          alert("Failed to insert: " + error.message);
-          return;
-        }
-      }
-      
-      alert("Successfully saved!");
-      setForm({ title_en: '', title_hy: '', pdf_file: '' });
-      setEditingId(null);
-      setShowForm(false);
-      fetchPresentations();
-    } catch (err) {
-      console.error(err);
-      alert("An unexpected error occurred.");
-    }
-  }
-
   async function handleDelete(id: string) {
     const { supabase } = await import('@/lib/supabase');
     const { error } = await supabase.from('presentations').delete().eq('id', id);
@@ -242,32 +94,18 @@ export default function AdminPresentationsPage() {
     if (!e.target.files?.[0]) return;
     const file = e.target.files[0];
     
-    // Clean the filename to be purely alphanumeric and safe
-    const cleanFileName = file.name.replace(/[^a-zA-Z0-9.-]/g, '_');
-    const fileName = `presentation_${Date.now()}_${cleanFileName}`;
-    
-    console.log("Uploading file:", fileName);
-
     const { supabase: sb } = await import('@/lib/supabase');
-    const { data, error } = await sb.storage.from('books').upload(fileName, file, {
-        upsert: true,
-        cacheControl: '3600',
-    });
+    const fileName = `${Date.now()}_${file.name.replace(/[^a-zA-Z0-9.-]/g, '_')}`;
+    
+    const { data, error } = await sb.storage.from('books').upload(fileName, file);
     if (error) { 
       console.error("Upload error:", error);
       alert("Upload failed: " + error.message);
       return; 
     }
     
-    // Construct public URL manually because getPublicUrl might not be working as expected in all environments
-    const url = `https://otlraznomgebrztljxta.supabase.co/storage/v1/object/public/books/${fileName}`;
-    
-    console.log("Setting pdf_file in form to:", url);
-    setForm(prev => {
-        const next = { ...prev, pdf_file: url };
-        console.log("New form state:", next);
-        return next;
-    });
+    const { data: urlData } = sb.storage.from('books').getPublicUrl(fileName);
+    setForm({ ...form, pdf_file: urlData?.publicUrl || '' });
   };
 
   return (
@@ -315,7 +153,9 @@ export default function AdminPresentationsPage() {
               <input type="file" accept="application/pdf" onChange={handleFileUpload} className="text-slate-100" />
             </label>
           </div>
-          <button type="submit" className="px-6 py-2 bg-blue-600/80 backdrop-blur-md text-white font-semibold rounded-lg mt-4 hover:bg-blue-600 transition-colors">{t.admin.save}</button>
+          <button type="submit" disabled={submitting} className="px-6 py-2 bg-blue-600/80 backdrop-blur-md text-white font-semibold rounded-lg mt-4 disabled:opacity-50">
+            {submitting ? 'Saving...' : t.admin.save}
+          </button>
         </form>
       )}
 
