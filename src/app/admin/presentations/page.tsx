@@ -90,17 +90,17 @@ export default function AdminPresentationsPage() {
     console.log("Uploading file:", fileName);
 
     const { supabase: sb } = await import('@/lib/supabase');
-      const { data, error } = await sb.storage.from('presentations').upload(fileName, file, {
+    const { data, error } = await sb.storage.from('books').upload(fileName, file, {
         upsert: true,
         cacheControl: '3600',
-      });
+    });
     if (error) { 
       console.error("Upload error:", error);
       alert("Upload failed: " + error.message);
       return; 
     }
     
-    const { data: urlData } = sb.storage.from('presentations').getPublicUrl(fileName);
+    const { data: urlData } = sb.storage.from('books').getPublicUrl(fileName);
     const url = urlData?.publicUrl ?? '';
     console.log("Public URL:", url);
     setForm({ ...form, pdf_file: url });
