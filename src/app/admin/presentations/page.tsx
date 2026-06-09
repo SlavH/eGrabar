@@ -42,13 +42,53 @@ export default function AdminPresentationsPage() {
     setShowForm(true);
   }
 
+  const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (!e.target.files?.[0]) return;
+    const file = e.target.files[0];
+    
+    // Clean the filename to be purely alphanumeric and safe
+    const cleanFileName = file.name.replace(/[^a-zA-Z0-9.-]/g, '_');
+    const fileName = `presentation_${Date.now()}_${cleanFileName}`;
+    
+    console.log("Uploading file:", fileName);
+
+    const { supabase: sb } = await import('@/lib/supabase');
+    const { data, error } = await sb.storage.from('books').upload(fileName, file, {
+        upsert: true,
+        cacheControl: '3600',
+    });
+    if (error) { 
+      console.error("Upload error:", error);
+      alert("Upload failed: " + error.message);
+      return; 
+    }
+    
+    // Construct public URL manually
+    const url = `https://otlraznomgebrztljxta.supabase.co/storage/v1/object/public/books/${fileName}`;
+    
+    console.log("Setting pdf_file in form to:", url);
+    // Update the ref or the state in a way that is immediately available
+    setForm(prev => {
+        const next = { ...prev, pdf_file: url };
+        console.log("New form state:", next);
+        return next;
+    });
+  };
+
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    console.log("Submitting. Current form state:", form);
+    
+    // Get the latest values directly from the UI or state if possible.
+    // The issue is likely that handleSubmit is still seeing an stale `form` state.
+    // I'll re-log the form here to confirm.
+    console.log("handleSubmit called. Current form state:", form);
+    
     try {
       const { supabase } = await import('@/lib/supabase');
       
-      // Use the current form state directly
+      // Use the latest available form state (it seems 'form' is not updating in time for submit)
+      // I will add a small trick to ensure we have the latest URL if it's set in state.
+      
       const payload = {
         title_en: form.title_en,
         title_hy: form.title_hy,
@@ -56,6 +96,11 @@ export default function AdminPresentationsPage() {
       };
 
       console.log("Submitting payload:", payload);
+      
+      if (!payload.pdf_file) {
+        alert("Wait for the file to finish uploading!");
+        return;
+      }
       
       if (editingId) {
         const { error } = await supabase.from('presentations').update(payload).eq('id', editingId);
@@ -66,6 +111,7 @@ export default function AdminPresentationsPage() {
           return;
         }
       } else {
+        console.log("Inserting with form:", payload);
         const { error } = await supabase.from('presentations').insert([payload]);
         console.log("Insert response error:", error);
         if (error) {
