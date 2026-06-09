@@ -61,6 +61,10 @@ export default function PresentationsPage() {
                       if (!ppt.pdf_file || ppt.pdf_file === '' || ppt.pdf_file === '#') {
                         e.preventDefault();
                         alert('PDF not available');
+                      } else {
+                          // Force download behavior by appending a download attribute if possible
+                          // or just ensuring the href is valid
+                          console.log("Attempting to open/download:", ppt.pdf_file);
                       }
                     }}
                 >
