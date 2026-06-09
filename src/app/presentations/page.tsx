@@ -55,6 +55,7 @@ export default function PresentationsPage() {
                     href={ppt.pdf_file} 
                     target="_blank" 
                     rel="noopener noreferrer" 
+                    download
                     className="aspect-[3/4] relative overflow-hidden bg-white/5 block flex-shrink-0"
                     onClick={(e) => {
                       console.log("PDF URL:", ppt.pdf_file);
@@ -62,8 +63,6 @@ export default function PresentationsPage() {
                         e.preventDefault();
                         alert('PDF not available');
                       } else {
-                          // Force download behavior by appending a download attribute if possible
-                          // or just ensuring the href is valid
                           console.log("Attempting to open/download:", ppt.pdf_file);
                       }
                     }}
