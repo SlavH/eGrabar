@@ -108,9 +108,18 @@ export default function AdminPresentationsPage() {
       return; 
     }
     
+    // Use an absolute path for storage, or ensure the bucket exists.
+    // The previous logs suggest it successfully uploaded to 'books'.
+    // Let's ensure the path is consistent.
     const { data: urlData } = sb.storage.from('books').getPublicUrl(fileName);
     const url = urlData?.publicUrl ?? '';
-    console.log("Public URL:", url);
+    
+    // In some Supabase configurations, publicUrl doesn't return the full URL if not set up correctly.
+    // Let's try to construct it manually if needed, or stick to what is provided.
+    // Based on the logs: "https://otlraznomgebrztljxta.supabase.co/storage/v1/object/public/books/..."
+    // That looks correct.
+    
+    console.log("Setting pdf_file in form to:", url);
     setForm(prev => ({ ...prev, pdf_file: url }));
   };
 
