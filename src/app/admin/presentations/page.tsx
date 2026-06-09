@@ -44,10 +44,11 @@ export default function AdminPresentationsPage() {
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
+    console.log("Submitting. Current form state:", form);
     try {
       const { supabase } = await import('@/lib/supabase');
       
-      // Use the current form state for submission
+      // Use the current form state directly
       const payload = {
         title_en: form.title_en,
         title_hy: form.title_hy,
@@ -74,12 +75,14 @@ export default function AdminPresentationsPage() {
         }
       }
       
+      alert("Successfully saved!");
       setForm({ title_en: '', title_hy: '', pdf_file: '' });
       setEditingId(null);
       setShowForm(false);
       fetchPresentations();
     } catch (err) {
       console.error(err);
+      alert("An unexpected error occurred.");
     }
   }
 
