@@ -39,7 +39,7 @@ export default function PresentationsPage() {
           </div>
         ) : presentations.length === 0 ? (
           <div className="text-center py-20 text-white">
-            <h3 className="text-xl font-semibold mb-2">No presentations found.</h3>
+            <h3 className="text-xl font-semibold mb-2">{t.common.noPresentationsYet}</h3>
           </div>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
@@ -51,11 +51,9 @@ export default function PresentationsPage() {
                     rel="noopener noreferrer" 
                     className="aspect-[3/4] relative overflow-hidden bg-white/5 block flex-shrink-0"
                     onClick={(e) => {
-                      console.log("PDF URL check:", ppt.pdf_file);
                       if (!ppt.pdf_file || ppt.pdf_file.trim() === '') {
                         e.preventDefault();
-                        console.log("PDF URL is missing. Full object:", ppt);
-                        alert('PDF not available for: ' + ppt.title_en);
+                        alert('PDF not available');
                       }
                     }}
                 >
@@ -69,9 +67,11 @@ export default function PresentationsPage() {
                 </a>
                 <div className="p-4 flex-grow flex flex-col justify-between">
                   <h3 className="font-semibold text-slate-100 line-clamp-2 mb-3">{getLocalizedText(ppt, 'title')}</h3>
-                  <a href={ppt.pdf_file || '#'} target="_blank" rel="noopener noreferrer" className="w-full py-2 bg-blue-600/80 backdrop-blur-md text-white rounded-lg text-sm font-medium hover:bg-blue-600 transition-colors block text-center">
-                    {t.common.download}
-                  </a>
+                  {ppt.pdf_file && (
+                    <a href={ppt.pdf_file} target="_blank" rel="noopener noreferrer" className="w-full py-2 bg-blue-600/80 backdrop-blur-md text-white rounded-lg text-sm font-medium hover:bg-blue-600 transition-colors block text-center">
+                      {t.common.download}
+                    </a>
+                  )}
                 </div>
               </div>
             ))}
