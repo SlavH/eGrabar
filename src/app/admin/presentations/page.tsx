@@ -115,7 +115,11 @@ export default function AdminPresentationsPage() {
     const url = `https://otlraznomgebrztljxta.supabase.co/storage/v1/object/public/books/${fileName}`;
     
     console.log("Setting pdf_file in form to:", url);
-    setForm(prev => ({ ...prev, pdf_file: url }));
+    setForm(prev => {
+        const next = { ...prev, pdf_file: url };
+        console.log("New form state:", next);
+        return next;
+    });
   };
 
   return (
