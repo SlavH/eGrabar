@@ -44,29 +44,23 @@ export default function AdminPresentationsPage() {
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    console.log("Submitting form with form state:", form);
     try {
       const { supabase } = await import('@/lib/supabase');
       
-      const payload = {
-        title_en: form.title_en,
-        title_hy: form.title_hy,
-        pdf_file: form.pdf_file,
-      };
-      console.log("Submitting payload:", payload);
-      
       if (editingId) {
-        const { error } = await supabase.from('presentations').update(payload).eq('id', editingId);
-        if (error) {
-          console.error("Update error:", error);
-          alert("Update failed: " + error.message);
-        }
+        const { error } = await supabase.from('presentations').update({
+          title_en: form.title_en,
+          title_hy: form.title_hy,
+          pdf_file: form.pdf_file,
+        }).eq('id', editingId);
+        if (error) console.error(error);
       } else {
-        const { error } = await supabase.from('presentations').insert([payload]);
-        if (error) {
-          console.error("Insert error:", error);
-          alert("Insert failed: " + error.message);
-        }
+        const { error } = await supabase.from('presentations').insert([{
+          title_en: form.title_en,
+          title_hy: form.title_hy,
+          pdf_file: form.pdf_file,
+        }]);
+        if (error) console.error(error);
       }
       
       setForm({ title_en: '', title_hy: '', pdf_file: '' });
