@@ -11,11 +11,13 @@ export default function PresentationsPage() {
   const [loading, setLoading] = useState(true);
   const { t, getLocalizedText } = useApp();
 
-  useEffect(() => {
+    useEffect(() => {
     async function fetchPresentations() {
       const { supabase } = await import('@/lib/supabase');
-      const { data } = await supabase.from('presentations').select('*').order('created_at', { ascending: false });
-      if (data && data.length > 0) {
+      const { data, error } = await supabase.from('presentations').select('*').order('created_at', { ascending: false });
+      if (error) console.error("Error fetching presentations:", error);
+      if (data) {
+        console.log("Presentations fetched:", data);
         setPresentations(data);
       }
       setLoading(false);
