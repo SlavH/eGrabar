@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Presentation } from '@/types';
 import { useApp } from '@/lib/context';
 
@@ -75,25 +75,77 @@ export default function AdminPresentationsPage() {
     });
   };
 
+  // Use a ref to hold the file URL to avoid React state lag
+  const pdfUrlRef = useRef<string>('');
+
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     
-    // Get the latest values directly from the UI or state if possible.
-    // The issue is likely that handleSubmit is still seeing an stale `form` state.
-    // I'll re-log the form here to confirm.
-    console.log("handleSubmit called. Current form state:", form);
+    // Combine current form state with the latest URL from the ref
+    const payload = {
+        title_en: form.title_en,
+        title_hy: form.title_hy,
+        pdf_file: pdfUrlRef.current || form.pdf_file,
+    };
+
+    console.log("Submitting payload:", payload);
+    
+    if (!payload.pdf_file) {
+        alert("Wait for the file to finish uploading!");
+        return;
+    }
     
     try {
       const { supabase } = await import('@/lib/supabase');
       
-      // Use the latest available form state (it seems 'form' is not updating in time for submit)
-      // I will add a small trick to ensure we have the latest URL if it's set in state.
+      if (editingId) {
+        const { error } = await supabase.from('presentations').update(payload).eq('id', editingId);
+        if (error) {
+          console.error("Update error:", error);
+          alert("Failed to update: " + error.message);
+          return;
+        }
+      } else {
+        const { error } = await supabase.from('presentations').insert([payload]);
+        if (error) {
+          console.error("Insert error:", error);
+          alert("Failed to insert: " + error.message);
+          return;
+        }
+      }
       
-      const payload = {
-        title_en: form.title_en,
-        title_hy: form.title_hy,
-        pdf_file: form.pdf_file,
-      };
+      alert("Successfully saved!");
+      pdfUrlRef.current = ''; // Reset ref
+      setForm({ title_en: '', title_hy: '', pdf_file: '' });
+      setEditingId(null);
+      setShowForm(false);
+      fetchPresentations();
+    } catch (err) {
+      console.error(err);
+      alert("An unexpected error occurred.");
+    }
+  }
+
+  const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (!e.target.files?.[0]) return;
+    const file = e.target.files[0];
+    const fileName = `presentation_${Date.now()}_${file.name.replace(/[^a-zA-Z0-9.-]/g, '_')}`;
+    
+    const { supabase: sb } = await import('@/lib/supabase');
+    const { error } = await sb.storage.from('books').upload(fileName, file, {
+        upsert: true,
+        cacheControl: '3600',
+    });
+    if (error) { 
+      alert("Upload failed: " + error.message);
+      return; 
+    }
+    
+    const url = `https://otlraznomgebrztljxta.supabase.co/storage/v1/object/public/books/${fileName}`;
+    pdfUrlRef.current = url; // Set ref immediately
+    setForm(prev => ({ ...prev, pdf_file: url })); // Sync state for UI
+  };
+
 
       console.log("Submitting payload:", payload);
       
