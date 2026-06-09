@@ -76,17 +76,64 @@ export default function AdminPresentationsPage() {
   };
 
   // Use a ref to hold the file URL to avoid React state lag
-  const pdfUrlRef = useRef<string>('');
+  const [submitting, setSubmitting] = useState(false);
+  const submittedRef = useRef(false);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     
-    // Combine current form state with the latest URL from the ref
-    const payload = {
-        title_en: form.title_en,
-        title_hy: form.title_hy,
-        pdf_file: pdfUrlRef.current || form.pdf_file,
-    };
+    if (submittedRef.current || submitting) return;
+    submittedRef.current = true;
+    setSubmitting(true);
+    
+    try {
+      const { supabase } = await import('@/lib/supabase');
+      
+      if (editingId) {
+        const { error } = await supabase.from('presentations').update({
+          title_en: form.title_en,
+          title_hy: form.title_hy,
+          pdf_file: form.pdf_file,
+        }).eq('id', editingId);
+        if (error) console.error(error);
+      } else {
+        const { error } = await supabase.from('presentations').insert([{
+          title_en: form.title_en,
+          title_hy: form.title_hy,
+          pdf_file: form.pdf_file,
+        }]);
+        if (error) console.error(error);
+      }
+      
+      setForm({ title_en: '', title_hy: '', pdf_file: '' });
+      setEditingId(null);
+      setShowForm(false);
+      await fetchPresentations();
+      alert("Successfully saved!");
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setSubmitting(false);
+      setTimeout(() => { submittedRef.current = false; }, 1000);
+    }
+  }
+
+  const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (!e.target.files?.[0]) return;
+    const file = e.target.files[0];
+    
+    const { supabase: sb } = await import('@/lib/supabase');
+    const fileName = `${Date.now()}_${file.name.replace(/[^a-zA-Z0-9.-]/g, '_')}`;
+    
+    const { data, error } = await sb.storage.from('books').upload(fileName, file);
+    if (error) { 
+      console.error("Upload error:", error);
+      return; 
+    }
+    
+    const { data: urlData } = sb.storage.from('books').getPublicUrl(fileName);
+    setForm(prev => ({ ...prev, pdf_file: urlData?.publicUrl || '' }));
+  };
 
     console.log("Submitting payload:", payload);
     
