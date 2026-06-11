@@ -52,9 +52,6 @@ export default function PdfCoverPreview({ src, className = '' }: PdfCoverPreview
         });
 
 
-        loadingTask.onProgress = (progress) => {
-            console.log('PDF load progress:', progress);
-        };
         const pdf = await loadingTask.promise;
         console.log('PDF loaded, number of pages:', pdf.numPages);
         const page = await pdf.getPage(1);
