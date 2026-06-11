@@ -24,9 +24,13 @@ export const metadata: Metadata = {
   title: 'eGrabar | իԳրաբար',
   description: 'Preserving Armenian scientific heritage and cultural knowledge',
   icons: {
-    icon: '/favicon.ico',
-    apple: '/apple-touch-icon.png',
+    icon: [
+      { url: '/favicon/favicon-16x16.png', sizes: '16x16', type: 'image/png' },
+      { url: '/favicon/favicon-32x32.png', sizes: '32x32', type: 'image/png' },
+    ],
+    apple: '/favicon/favicon-32x32.png',
   },
+  manifest: '/favicon/site.webmanifest',
 };
 
 export default function RootLayout({
