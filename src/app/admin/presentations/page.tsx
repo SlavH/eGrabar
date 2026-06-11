@@ -97,14 +97,14 @@ export default function AdminPresentationsPage() {
     const { supabase: sb } = await import('@/lib/supabase');
     const fileName = `${Date.now()}_${file.name.replace(/[^a-zA-Z0-9.-]/g, '_')}`;
     
-    const { data, error } = await sb.storage.from('books').upload(fileName, file);
+    const { data, error } = await sb.storage.from('presentations').upload(fileName, file);
     if (error) { 
       console.error("Upload error:", error);
       alert("Upload failed: " + error.message);
       return; 
     }
     
-    const { data: urlData } = sb.storage.from('books').getPublicUrl(fileName);
+    const { data: urlData } = sb.storage.from('presentations').getPublicUrl(fileName);
     setForm(prev => ({ ...prev, pdf_file: urlData?.publicUrl || '' }));
   };
 
