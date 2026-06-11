@@ -7,6 +7,7 @@ export interface Book {
   description_en: string;
   description_hy: string;
   pdf_file: string;
+  cover_url: string;
   created_at: string;
 }
 
@@ -27,6 +28,7 @@ export interface Presentation {
   description_en: string;
   description_hy: string;
   pdf_file: string;
+  cover_url: string;
   created_at: string;
 }
 

@@ -58,7 +58,7 @@ export default function PresentationsPage() {
                 }}
               >
                 <GlassCard className="card-hover h-full">
-                  <PdfCoverPreview src={ppt.pdf_file || ''} className="aspect-[3/4]" />
+                  <PdfCoverPreview src={ppt.pdf_file || ''} coverUrl={ppt.cover_url || ''} className="aspect-[3/4]" />
                   <GlassCardContent>
                     <GlassCardTitle className="text-slate-100 group-hover:text-blue-300 transition-colors">
                       {language === 'en' ? ppt.title_en : ppt.title_hy}

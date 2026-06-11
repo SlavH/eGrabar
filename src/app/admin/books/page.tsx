@@ -10,6 +10,7 @@ interface BookForm {
   author_en: string;
   author_hy: string;
   pdf_file: string;
+  cover_url: string;
 }
 
 export default function AdminBooksPage() {
@@ -18,9 +19,10 @@ export default function AdminBooksPage() {
   const [showForm, setShowForm] = useState(false);
   const [editingId, setEditingId] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
+  const [uploading, setUploading] = useState(false);
   const [form, setForm] = useState<BookForm>({ 
     title_en: '', title_hy: '', author_en: '', author_hy: '', 
-    pdf_file: '' 
+    pdf_file: '', cover_url: ''
   });
   const { t, language } = useApp();
   const submittedRef = useRef(false);
@@ -45,6 +47,7 @@ export default function AdminBooksPage() {
       author_en: book.author_en,
       author_hy: book.author_hy,
       pdf_file: book.pdf_file,
+      cover_url: book.cover_url || '',
     });
     setShowForm(true);
   }
@@ -66,6 +69,7 @@ export default function AdminBooksPage() {
           author_en: form.author_en,
           author_hy: form.author_hy,
           pdf_file: form.pdf_file,
+          cover_url: form.cover_url,
         }).eq('id', editingId);
         if (error) console.error(error);
       } else {
@@ -75,11 +79,12 @@ export default function AdminBooksPage() {
           author_en: form.author_en,
           author_hy: form.author_hy,
           pdf_file: form.pdf_file,
+          cover_url: form.cover_url,
         }]);
         if (error) console.error(error);
       }
       
-      setForm({ title_en: '', title_hy: '', author_en: '', author_hy: '', pdf_file: '' });
+            setForm({ title_en: '', title_hy: '', author_en: '', author_hy: '', pdf_file: '', cover_url: '' });
       setEditingId(null);
       setShowForm(false);
       await fetchBooks();
@@ -116,6 +121,27 @@ export default function AdminBooksPage() {
     setForm({ ...form, pdf_file: urlData?.publicUrl || '' });
   };
 
+  const handleCoverUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (!e.target.files?.[0]) return;
+    const file = e.target.files[0];
+    
+    setUploading(true);
+    
+    const { supabase: sb } = await import('@/lib/supabase');
+    const fileName = `cover_${Date.now()}_${file.name.replace(/[^a-zA-Z0-9.-]/g, '_')}`;
+    
+    const { data, error } = await sb.storage.from('books').upload(fileName, file);
+    if (error) { 
+      setUploading(false);
+      alert("Cover upload failed: " + error.message);
+      return; 
+    }
+    
+    const { data: urlData } = sb.storage.from('books').getPublicUrl(fileName);
+    setForm(prev => ({ ...prev, cover_url: urlData?.publicUrl || '' }));
+    setUploading(false);
+  };
+
   return (
     <div>
       <div className="flex justify-between items-center mb-8">
@@ -124,7 +150,7 @@ export default function AdminBooksPage() {
           if (showForm) {
             setShowForm(false);
             setEditingId(null);
-            setForm({ title_en: '', title_hy: '', author_en: '', author_hy: '', pdf_file: '' });
+      setForm({ title_en: '', title_hy: '', author_en: '', author_hy: '', pdf_file: '', cover_url: '' });
           } else {
             setShowForm(true);
           }
@@ -166,9 +192,32 @@ export default function AdminBooksPage() {
               <span>{t.admin.pdfFile} (Upload):</span>
               <input type="file" accept="application/pdf" onChange={handleFileUpload} className="text-slate-100" />
             </label>
+            
+            <div className="border-t border-white/10 pt-4">
+              <h3 className="text-lg font-semibold text-slate-100 mb-3">Cover</h3>
+              <label className="flex flex-col gap-2 text-slate-300 mb-3">
+                <span>Cover Image (URL):</span>
+                <input 
+                  type="text" 
+                  placeholder="https://..." 
+                  value={form.cover_url} 
+                  onChange={e => setForm({...form, cover_url: e.target.value})} 
+                  className="w-full px-4 py-2 bg-white/5 border border-white/10 rounded-lg text-slate-100 placeholder-slate-400"
+                />
+              </label>
+              <label className="flex flex-col gap-2 text-slate-300">
+                <span>Cover Image (Upload):</span>
+                <input type="file" accept="image/*" onChange={handleCoverUpload} className="text-slate-100" />
+              </label>
+              {form.cover_url && (
+                <div className="mt-3 w-32 h-44 rounded-lg overflow-hidden border border-white/10">
+                  <img src={form.cover_url} alt="Cover preview" className="w-full h-full object-cover" />
+                </div>
+              )}
+            </div>
           </div>
-          <button type="submit" disabled={submitting} className="px-6 py-2 bg-blue-600/80 backdrop-blur-md text-white font-semibold rounded-lg mt-4 disabled:opacity-50">
-            {submitting ? 'Saving...' : t.admin.save}
+          <button type="submit" disabled={submitting || uploading} className="px-6 py-2 bg-blue-600/80 backdrop-blur-md text-white font-semibold rounded-lg mt-4 disabled:opacity-50">
+            {uploading ? 'Uploading...' : submitting ? 'Saving...' : t.admin.save}
           </button>
         </form>
       )}

@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 
 interface PdfCoverPreviewProps {
   src: string;
+  coverUrl?: string;
   className?: string;
 }
 
@@ -15,12 +16,18 @@ function needsProxy(url: string): boolean {
   return !url.startsWith(SUPABASE_URL);
 }
 
-export default function PdfCoverPreview({ src, className = '' }: PdfCoverPreviewProps) {
+export default function PdfCoverPreview({ src, coverUrl, className = '' }: PdfCoverPreviewProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
 
   useEffect(() => {
+    if (coverUrl) {
+      setLoading(false);
+      setError(false);
+      return;
+    }
+
     if (!src) {
       setLoading(false);
       setError(true);
@@ -41,8 +48,7 @@ export default function PdfCoverPreview({ src, className = '' }: PdfCoverPreview
         console.log('Attempting to load PDF from:', pdfUrl);
 
         const pdfjsLib = await import('pdfjs-dist');
-        // Use a version of pdf.js worker that actually exists on cdnjs
-        const version = '3.11.174'; 
+        const version = '3.11.174';
         pdfjsLib.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${version}/pdf.worker.min.js`;
         
         const loadingTask = pdfjsLib.getDocument({
@@ -50,7 +56,6 @@ export default function PdfCoverPreview({ src, className = '' }: PdfCoverPreview
           cMapUrl: `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${version}/cmaps/`,
           cMapPacked: true,
         });
-
 
         const pdf = await loadingTask.promise;
         console.log('PDF loaded, number of pages:', pdf.numPages);
@@ -67,13 +72,11 @@ export default function PdfCoverPreview({ src, className = '' }: PdfCoverPreview
             
             const context = canvas.getContext('2d');
             if (context) {
-                // @ts-ignore
                 const renderContext = {
                     canvasContext: context,
                     viewport: viewport
                 };
                 console.log('Rendering page...');
-                // @ts-ignore
                 await page.render(renderContext).promise;
                 console.log('Page rendered successfully');
             }
@@ -88,7 +91,20 @@ export default function PdfCoverPreview({ src, className = '' }: PdfCoverPreview
 
     renderCover();
     return () => { cancelled = true; };
-  }, [src]);
+  }, [src, coverUrl]);
+
+  if (coverUrl) {
+    return (
+      <div className={`relative overflow-hidden bg-zinc-900/50 ${className}`}>
+        <img
+          src={coverUrl}
+          alt="Cover"
+          className="w-full h-full object-cover"
+          onError={() => setError(true)}
+        />
+      </div>
+    );
+  }
 
   if (error || !src) {
     return (
