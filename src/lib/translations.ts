@@ -71,16 +71,16 @@ export const translations = {
     "home": {
       "tagline": "Preserving Armenian Scientific Heritage",
       "title": "eGrabar",
-      "subtitle": "A sanctuary for Armenian scholarship, preserving centuries of scientific achievement and cultural knowledge for future generations.",
+      "subtitle": "The Armenian written heritage and language are eternal national treasures passed on to future generations.",
       "explore": "Explore Library",
       "about": "About eGrabar",
       "scroll": "Scroll to explore"
     },
     "sections": {
       "library": "Library",
-      "libraryDesc": "Access thousands of research papers, manuscripts, and historical documents.",
+      "libraryDesc": "Explore our collection of books and scholarly studies on Classical Armenian and Armenian culture.",
       "videoHub": "Video Hub",
-      "videoHubDesc": "Watch educational lectures, documentary videos and scientific presentations.",
+      "videoHubDesc": "Watch videos, lectures, and programs dedicated to Classical Armenian and Armenian cultural heritage.",
       "presentations": "Presentations",
       "presentationsDesc": "Access PowerPoint presentations and slides from our educational programs.",
       "courses": "Courses",
@@ -180,20 +180,20 @@ export const translations = {
     "home": {
       "tagline": "Հայկական գիտական ժառանգության պահպանումը",
       "title": "eGrabar",
-      "subtitle": "Հայագիտության օջախ՝ պահպանելով դարավոր գիտական նվաճումներն ու մշակութային գիտելիքները ապագա սերունդների համար։",
+      "subtitle": "Հայոց գրավոր մշակույթն ու լեզուն ապագային փոխանցվող ազգային հավերժական արժեք են։",
       "explore": "Ուսումնասիրել գրադարանը",
       "about": "Ամարաս Կենտրոն",
       "scroll": "Ոլորեք՝ ուսումնասիրելու համար"
     },
     "sections": {
       "library": "Գրադարան",
-      "libraryDesc": "Մուտք գործեք հազարավոր հետազոտությունների, ձեռագրերի և պատմական փաստաթղթերի:",
+      "libraryDesc": "Մտի՛ր գրաբարի ու հայ մշակույթի գրքերի և ուսումնասիրությունների շտեմարան։",
       "videoHub": "Տեսանյութեր",
-      "videoHubDesc": "Դիտեք կրթություն դասընթացներ, փաստագրական տեսանյութեր և գիտական ներկայացումներ:",
+      "videoHubDesc": "Դիտի՛ր գրաբարին, հայագիտական ժառանգությանը նվիրված տեսանյութեր, դասախոսություններ և հաղորդումներ։",
       "presentations": "Ներկայացումներ",
       "presentationsDesc": "Մուտք գործեք PowerPoint ներկայացումներ և սլայդեր մեր կրթական ծրագրերից:",
       "courses": "Դասընթացներ",
-      "coursesDesc": "Միանացեք գալիք դասընթացներին և սեմինարներին հայ գիտնականների հետ:"
+      "coursesDesc": "Միացեք գալիք դասընթացներին և սեմինարներին հայ գիտնականների հետ:"
     },
     "common": {
       "learnMore": "Իմանալ ավելին",

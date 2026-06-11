@@ -44,8 +44,8 @@ export default function DonatePage() {
           <h3 className="text-xl font-bold text-slate-100 mb-4">{language === 'en' ? 'Support Our Mission' : 'Աջակցեք մեր առաքելությանը'}</h3>
           <p className="text-slate-300">
             {language === 'en' 
-              ? 'Your contributions help us digitize and preserve the Grabar heritage. Thank you for your support.'
-              : 'Ձեր ներդրումները օգնում են մեզ թվայնացնել և պահպանել Գրաբարի ժառանգությունը: Շնորհակալություն ձեր աջակցության համար:'}
+              ? 'Your contributions help support the study and digitization of Classical Armenian, the development of educational initiatives, and the implementation of charitable programs. Thank you for your generous support.'
+              : 'Ձեր ներդրումները կօգնեն մեզ՝ գրաբարի ուսումնասիրման, թվայնացման բազմազան ձեռնարկներ, նաև բարեգործական ծրագրեր իրականացնելիս։ Շնորհակալություն Ձեր աջակցության համար։'}
           </p>
         </div>
       </div>
