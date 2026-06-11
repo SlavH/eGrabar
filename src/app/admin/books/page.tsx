@@ -102,20 +102,21 @@ export default function AdminBooksPage() {
   const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files?.[0]) return;
     const file = e.target.files[0];
-    console.log("File detected:", file.name); // ЛОГ 1
     
-    const { supabase: sb } = await import('@/lib/supabase');
-    const fileName = `${Date.now()}_${file.name.replace(/[^a-zA-Z0-9.-]/g, '_')}`;
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('bucket', 'books');
     
-    const { data, error } = await sb.storage.from('books').upload(fileName, file);
-    if (error) { 
-      console.error("Upload error:", error); // ЛОГ 2
-      return; 
+    const res = await fetch('/api/upload', { method: 'POST', body: formData });
+    const data = await res.json();
+    
+    if (!res.ok) {
+      console.error("Upload error:", data.error);
+      alert("Upload failed: " + data.error);
+      return;
     }
     
-    const { data: urlData } = sb.storage.from('books').getPublicUrl(fileName);
-    console.log("Uploaded URL:", urlData?.publicUrl); // ЛОГ 3
-    setForm({ ...form, pdf_file: urlData?.publicUrl || '' });
+    setForm({ ...form, pdf_file: data.url || '' });
   };
 
   return (

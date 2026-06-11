@@ -94,18 +94,20 @@ export default function AdminPresentationsPage() {
     if (!e.target.files?.[0]) return;
     const file = e.target.files[0];
     
-    const { supabase: sb } = await import('@/lib/supabase');
-    const fileName = `${Date.now()}_${file.name.replace(/[^a-zA-Z0-9.-]/g, '_')}`;
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('bucket', 'presentations');
     
-    const { data, error } = await sb.storage.from('presentations').upload(fileName, file);
-    if (error) { 
-      console.error("Upload error:", error);
-      alert("Upload failed: " + error.message);
-      return; 
+    const res = await fetch('/api/upload', { method: 'POST', body: formData });
+    const data = await res.json();
+    
+    if (!res.ok) {
+      console.error("Upload error:", data.error);
+      alert("Upload failed: " + data.error);
+      return;
     }
     
-    const { data: urlData } = sb.storage.from('presentations').getPublicUrl(fileName);
-    setForm(prev => ({ ...prev, pdf_file: urlData?.publicUrl || '' }));
+    setForm(prev => ({ ...prev, pdf_file: data.url || '' }));
   };
 
   return (
