@@ -103,19 +103,17 @@ export default function AdminBooksPage() {
     if (!e.target.files?.[0]) return;
     const file = e.target.files[0];
     
-    const formData = new FormData();
-    formData.append('file', file);
-    formData.append('bucket', 'books');
+    const { supabase: sb } = await import('@/lib/supabase');
+    const fileName = `${Date.now()}_${file.name.replace(/[^a-zA-Z0-9.-]/g, '_')}`;
     
-    const res = await fetch('/api/upload', { method: 'POST', body: formData });
-    const data = await res.json();
-    
-    if (!res.ok) {
-      alert("Upload failed: " + data.error);
-      return;
+    const { data, error } = await sb.storage.from('books').upload(fileName, file);
+    if (error) { 
+      alert("Upload failed: " + error.message);
+      return; 
     }
     
-    setForm({ ...form, pdf_file: data.url || '' });
+    const { data: urlData } = sb.storage.from('books').getPublicUrl(fileName);
+    setForm({ ...form, pdf_file: urlData?.publicUrl || '' });
   };
 
   return (
