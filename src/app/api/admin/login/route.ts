@@ -33,7 +33,7 @@ export async function POST(req: NextRequest) {
     const { data: adminRow, error: adminError } = await supabase.from('admin_profiles').select('is_admin').eq('user_id', data.user.id).maybeSingle()
     
     if (adminError) {
-      console.error('Admin profile query error:', adminError);
+
       return NextResponse.json({ ok: false, error: 'Database error' }, { status: 500 })
     }
 
@@ -53,7 +53,7 @@ export async function POST(req: NextRequest) {
 
     return res;
   } catch (e) {
-    console.error('Login error:', e);
+
     return NextResponse.json({ ok: false, error: 'Server error' }, { status: 500 })
   }
 }

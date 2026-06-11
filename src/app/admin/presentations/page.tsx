@@ -31,7 +31,7 @@ export default function AdminPresentationsPage() {
   async function fetchPresentations() {
     const { supabase } = await import('@/lib/supabase');
     const { data, error } = await supabase.from('presentations').select('*').order('created_at', { ascending: false });
-    if (error) console.error(error);
+
     if (data) setPresentations(data);
     setLoading(false);
   }
@@ -64,7 +64,7 @@ export default function AdminPresentationsPage() {
           pdf_file: form.pdf_file,
           cover_url: form.cover_url,
         }).eq('id', editingId);
-        if (error) console.error(error);
+    
       } else {
         const { error } = await supabase.from('presentations').insert([{
           title_en: form.title_en,
@@ -72,7 +72,7 @@ export default function AdminPresentationsPage() {
           pdf_file: form.pdf_file,
           cover_url: form.cover_url,
         }]);
-        if (error) console.error(error);
+    
       }
       
             setForm({ title_en: '', title_hy: '', pdf_file: '', cover_url: '' });
@@ -80,7 +80,6 @@ export default function AdminPresentationsPage() {
       setShowForm(false);
       await fetchPresentations();
     } catch (err) {
-      console.error(err);
     } finally {
       setSubmitting(false);
       setTimeout(() => { submittedRef.current = false; }, 1000);
@@ -90,7 +89,7 @@ export default function AdminPresentationsPage() {
   async function handleDelete(id: string) {
     const { supabase } = await import('@/lib/supabase');
     const { error } = await supabase.from('presentations').delete().eq('id', id);
-    if (error) console.error(error);
+
     fetchPresentations();
   }
 

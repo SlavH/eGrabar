@@ -52,7 +52,7 @@ export async function GET(request: NextRequest) {
       headers,
     });
   } catch (error) {
-    console.error('PDF proxy error:', error);
+
     return NextResponse.json({ error: 'Failed to fetch PDF' }, { status: 502 });
   }
 }

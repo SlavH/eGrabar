@@ -16,7 +16,7 @@ export default function PresentationsPage() {
     async function fetchPresentations() {
       const { supabase } = await import('@/lib/supabase');
       const { data, error } = await supabase.from('presentations').select('*').order('created_at', { ascending: false });
-      if (error) console.error('Error fetching presentations:', error);
+
       if (data) setPresentations(data);
       setLoading(false);
     }

@@ -36,7 +36,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   }
 
   // Debug: Confirm rendering
-  console.log('Rendering AdminLayout children');
+
   const adminNav = [
     { href: '/admin/amaras', label: language === 'en' ? 'Amaras' : 'Ամարաս', icon: '🏛️' },
     { href: '/admin/books', label: language === 'en' ? 'Books' : 'Գրքեր', icon: '📚' },

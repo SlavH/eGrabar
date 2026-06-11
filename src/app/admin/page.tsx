@@ -9,7 +9,6 @@ export default function AdminDashboard() {
   const cookieOn = typeof window !== 'undefined' && document.cookie.includes('admin_session=1');
   const isAuthorized = isAuthenticated || cookieOn;
   
-  console.log('Auth Check:', { isAuthenticated, cookieOn, isAuthorized });
   
   const [stats, setStats] = useState({ books: 0, videos: 0, presentations: 0, events: 0 });
   const [loading, setLoading] = useState(true);
@@ -29,7 +28,6 @@ export default function AdminDashboard() {
         presentations: presentations.count || 0,
         events: events.count || 0,
       });
-      console.log('Fetched Stats:', { books: books.count, videos: videos.count, presentations: presentations.count, events: events.count });
       setLoading(false);
     }
     fetchStats();

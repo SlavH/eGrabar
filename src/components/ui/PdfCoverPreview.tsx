@@ -45,7 +45,7 @@ export default function PdfCoverPreview({ src, coverUrl, className = '' }: PdfCo
           ? `/api/pdf-proxy?url=${encodeURIComponent(rawUrl)}`
           : rawUrl;
 
-        console.log('Attempting to load PDF from:', pdfUrl);
+
 
         const pdfjsLib = await import('pdfjs-dist');
         const version = '3.11.174';
@@ -58,9 +58,8 @@ export default function PdfCoverPreview({ src, coverUrl, className = '' }: PdfCo
         });
 
         const pdf = await loadingTask.promise;
-        console.log('PDF loaded, number of pages:', pdf.numPages);
+
         const page = await pdf.getPage(1);
-        console.log('Page retrieved');
         
         const scale = 1.5;
         const viewport = page.getViewport({ scale });
@@ -76,13 +75,11 @@ export default function PdfCoverPreview({ src, coverUrl, className = '' }: PdfCo
                     canvasContext: context,
                     viewport: viewport
                 };
-                console.log('Rendering page...');
                 await page.render(renderContext).promise;
-                console.log('Page rendered successfully');
             }
           }
       } catch (err) {
-        console.error('Failed to render PDF cover:', err);
+
         if (!cancelled) setError(true);
       } finally {
         if (!cancelled) setLoading(false);

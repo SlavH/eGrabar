@@ -34,7 +34,7 @@ export default function AdminBooksPage() {
   async function fetchBooks() {
     const { supabase } = await import('@/lib/supabase');
     const { data, error } = await supabase.from('books').select('*').order('created_at', { ascending: false });
-    if (error) console.error(error);
+
     if (data) setBooks(data);
     setLoading(false);
   }
@@ -71,7 +71,7 @@ export default function AdminBooksPage() {
           pdf_file: form.pdf_file,
           cover_url: form.cover_url,
         }).eq('id', editingId);
-        if (error) console.error(error);
+    
       } else {
         const { error } = await supabase.from('books').insert([{
           title_en: form.title_en,
@@ -81,7 +81,7 @@ export default function AdminBooksPage() {
           pdf_file: form.pdf_file,
           cover_url: form.cover_url,
         }]);
-        if (error) console.error(error);
+    
       }
       
             setForm({ title_en: '', title_hy: '', author_en: '', author_hy: '', pdf_file: '', cover_url: '' });
@@ -89,7 +89,6 @@ export default function AdminBooksPage() {
       setShowForm(false);
       await fetchBooks();
     } catch (err) {
-      console.error(err);
     } finally {
       setSubmitting(false);
     }
@@ -100,7 +99,7 @@ export default function AdminBooksPage() {
   async function handleDelete(id: string) {
     const { supabase } = await import('@/lib/supabase');
     const { error } = await supabase.from('books').delete().eq('id', id);
-    if (error) console.error(error);
+
     fetchBooks();
   }
 

@@ -32,7 +32,7 @@ export default function AdminEventsPage() {
   async function fetchEvents() {
     const { supabase } = await import('@/lib/supabase');
     const { data, error } = await supabase.from('events').select('*').order('date', { ascending: false });
-    if (error) console.error(error);
+
     if (data) setEvents(data);
     setLoading(false);
   }
@@ -66,7 +66,7 @@ export default function AdminEventsPage() {
           time: form.time,
           link: form.link,
         }).eq('id', editingId);
-        if (error) console.error(error);
+    
       } else {
         const { error } = await supabase.from('events').insert([{
           title_en: form.title_en,
@@ -77,7 +77,7 @@ export default function AdminEventsPage() {
           time: form.time,
           link: form.link,
         }]);
-        if (error) console.error(error);
+    
       }
       
       setForm({ title_en: '', title_hy: '', instructor_en: '', instructor_hy: '', date: '', time: '', link: '' });
@@ -85,14 +85,13 @@ export default function AdminEventsPage() {
       setShowForm(false);
       fetchEvents();
     } catch (err) {
-      console.error(err);
     }
   }
 
   async function handleDelete(id: string) {
     const { supabase } = await import('@/lib/supabase');
     const { error } = await supabase.from('events').delete().eq('id', id);
-    if (error) console.error(error);
+
     fetchEvents();
   }
 

@@ -27,7 +27,7 @@ export default function AdminVideosPage() {
   async function fetchVideos() {
     const { supabase } = await import('@/lib/supabase');
     const { data, error } = await supabase.from('videos').select('*').order('created_at', { ascending: false });
-    if (error) console.error(error);
+
     if (data) setVideos(data);
     setLoading(false);
   }
@@ -55,10 +55,10 @@ export default function AdminVideosPage() {
 
       if (editingId) {
         const { error } = await supabase.from('videos').update(payload).eq('id', editingId);
-        if (error) console.error(error);
+    
       } else {
         const { error } = await supabase.from('videos').insert([payload]);
-        if (error) console.error(error);
+    
       }
       
       setForm({ title_en: '', title_hy: '', youtube_url: '' });
@@ -66,14 +66,13 @@ export default function AdminVideosPage() {
       setShowForm(false);
       fetchVideos();
     } catch (err) {
-      console.error(err);
     }
   }
 
   async function handleDelete(id: string) {
     const { supabase } = await import('@/lib/supabase');
     const { error } = await supabase.from('videos').delete().eq('id', id);
-    if (error) console.error(error);
+
     fetchVideos();
   }
 

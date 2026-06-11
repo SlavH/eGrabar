@@ -50,7 +50,7 @@ export default function AdminAmarasPage() {
         }]);
 
     if (error) {
-      console.error("Supabase Error:", error);
+
       alert("Error saving Amaras: " + error.message);
       return;
     }
