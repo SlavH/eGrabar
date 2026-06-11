@@ -16,6 +16,7 @@ export default function AdminPresentationsPage() {
   const [showForm, setShowForm] = useState(false);
   const [editingId, setEditingId] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
+  const [uploading, setUploading] = useState(false);
   const [form, setForm] = useState<PresentationForm>({ 
     title_en: '', title_hy: '', pdf_file: '' 
   });
@@ -94,17 +95,21 @@ export default function AdminPresentationsPage() {
     if (!e.target.files?.[0]) return;
     const file = e.target.files[0];
     
+    setUploading(true);
+    
     const { supabase: sb } = await import('@/lib/supabase');
     const fileName = `${Date.now()}_${file.name.replace(/[^a-zA-Z0-9.-]/g, '_')}`;
     
     const { data, error } = await sb.storage.from('books').upload(fileName, file);
     if (error) { 
+      setUploading(false);
       alert("Upload failed: " + error.message);
       return; 
     }
     
     const { data: urlData } = sb.storage.from('books').getPublicUrl(fileName);
     setForm(prev => ({ ...prev, pdf_file: urlData?.publicUrl || '' }));
+    setUploading(false);
   };
 
   return (
@@ -152,8 +157,8 @@ export default function AdminPresentationsPage() {
               <input type="file" accept="application/pdf" onChange={handleFileUpload} className="text-slate-100" />
             </label>
           </div>
-          <button type="submit" disabled={submitting} className="px-6 py-2 bg-blue-600/80 backdrop-blur-md text-white font-semibold rounded-lg mt-4 disabled:opacity-50">
-            {submitting ? 'Saving...' : t.admin.save}
+          <button type="submit" disabled={submitting || uploading} className="px-6 py-2 bg-blue-600/80 backdrop-blur-md text-white font-semibold rounded-lg mt-4 disabled:opacity-50">
+            {uploading ? 'Uploading...' : submitting ? 'Saving...' : t.admin.save}
           </button>
         </form>
       )}
