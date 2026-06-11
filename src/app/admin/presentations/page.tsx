@@ -95,6 +95,12 @@ export default function AdminPresentationsPage() {
     const file = e.target.files[0];
     
     const { supabase: sb } = await import('@/lib/supabase');
+    const { data: { session } } = await sb.auth.getSession();
+    if (!session) {
+      alert("You must be logged in to upload files");
+      return;
+    }
+    
     const fileName = `${Date.now()}_${file.name.replace(/[^a-zA-Z0-9.-]/g, '_')}`;
     
     const { data, error } = await sb.storage.from('presentations').upload(fileName, file);
