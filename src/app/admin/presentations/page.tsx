@@ -79,7 +79,6 @@ export default function AdminPresentationsPage() {
       setEditingId(null);
       setShowForm(false);
       await fetchPresentations();
-      alert("Successfully saved!");
     } catch (err) {
       console.error(err);
     } finally {
