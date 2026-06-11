@@ -7,6 +7,14 @@ interface PdfCoverPreviewProps {
   className?: string;
 }
 
+const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
+
+function needsProxy(url: string): boolean {
+  if (!url) return false;
+  if (!SUPABASE_URL) return false;
+  return !url.startsWith(SUPABASE_URL);
+}
+
 export default function PdfCoverPreview({ src, className = '' }: PdfCoverPreviewProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [loading, setLoading] = useState(true);
@@ -23,11 +31,14 @@ export default function PdfCoverPreview({ src, className = '' }: PdfCoverPreview
 
     const renderCover = async () => {
       try {
-        console.log('Attempting to load PDF from:', src);
-        
-        // Ensure the source URL is treated as a string
-        const pdfUrl = typeof src === 'string' ? src : '';
-        if (!pdfUrl) throw new Error('Invalid PDF URL');
+        const rawUrl = typeof src === 'string' ? src : '';
+        if (!rawUrl) throw new Error('Invalid PDF URL');
+
+        const pdfUrl = needsProxy(rawUrl)
+          ? `/api/pdf-proxy?url=${encodeURIComponent(rawUrl)}`
+          : rawUrl;
+
+        console.log('Attempting to load PDF from:', pdfUrl);
 
         const pdfjsLib = await import('pdfjs-dist');
         // Use a version of pdf.js worker that actually exists on cdnjs
@@ -38,7 +49,6 @@ export default function PdfCoverPreview({ src, className = '' }: PdfCoverPreview
           url: pdfUrl,
           cMapUrl: `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${version}/cmaps/`,
           cMapPacked: true,
-          httpHeaders: { 'Access-Control-Allow-Origin': '*' },
         });
 
 
