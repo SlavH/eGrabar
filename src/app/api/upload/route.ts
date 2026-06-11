@@ -12,7 +12,8 @@ export async function POST(request: NextRequest) {
     }
 
     const fileName = `${Date.now()}_${file.name.replace(/[^a-zA-Z0-9.-]/g, '_')}`;
-    const buffer = Buffer.from(await file.arrayBuffer());
+    const bytes = await file.arrayBuffer();
+    const buffer = Buffer.from(bytes);
 
     const sb = getSupabaseAdmin();
     const { error } = await sb.storage.from(bucket).upload(fileName, buffer, {
@@ -28,7 +29,8 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json({ url: urlData?.publicUrl || '' });
   } catch (err) {
-    console.error('Upload error:', err);
-    return NextResponse.json({ error: 'Upload failed' }, { status: 500 });
+    const message = err instanceof Error ? err.message : 'Unknown error';
+    console.error('Upload error:', message);
+    return NextResponse.json({ error: message }, { status: 500 });
   }
 }
