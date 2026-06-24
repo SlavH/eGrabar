@@ -64,7 +64,7 @@ export default function Navigation() {
                 language === 'hy' ? 'bg-blue-600 text-white' : 'text-slate-300 hover:text-blue-300'
               }`}
             >
-              ՀԱ
+              Հայ
             </button>
             <button
               onClick={(e) => { e.stopPropagation(); setLanguage('en'); }}
