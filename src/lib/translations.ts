@@ -117,7 +117,7 @@ export const translations = {
       "courses": "Դասընթացներ",
       "news": "Լրաշար",
       "contacts": "Կոնտակտներ",
-      "amaras": "Ամարաս",
+      "amaras": "«Ամարաս» Կենտրոն",
       "donate": "Նվիրաբերեք"
     },
     "admin": {
