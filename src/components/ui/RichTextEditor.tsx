@@ -3,6 +3,7 @@
 import { useState, useCallback, useRef, useEffect } from 'react';
 import dynamic from 'next/dynamic';
 import { uploadImageAdapter } from '@/lib/ckeditorUploadAdapter';
+import ImageResize from '@ckeditor/ckeditor5-image/src/imageresize';
 
 const CKEditorComponent = dynamic(
   () => import('@ckeditor/ckeditor5-react').then((mod) => mod.CKEditor),
@@ -80,6 +81,21 @@ export default function RichTextEditor({ value, onChange, placeholder }: { value
       <CKEditorComponent
         editor={Editor}
         data={value}
+        config={{
+            plugins: [ImageResize],
+            image: {
+              toolbar: [
+                'imageStyle:inline',
+                'imageStyle:block',
+                'imageStyle:side',
+                '|',
+                'toggleImageCaption',
+                'imageTextAlternative',
+                '|',
+                'resizeImage'
+              ]
+            }
+          }}
         onReady={handleReady}
         onChange={handleChange}
       />
