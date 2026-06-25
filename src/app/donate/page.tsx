@@ -6,10 +6,6 @@ import Hero from '@/components/Hero';
 export default function DonatePage() {
   const { t, language } = useApp();
 
-  const targetAmount = 100000;
-  const currentAmount = 34500;
-  const progress = (currentAmount / targetAmount) * 100;
-
   return (
     <main className="min-h-screen pt-24 pb-16 px-6 bg-background">
       <Hero
@@ -23,21 +19,6 @@ export default function DonatePage() {
             {language === 'en' 
               ? 'Your contributions help support the study and digitization of Classical Armenian, the development of educational initiatives, and the implementation of charitable programs. Thank you for your generous support.'
               : 'Ձեր ներդրումները կօգնեն մեզ՝ գրաբարի ուսումնասիրման, թվայնացման բազմազան ձեռնարկներ, նաև բարեգործական ծրագրեր իրականացնելիս։ Շնորհակալություն Ձեր աջակցության համար։'}
-          </p>
-        </div>
-
-        <div className="p-8 bg-white/10 backdrop-blur-md rounded-2xl border border-white/20">
-          <h4 className="text-lg font-semibold text-slate-100 mb-4 text-center">
-            {language === 'en' ? 'Fundraising Progress' : 'Դրամահավաքի առաջընթաց'}
-          </h4>
-          <div className="w-full bg-slate-700/50 rounded-full h-4 mb-2 overflow-hidden">
-            <div
-              className="bg-blue-500 h-full rounded-full transition-all duration-500"
-              style={{ width: `${Math.min(progress, 100)}%` }}
-            />
-          </div>
-          <p className="text-slate-400 text-sm text-center">
-            ${currentAmount.toLocaleString()} / ${targetAmount.toLocaleString()}
           </p>
         </div>
 

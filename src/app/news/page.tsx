@@ -50,22 +50,23 @@ export default function NewsPage() {
             {news.map((item) => (
               <GlassCard 
                 key={item.id} 
-                className="p-8 border border-white/20 backdrop-blur-md xl:col-span-3 max-w-full overflow-hidden"
+                className="p-8 border border-white/20 backdrop-blur-md xl:col-span-3 max-w-full"
               >
-                <time className="text-sm text-slate-400 mb-4 block">
-                  {language === 'hy' 
-                    ? formatArmenianDate(item.created_at) 
-                    : new Date(item.created_at).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
-                </time>
-
-                <h3 className="text-3xl font-semibold mb-4 text-slate-100">{getLocalizedText(item, 'title')}</h3>
+                <div className="flex items-start justify-between gap-4 mb-4">
+                  <div className="min-w-0">
+                    <time className="text-sm text-slate-400 block mb-2">
+                      {language === 'hy' 
+                        ? formatArmenianDate(item.created_at) 
+                        : new Date(item.created_at).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+                    </time>
+                    <h3 className="text-3xl font-semibold text-slate-100 break-words">{getLocalizedText(item, 'title')}</h3>
+                  </div>
+                  <ShareButtons title={getLocalizedText(item, 'title')} url={`/news#${item.id}`} />
+                </div>
                 <div 
                   className="text-slate-300 text-lg leading-relaxed prose-custom prose-lg max-w-full break-words"
                   dangerouslySetInnerHTML={{ __html: getLocalizedText(item, 'content') }} 
                 />
-                <div className="mt-4 flex justify-end">
-                  <ShareButtons title={getLocalizedText(item, 'title')} url={`/news#${item.id}`} />
-                </div>
               </GlassCard>
             ))}
           </div>

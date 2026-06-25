@@ -1,14 +1,21 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { useApp } from '@/lib/context';
 
 export default function ShareButtons({ title, url }: { title: string; url?: string }) {
   const [copied, setCopied] = useState(false);
   const [showOptions, setShowOptions] = useState(false);
   const { t, language } = useApp();
+  const btnRef = useRef<HTMLDivElement>(null);
+  const [popupStyle, setPopupStyle] = useState({});
 
-  const shareUrl = url || (typeof window !== 'undefined' ? window.location.href : '');
+  const shareUrl = (() => {
+    if (!url) return typeof window !== 'undefined' ? window.location.href : '';
+    if (url.startsWith('http')) return url;
+    return typeof window !== 'undefined' ? `${window.location.origin}${url}` : url;
+  })();
+
   const encodedUrl = encodeURIComponent(shareUrl);
   const encodedTitle = encodeURIComponent(title);
 
@@ -51,6 +58,16 @@ export default function ShareButtons({ title, url }: { title: string; url?: stri
     },
   ];
 
+  useEffect(() => {
+    if (showOptions && btnRef.current) {
+      const rect = btnRef.current.getBoundingClientRect();
+      setPopupStyle({
+        top: rect.top - 8,
+        left: Math.min(rect.left, window.innerWidth - 280),
+      });
+    }
+  }, [showOptions]);
+
   async function handleCopyLink() {
     try {
       await navigator.clipboard.writeText(shareUrl);
@@ -60,7 +77,7 @@ export default function ShareButtons({ title, url }: { title: string; url?: stri
   }
 
   return (
-    <div className="relative inline-flex items-center gap-1">
+    <div ref={btnRef} className="relative inline-flex items-center gap-1" onClick={(e) => e.stopPropagation()}>
       <button
         onClick={() => setShowOptions(!showOptions)}
         className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-slate-300 hover:text-blue-300 bg-white/5 hover:bg-white/10 rounded-lg transition-colors border border-white/10"
@@ -74,7 +91,10 @@ export default function ShareButtons({ title, url }: { title: string; url?: stri
       {showOptions && (
         <>
           <div className="fixed inset-0 z-40" onClick={() => setShowOptions(false)} />
-          <div className="absolute bottom-full left-0 mb-2 z-50 flex gap-1 bg-white/10 backdrop-blur-xl border border-white/20 rounded-xl p-2 shadow-xl">
+          <div
+            className="fixed z-50 flex gap-1 bg-white/10 backdrop-blur-xl border border-white/20 rounded-xl p-2 shadow-xl"
+            style={popupStyle}
+          >
             {shareLinks.map((link) => (
               <a
                 key={link.name}

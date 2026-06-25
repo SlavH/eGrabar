@@ -43,17 +43,17 @@ export default function AmarasCenterPage() {
         ) : (
           <div className="grid grid-cols-1 gap-8">
             {amaras.map((item) => (
-              <GlassCard key={item.id} className="p-8 xl:col-span-3 max-w-full overflow-hidden">
-                <h3 className="text-3xl font-bold text-blue-300 mb-6 break-words">
-                  {getLocalizedText(item, 'title')}
-                </h3>
+              <GlassCard key={item.id} className="p-8 xl:col-span-3 max-w-full">
+                <div className="flex items-start justify-between gap-4 mb-6">
+                  <h3 className="text-3xl font-bold text-blue-300 break-words">
+                    {getLocalizedText(item, 'title')}
+                  </h3>
+                  <ShareButtons title={getLocalizedText(item, 'title')} url={`/amaras#${item.id}`} />
+                </div>
                 <div 
                   className="text-slate-300 leading-relaxed prose-custom prose-lg max-w-full break-words"
                   dangerouslySetInnerHTML={{ __html: getLocalizedText(item, 'content') }}
                 />
-                <div className="mt-4 flex justify-end">
-                  <ShareButtons title={getLocalizedText(item, 'title')} url={`/amaras#${item.id}`} />
-                </div>
               </GlassCard>
             ))}
           </div>

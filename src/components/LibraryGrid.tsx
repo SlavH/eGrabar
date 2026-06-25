@@ -69,11 +69,13 @@ export default function LibraryGrid({ initialBooks = [] }: LibraryGridProps) {
             <GlassCard className="card-hover max-w-full">
               <PdfCoverPreview src={book.pdf_file || ''} coverUrl={book.cover_url || ''} className="aspect-[3/4]" />
               <GlassCardContent>
-                <GlassCardTitle className="text-slate-100 group-hover:text-blue-300 transition-colors break-words">
-                  {language === 'en' ? book.title_en : book.title_hy}
-                </GlassCardTitle>
-                <GlassCardDescription className="text-slate-300/80 break-words">{language === 'en' ? book.author_en : book.author_hy}</GlassCardDescription>
-                <div className="flex justify-end mt-3">
+                <div className="flex items-start justify-between gap-2">
+                  <div className="min-w-0">
+                    <GlassCardTitle className="text-slate-100 group-hover:text-blue-300 transition-colors break-words">
+                      {language === 'en' ? book.title_en : book.title_hy}
+                    </GlassCardTitle>
+                    <GlassCardDescription className="text-slate-300/80 break-words">{language === 'en' ? book.author_en : book.author_hy}</GlassCardDescription>
+                  </div>
                   <ShareButtons title={language === 'en' ? book.title_en : book.title_hy} url={`/library#${book.id}`} />
                 </div>
               </GlassCardContent>
