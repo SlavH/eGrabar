@@ -6,6 +6,7 @@ import { useApp } from '@/lib/context';
 import Hero from '@/components/Hero';
 import { GlassCard } from '@/components/ui/glass-card';
 import { formatArmenianDate } from '@/lib/dateFormatter';
+import ShareButtons from '@/components/ui/ShareButtons';
 
 export default function NewsPage() {
   const { t, language, getLocalizedText } = useApp();
@@ -49,7 +50,7 @@ export default function NewsPage() {
             {news.map((item) => (
               <GlassCard 
                 key={item.id} 
-                className="p-8 border border-white/20 backdrop-blur-md xl:col-span-3"
+                className="p-8 border border-white/20 backdrop-blur-md xl:col-span-3 max-w-full overflow-hidden"
               >
                 <time className="text-sm text-slate-400 mb-4 block">
                   {language === 'hy' 
@@ -59,9 +60,12 @@ export default function NewsPage() {
 
                 <h3 className="text-3xl font-semibold mb-4 text-slate-100">{getLocalizedText(item, 'title')}</h3>
                 <div 
-                  className="text-slate-300 text-lg leading-relaxed prose-custom prose-lg"
+                  className="text-slate-300 text-lg leading-relaxed prose-custom prose-lg max-w-full break-words"
                   dangerouslySetInnerHTML={{ __html: getLocalizedText(item, 'content') }} 
                 />
+                <div className="mt-4 flex justify-end">
+                  <ShareButtons title={getLocalizedText(item, 'title')} url={`/news#${item.id}`} />
+                </div>
               </GlassCard>
             ))}
           </div>

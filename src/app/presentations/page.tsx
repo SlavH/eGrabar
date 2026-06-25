@@ -6,6 +6,7 @@ import { Presentation } from '@/types';
 import { useApp } from '@/lib/context';
 import Hero from '@/components/Hero';
 import { GlassCard, GlassCardContent, GlassCardTitle } from '@/components/ui/glass-card';
+import ShareButtons from '@/components/ui/ShareButtons';
 
 export default function PresentationsPage() {
   const [presentations, setPresentations] = useState<Presentation[]>([]);
@@ -57,12 +58,15 @@ export default function PresentationsPage() {
                   }
                 }}
               >
-                <GlassCard className="card-hover h-full">
+                <GlassCard className="card-hover h-full max-w-full">
                   <PdfCoverPreview src={ppt.pdf_file || ''} coverUrl={ppt.cover_url || ''} className="aspect-[3/4]" />
                   <GlassCardContent>
-                    <GlassCardTitle className="text-slate-100 group-hover:text-blue-300 transition-colors">
+                    <GlassCardTitle className="text-slate-100 group-hover:text-blue-300 transition-colors break-words">
                       {language === 'en' ? ppt.title_en : ppt.title_hy}
                     </GlassCardTitle>
+                    <div className="flex justify-end mt-2">
+                      <ShareButtons title={language === 'en' ? ppt.title_en : ppt.title_hy} url={`/presentations#${ppt.id}`} />
+                    </div>
                   </GlassCardContent>
                 </GlassCard>
               </a>

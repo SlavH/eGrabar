@@ -5,6 +5,7 @@ import { Event } from '@/types';
 import { useApp } from '@/lib/context';
 import Hero from '@/components/Hero';
 import { formatArmenianDate } from '@/lib/dateFormatter';
+import ShareButtons from '@/components/ui/ShareButtons';
 
 export default function EventsPage() {
   const { t, language, getLocalizedText } = useApp();
@@ -57,9 +58,9 @@ export default function EventsPage() {
         ) : (
           <div className="space-y-6">
             {events.map((event) => (
-              <div key={event.id} className="group rounded-2xl p-6 border border-white/20 bg-white/10 backdrop-blur-[3px] card-hover">
+              <div key={event.id} className="group rounded-2xl p-6 border border-white/20 bg-white/10 backdrop-blur-[3px] card-hover max-w-full overflow-hidden">
                 <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-                  <div className="flex-1">
+                  <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-4 mb-3 flex-wrap">
                       <div className="px-4 py-2 bg-blue-600/20 rounded-lg text-blue-300 font-semibold backdrop-blur-[3px]">
                         {formatDate(event.date)}
@@ -85,7 +86,10 @@ export default function EventsPage() {
                       </p>
                     </div>
                     <h3 className="text-xl font-semibold text-white mb-2 group-hover:text-blue-300 transition-colors">{getLocalizedText(event, 'title')}</h3>
-                    <div className="text-slate-300 mb-2 prose-custom" dangerouslySetInnerHTML={{ __html: getLocalizedText(event, 'content') }} />
+                    <div className="text-slate-300 mb-2 prose-custom max-w-full break-words" dangerouslySetInnerHTML={{ __html: getLocalizedText(event, 'content') }} />
+                    <div className="flex justify-end mt-2">
+                      <ShareButtons title={getLocalizedText(event, 'title')} url={`/courses#${event.id}`} />
+                    </div>
                   </div>
                 </div>
               </div>

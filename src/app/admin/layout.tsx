@@ -38,12 +38,12 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   // Debug: Confirm rendering
 
   const adminNav = [
-    { href: '/admin/amaras', label: language === 'en' ? 'Amaras' : 'Ամարաս', icon: '🏛️' },
-    { href: '/admin/books', label: language === 'en' ? 'Books' : 'Գրքեր', icon: '📚' },
-    { href: '/admin/videos', label: language === 'en' ? 'Videos' : 'Տեսանյութեր', icon: '🎥' },
-    { href: '/admin/presentations', label: language === 'en' ? 'Presentations' : 'Շնորհանդեսներ', icon: '📊' },
-    { href: '/admin/news', label: language === 'en' ? 'News' : 'Նորություններ', icon: '📰' },
-    { href: '/admin/courses', label: language === 'en' ? 'Courses' : 'Դասընթացներ', icon: '🎓' },
+    { href: '/admin/news', label: t.nav.news, icon: '📰' },
+    { href: '/admin/books', label: t.nav.library, icon: '📚' },
+    { href: '/admin/videos', label: t.nav.videos, icon: '🎥' },
+    { href: '/admin/presentations', label: t.nav.presentations, icon: '📊' },
+    { href: '/admin/courses', label: t.nav.courses, icon: '🎓' },
+    { href: '/admin/amaras', label: t.nav.amaras, icon: '🏛️' },
   ];
 
   return (

@@ -6,9 +6,9 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ["var(--font-googlesans)", "var(--font-inter)", "sans-serif"],
-        serif: ["var(--font-googlesans)", "serif"],
-        googlesans: ["var(--font-googlesans)", "sans-serif"],
+        sans: ["var(--font-calibri)", "var(--font-inter)", "sans-serif"],
+        serif: ["var(--font-calibri)", "serif"],
+        calibri: ["var(--font-calibri)", "sans-serif"],
       },
     },
   },

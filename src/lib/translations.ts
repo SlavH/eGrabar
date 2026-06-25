@@ -66,7 +66,9 @@ export const translations = {
       "contactUsAt": "Contact us at:",
       "whatsappViber": "Whatsapp Viber",
       "facebook": "Facebook",
-      "instagram": "Instagram"
+      "instagram": "Instagram",
+      "youtube": "YouTube",
+      "copyright": "All rights reserved"
     },
     "home": {
       "tagline": "Preserving Armenian Scientific Heritage",
@@ -105,7 +107,10 @@ export const translations = {
       "instructor": "Instructor:",
       "join": "Join",
       "download": "Download",
-      "noNews": "No news yet."
+      "noNews": "No news yet.",
+      "share": "Share",
+      "copyLink": "Copy link",
+      "linkCopied": "Link copied!"
     }
   },
   "hy": {
@@ -175,7 +180,9 @@ export const translations = {
       "contactUsAt": "Կապնվեք մեզ հետ՝",
       "whatsappViber": "Whatsapp Viber",
       "facebook": "Facebook",
-      "instagram": "Instagram"
+      "instagram": "Instagram",
+      "youtube": "YouTube",
+      "copyright": "Բոլոր իրավունքները պաշտպանված են"
     },
     "home": {
       "tagline": "Հայկական գիտական ժառանգության պահպանումը",
@@ -207,7 +214,10 @@ export const translations = {
       "instructor": "Վարող:",
       "join": "Միանալ",
       "download": "Ներբեռնել",
-      "noNews": "Լրումներ չկան"
+      "noNews": "Լրումներ չկան",
+      "share": "Կիսվել",
+      "copyLink": "Պատճենել հղումը",
+      "linkCopied": "Հղումը պատճենված է"
     },
     "library": {
       "search": "Որոնել գրքեր, հոդվածներ, ձեռագրեր...",
@@ -235,11 +245,11 @@ type Admin = {
   donorName: string; amount: string; message: string; anonymous: string; noItems: string;
   english: string; armenian: string;
 };
-type Contacts = { contactUsAt: string; whatsappViber: string; facebook: string; instagram: string };
+type Contacts = { contactUsAt: string; whatsappViber: string; facebook: string; instagram: string; youtube: string; copyright: string };
 type Home = { tagline: string; title: string; subtitle: string; explore: string; about: string; scroll: string };
 type Sections = { library: string; libraryDesc: string; videoHub: string; videoHubDesc: string; presentations: string; presentationsDesc: string; courses: string; coursesDesc: string };
 type Library = { search: string; noResults: string; noResultsHint: string; preview: string; download: string };
-type Common = { learnMore: string; viewAll: string; noVideosYet: string; noVideosHint: string; noPresentationsYet: string; noPresentationsHint: string; noEventsYet: string; noEventsHint: string; instructor: string; join: string; download: string; noNews: string };
+type Common = { learnMore: string; viewAll: string; noVideosYet: string; noVideosHint: string; noPresentationsYet: string; noPresentationsHint: string; noEventsYet: string; noEventsHint: string; instructor: string; join: string; download: string; noNews: string; share: string; copyLink: string; linkCopied: string };
 
 export interface Translation {
   nav: Nav;

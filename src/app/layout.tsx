@@ -11,12 +11,14 @@ const inter = Inter({
   subsets: ["latin"],
 });
 
-const googlesans = localFont({
+const calibri = localFont({
   src: [
-    { path: "./fonts/GoogleSans-Regular.woff2", weight: "400", style: "normal" },
-    { path: "./fonts/GoogleSans-Bold.woff2", weight: "700", style: "normal" },
+    { path: "../../public/fonts/calibri.ttf", weight: "400", style: "normal" },
+    { path: "../../public/fonts/calibrib.ttf", weight: "700", style: "normal" },
+    { path: "../../public/fonts/calibrii.ttf", weight: "400", style: "italic" },
+    { path: "../../public/fonts/calibril.ttf", weight: "300", style: "normal" },
   ],
-  variable: "--font-googlesans",
+  variable: "--font-calibri",
   display: "swap",
 });
 
@@ -40,7 +42,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.variable} ${googlesans.variable} min-h-screen`}>
+      <body className={`${inter.variable} ${calibri.variable} min-h-screen`}>
         <Background3D />
         <AppProvider>
           <Navigation />

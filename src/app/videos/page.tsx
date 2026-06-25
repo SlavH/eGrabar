@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { Video } from '@/types';
 import { useApp } from '@/lib/context';
 import Hero from '@/components/Hero';
+import ShareButtons from '@/components/ui/ShareButtons';
 
 export default function VideosPage() {
   const [videos, setVideos] = useState<Video[]>([]);
@@ -49,7 +50,7 @@ export default function VideosPage() {
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {videos.map((video) => (
-              <div key={video.id} className="group bg-white/10 backdrop-blur-md rounded-xl overflow-hidden border border-white/20 card-hover">
+              <div key={video.id} className="group bg-white/10 backdrop-blur-md rounded-xl overflow-hidden border border-white/20 card-hover max-w-full">
                 <div className="relative aspect-video bg-black rounded-t-xl overflow-hidden">
                   <iframe
                     className="absolute inset-0 w-full h-full"
@@ -61,7 +62,10 @@ export default function VideosPage() {
                   />
                 </div>
                 <div className="p-4">
-                  <h3 className="font-semibold text-slate-100 line-clamp-2 mb-1 group-hover:text-blue-300 transition-colors">{getLocalizedText(video, 'title')}</h3>
+                  <h3 className="font-semibold text-slate-100 line-clamp-2 mb-2 group-hover:text-blue-300 transition-colors">{getLocalizedText(video, 'title')}</h3>
+                  <div className="flex justify-end">
+                    <ShareButtons title={getLocalizedText(video, 'title')} url={`/videos#${video.id}`} />
+                  </div>
                 </div>
               </div>
             ))}

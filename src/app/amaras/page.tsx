@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { useApp } from '@/lib/context';
 import Hero from '@/components/Hero';
 import { GlassCard } from '@/components/ui/glass-card';
+import ShareButtons from '@/components/ui/ShareButtons';
 
 export default function AmarasCenterPage() {
   const { t, language, getLocalizedText } = useApp();
@@ -42,14 +43,17 @@ export default function AmarasCenterPage() {
         ) : (
           <div className="grid grid-cols-1 gap-8">
             {amaras.map((item) => (
-              <GlassCard key={item.id} className="p-8 xl:col-span-3">
-                <h3 className="text-3xl font-bold text-blue-300 mb-6">
+              <GlassCard key={item.id} className="p-8 xl:col-span-3 max-w-full overflow-hidden">
+                <h3 className="text-3xl font-bold text-blue-300 mb-6 break-words">
                   {getLocalizedText(item, 'title')}
                 </h3>
                 <div 
-                  className="text-slate-300 leading-relaxed prose-custom prose-lg"
+                  className="text-slate-300 leading-relaxed prose-custom prose-lg max-w-full break-words"
                   dangerouslySetInnerHTML={{ __html: getLocalizedText(item, 'content') }}
                 />
+                <div className="mt-4 flex justify-end">
+                  <ShareButtons title={getLocalizedText(item, 'title')} url={`/amaras#${item.id}`} />
+                </div>
               </GlassCard>
             ))}
           </div>
