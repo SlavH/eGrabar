@@ -23,6 +23,16 @@ export default function NewsPage() {
     fetchNews();
   }, []);
 
+  useEffect(() => {
+    if (!loading && news.length > 0 && window.location.hash) {
+      const id = window.location.hash.replace('#', '');
+      setTimeout(() => {
+        const el = document.getElementById(id);
+        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 300);
+    }
+  }, [loading, news]);
+
   return (
     <main className="min-h-screen pt-24 pb-16 px-6 bg-background">
       <Hero
@@ -48,8 +58,9 @@ export default function NewsPage() {
         ) : (
           <div className="grid grid-cols-1 gap-8">
             {news.map((item) => (
-              <GlassCard 
-                key={item.id} 
+              <GlassCard
+                key={item.id}
+                id={item.id}
                 className="p-8 border border-white/20 backdrop-blur-md xl:col-span-3 max-w-full"
               >
                 <div className="flex items-start justify-between gap-4 mb-4">

@@ -23,6 +23,16 @@ export default function VideosPage() {
     fetchVideos();
   }, []);
 
+  useEffect(() => {
+    if (!loading && videos.length > 0 && window.location.hash) {
+      const id = window.location.hash.replace('#', '');
+      setTimeout(() => {
+        const el = document.getElementById(id);
+        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 300);
+    }
+  }, [loading, videos]);
+
   return (
     <main className="min-h-screen pt-24 pb-16 px-6 bg-background">
       <Hero
@@ -50,7 +60,7 @@ export default function VideosPage() {
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {videos.map((video) => (
-              <div key={video.id} className="group bg-white/10 backdrop-blur-md rounded-xl overflow-hidden border border-white/20 card-hover max-w-full">
+              <div key={video.id} id={video.id} className="group bg-white/10 backdrop-blur-md rounded-xl overflow-hidden border border-white/20 card-hover max-w-full">
                 <div className="relative aspect-video bg-black rounded-t-xl overflow-hidden">
                   <iframe
                     className="absolute inset-0 w-full h-full"

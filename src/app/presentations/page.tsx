@@ -24,6 +24,16 @@ export default function PresentationsPage() {
     fetchPresentations();
   }, []);
 
+  useEffect(() => {
+    if (!loading && presentations.length > 0 && window.location.hash) {
+      const id = window.location.hash.replace('#', '');
+      setTimeout(() => {
+        const el = document.getElementById(id);
+        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 300);
+    }
+  }, [loading, presentations]);
+
   return (
     <main className="min-h-screen pt-24 pb-16 px-6 bg-background">
       <Hero
@@ -45,15 +55,14 @@ export default function PresentationsPage() {
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {presentations.map((ppt) => (
-              <a
+              <div
                 key={ppt.id}
-                href={ppt.pdf_file || '#'}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="block h-full"
-                onClick={(e) => {
-                  if (!ppt.pdf_file || ppt.pdf_file === '' || ppt.pdf_file === '#') {
-                    e.preventDefault();
+                id={ppt.id}
+                className="block h-full cursor-pointer"
+                onClick={() => {
+                  if (ppt.pdf_file && ppt.pdf_file !== '' && ppt.pdf_file !== '#') {
+                    window.open(ppt.pdf_file, '_blank', 'noopener,noreferrer');
+                  } else {
                     alert('PDF not available');
                   }
                 }}
@@ -69,7 +78,7 @@ export default function PresentationsPage() {
                     </div>
                   </GlassCardContent>
                 </GlassCard>
-              </a>
+              </div>
             ))}
           </div>
         )}

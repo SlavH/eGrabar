@@ -30,6 +30,16 @@ export default function LibraryGrid({ initialBooks = [] }: LibraryGridProps) {
     fetchBooks();
   }, []);
 
+  useEffect(() => {
+    if (!loading && books.length > 0 && window.location.hash) {
+      const id = window.location.hash.replace('#', '');
+      setTimeout(() => {
+        const el = document.getElementById(id);
+        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 300);
+    }
+  }, [loading, books]);
+
   const filteredBooks = books.filter((book) => {
     const title = language === 'en' ? book.title_en : book.title_hy;
     const author = language === 'en' ? book.author_en : book.author_hy;
@@ -53,18 +63,18 @@ export default function LibraryGrid({ initialBooks = [] }: LibraryGridProps) {
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
         {filteredBooks.map((book) => (
-          <a
+          <div
             key={book.id}
-            href={book.pdf_file || '#'}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="block h-full"
-              onClick={(e) => {
-                if (!book.pdf_file || book.pdf_file === '' || book.pdf_file === '#') {
-                  e.preventDefault();
-                  alert('PDF not available');
-                }
-              }}
+            id={book.id}
+            className="block h-full cursor-pointer"
+            onClick={(e) => {
+              if (!book.pdf_file || book.pdf_file === '' || book.pdf_file === '#') {
+                e.preventDefault();
+                alert('PDF not available');
+              } else {
+                window.open(book.pdf_file, '_blank', 'noopener,noreferrer');
+              }
+            }}
           >
             <GlassCard className="card-hover max-w-full">
               <PdfCoverPreview src={book.pdf_file || ''} coverUrl={book.cover_url || ''} className="aspect-[3/4]" />
@@ -80,7 +90,7 @@ export default function LibraryGrid({ initialBooks = [] }: LibraryGridProps) {
                 </div>
               </GlassCardContent>
             </GlassCard>
-          </a>
+          </div>
         ))}
       </div>
     </div>

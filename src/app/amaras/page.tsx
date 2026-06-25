@@ -21,6 +21,16 @@ export default function AmarasCenterPage() {
     fetchAmaras();
   }, []);
 
+  useEffect(() => {
+    if (!loading && amaras.length > 0 && window.location.hash) {
+      const id = window.location.hash.replace('#', '');
+      setTimeout(() => {
+        const el = document.getElementById(id);
+        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 300);
+    }
+  }, [loading, amaras]);
+
   return (
     <main className="min-h-screen pt-24 pb-16 px-6">
       <Hero
@@ -43,7 +53,7 @@ export default function AmarasCenterPage() {
         ) : (
           <div className="grid grid-cols-1 gap-8">
             {amaras.map((item) => (
-              <GlassCard key={item.id} className="p-8 xl:col-span-3 max-w-full">
+              <GlassCard key={item.id} id={item.id} className="p-8 xl:col-span-3 max-w-full">
                 <div className="flex items-start justify-between gap-4 mb-6">
                   <h3 className="text-3xl font-bold text-blue-300 break-words">
                     {getLocalizedText(item, 'title')}
