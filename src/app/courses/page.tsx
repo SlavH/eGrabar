@@ -80,12 +80,12 @@ export default function EventsPage() {
                           {t.common.join}
                         </a>
                       )}
+                      <p className="text-slate-400 text-sm">
+                        {t.common.instructor}: <span className="text-blue-300">{getLocalizedText(event, 'instructor')}</span>
+                      </p>
                     </div>
                     <h3 className="text-xl font-semibold text-white mb-2 group-hover:text-blue-300 transition-colors">{getLocalizedText(event, 'title')}</h3>
                     <div className="text-slate-300 mb-2 prose-custom" dangerouslySetInnerHTML={{ __html: getLocalizedText(event, 'content') }} />
-                    <p className="text-slate-400 text-sm">
-                      {t.common.instructor}: <span className="text-blue-300">{getLocalizedText(event, 'instructor')}</span>
-                    </p>
                   </div>
                 </div>
               </div>
