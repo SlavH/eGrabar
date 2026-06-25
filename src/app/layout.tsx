@@ -13,10 +13,10 @@ const inter = Inter({
 
 const calibri = localFont({
   src: [
-    { path: "../../public/fonts/calibri.ttf", weight: "400", style: "normal" },
-    { path: "../../public/fonts/calibrib.ttf", weight: "700", style: "normal" },
-    { path: "../../public/fonts/calibrii.ttf", weight: "400", style: "italic" },
-    { path: "../../public/fonts/calibril.ttf", weight: "300", style: "normal" },
+    { path: "./fonts/calibri.ttf", weight: "400", style: "normal" },
+    { path: "./fonts/calibrib.ttf", weight: "700", style: "normal" },
+    { path: "./fonts/calibrii.ttf", weight: "400", style: "italic" },
+    { path: "./fonts/calibril.ttf", weight: "300", style: "normal" },
   ],
   variable: "--font-calibri",
   display: "swap",
