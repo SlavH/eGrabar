@@ -3,20 +3,73 @@
 import { useState, useCallback, useRef, useEffect } from 'react';
 import dynamic from 'next/dynamic';
 import { uploadImageAdapter } from '@/lib/ckeditorUploadAdapter';
-import ImageResize from '@ckeditor/ckeditor5-image/src/imageresize';
+import 'ckeditor5/ckeditor5.css';
 
 const CKEditorComponent = dynamic(
   () => import('@ckeditor/ckeditor5-react').then((mod) => mod.CKEditor),
   { ssr: false }
 );
 
-let ClassicEditor: any;
+let EditorClass: any;
 async function loadEditor() {
-  if (!ClassicEditor) {
-    const mod = await import('@ckeditor/ckeditor5-build-classic');
-    ClassicEditor = mod.default;
+  if (!EditorClass) {
+    const ck = await import('ckeditor5');
+    
+    class CustomEditor extends ck.ClassicEditor {
+      static builtinPlugins = [
+        ck.Essentials,
+        ck.Paragraph,
+        ck.Bold,
+        ck.Italic,
+        ck.Heading,
+        ck.Image,
+        ck.ImageResize,
+        ck.ImageToolbar,
+        ck.ImageStyle,
+        ck.ImageCaption,
+        ck.ImageUpload,
+        ck.Link,
+        ck.List,
+        ck.BlockQuote,
+        ck.Table,
+        ck.TableToolbar,
+        ck.Indent,
+        ck.MediaEmbed,
+        ck.Autoformat,
+        ck.PasteFromOffice,
+        ck.TextTransformation,
+      ];
+
+      static defaultConfig = {
+        toolbar: {
+          items: [
+            'undo', 'redo',
+            '|', 'heading',
+            '|', 'bold', 'italic',
+            '|', 'link', 'insertImage',
+            '|', 'bulletedList', 'numberedList',
+            '|', 'blockQuote', 'indent', 'outdent',
+            '|', 'insertTable', 'mediaEmbed',
+          ],
+        },
+        image: {
+          toolbar: [
+            'imageStyle:inline',
+            'imageStyle:block',
+            'imageStyle:side',
+            '|',
+            'toggleImageCaption',
+            'imageTextAlternative',
+            '|',
+            'resizeImage',
+          ],
+        },
+      };
+    }
+
+    EditorClass = CustomEditor;
   }
-  return ClassicEditor;
+  return EditorClass;
 }
 
 export default function RichTextEditor({ value, onChange, placeholder }: { value: string; onChange: (value: string) => void; placeholder?: string }) {
@@ -59,7 +112,6 @@ export default function RichTextEditor({ value, onChange, placeholder }: { value
           min-height: 150px;
           padding: 12px 16px;
         }
-        /* Fix text color and direction */
         .ck-content {
           color: #334155 !important;
           text-align: left !important;
@@ -81,21 +133,6 @@ export default function RichTextEditor({ value, onChange, placeholder }: { value
       <CKEditorComponent
         editor={Editor}
         data={value}
-        config={{
-            plugins: [ImageResize],
-            image: {
-              toolbar: [
-                'imageStyle:inline',
-                'imageStyle:block',
-                'imageStyle:side',
-                '|',
-                'toggleImageCaption',
-                'imageTextAlternative',
-                '|',
-                'resizeImage'
-              ]
-            }
-          }}
         onReady={handleReady}
         onChange={handleChange}
       />
