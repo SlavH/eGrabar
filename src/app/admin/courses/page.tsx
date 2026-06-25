@@ -3,10 +3,13 @@
 import { useState, useEffect } from 'react';
 import { Event } from '@/types';
 import { useApp } from '@/lib/context';
+import RichTextEditor from '@/components/ui/RichTextEditor';
 
 interface EventForm {
   title_en: string;
   title_hy: string;
+  content_en: string;
+  content_hy: string;
   instructor_en: string;
   instructor_hy: string;
   date: string;
@@ -20,7 +23,7 @@ export default function AdminEventsPage() {
   const [showForm, setShowForm] = useState(false);
   const [editingId, setEditingId] = useState<string | null>(null);
   const [form, setForm] = useState<EventForm>({ 
-    title_en: '', title_hy: '', 
+    title_en: '', title_hy: '', content_en: '', content_hy: '',
     instructor_en: '', instructor_hy: '', date: '', time: '', link: '' 
   });
   const { t, language } = useApp();
@@ -42,6 +45,8 @@ export default function AdminEventsPage() {
     setForm({
       title_en: event.title_en,
       title_hy: event.title_hy,
+      content_en: event.content_en,
+      content_hy: event.content_hy,
       instructor_en: event.instructor_en,
       instructor_hy: event.instructor_hy,
       date: event.date,
@@ -60,6 +65,8 @@ export default function AdminEventsPage() {
         const { error } = await supabase.from('events').update({
           title_en: form.title_en,
           title_hy: form.title_hy,
+          content_en: form.content_en,
+          content_hy: form.content_hy,
           instructor_en: form.instructor_en,
           instructor_hy: form.instructor_hy,
           date: form.date,
@@ -71,6 +78,8 @@ export default function AdminEventsPage() {
         const { error } = await supabase.from('events').insert([{
           title_en: form.title_en,
           title_hy: form.title_hy,
+          content_en: form.content_en,
+          content_hy: form.content_hy,
           instructor_en: form.instructor_en,
           instructor_hy: form.instructor_hy,
           date: form.date,
@@ -80,7 +89,7 @@ export default function AdminEventsPage() {
     
       }
       
-      setForm({ title_en: '', title_hy: '', instructor_en: '', instructor_hy: '', date: '', time: '', link: '' });
+            setForm({ title_en: '', title_hy: '', content_en: '', content_hy: '', instructor_en: '', instructor_hy: '', date: '', time: '', link: '' });
       setEditingId(null);
       setShowForm(false);
       fetchEvents();
@@ -103,7 +112,7 @@ export default function AdminEventsPage() {
           if (showForm) {
             setShowForm(false);
             setEditingId(null);
-            setForm({ title_en: '', title_hy: '', instructor_en: '', instructor_hy: '', date: '', time: '', link: '' });
+      setForm({ title_en: '', title_hy: '', content_en: '', content_hy: '', instructor_en: '', instructor_hy: '', date: '', time: '', link: '' });
           } else {
             setShowForm(true);
           }
@@ -117,19 +126,35 @@ export default function AdminEventsPage() {
           <div className="space-y-6">
             <div className="border-b border-white/20 pb-4">
               <h3 className="text-lg font-semibold text-slate-200 mb-3">{t.admin.english}</h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <input type="text" placeholder={t.admin.titleEn} value={form.title_en} onChange={e => setForm({...form, title_en: e.target.value})} className="px-4 py-2 bg-white/5 border border-white/20 rounded-lg text-slate-100" />
-                 <input type="text" placeholder={t.admin.instructorEn} value={form.instructor_en} onChange={e => setForm({...form, instructor_en: e.target.value})} className="px-4 py-2 bg-white/5 border border-white/20 rounded-lg text-slate-100 placeholder-slate-400" />
-              </div>
-            </div>
-            
-            <div className="pb-4">
-              <h3 className="text-lg font-semibold text-slate-200 mb-3">{t.admin.armenian}</h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <input type="text" placeholder={t.admin.titleHy} value={form.title_hy} onChange={e => setForm({...form, title_hy: e.target.value})} className="px-4 py-2 bg-white/5 border border-white/20 rounded-lg text-slate-100" />
-                 <input type="text" placeholder={t.admin.instructorHy} value={form.instructor_hy} onChange={e => setForm({...form, instructor_hy: e.target.value})} className="px-4 py-2 bg-white/5 border border-white/20 rounded-lg text-slate-100 placeholder-slate-400" />
-              </div>
-            </div>
+               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                 <input type="text" placeholder={t.admin.titleEn} value={form.title_en} onChange={e => setForm({...form, title_en: e.target.value})} className="px-4 py-2 bg-white/5 border border-white/20 rounded-lg text-slate-100" />
+                  <input type="text" placeholder={t.admin.instructorEn} value={form.instructor_en} onChange={e => setForm({...form, instructor_en: e.target.value})} className="px-4 py-2 bg-white/5 border border-white/20 rounded-lg text-slate-100 placeholder-slate-400" />
+               </div>
+               <div className="mt-4">
+                 <p className="text-sm text-slate-400 mb-2">Content (English)</p>
+                 <RichTextEditor 
+                   value={form.content_en} 
+                   onChange={content_en => setForm({...form, content_en})} 
+                   placeholder="Content (English)" 
+                 />
+               </div>
+             </div>
+             
+             <div className="pb-4">
+               <h3 className="text-lg font-semibold text-slate-200 mb-3">{t.admin.armenian}</h3>
+               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                 <input type="text" placeholder={t.admin.titleHy} value={form.title_hy} onChange={e => setForm({...form, title_hy: e.target.value})} className="px-4 py-2 bg-white/5 border border-white/20 rounded-lg text-slate-100" />
+                  <input type="text" placeholder={t.admin.instructorHy} value={form.instructor_hy} onChange={e => setForm({...form, instructor_hy: e.target.value})} className="px-4 py-2 bg-white/5 border border-white/20 rounded-lg text-slate-100 placeholder-slate-400" />
+               </div>
+               <div className="mt-4">
+                 <p className="text-sm text-slate-400 mb-2">Content (Armenian)</p>
+                 <RichTextEditor 
+                   value={form.content_hy} 
+                   onChange={content_hy => setForm({...form, content_hy})} 
+                   placeholder="Content (Armenian)" 
+                 />
+               </div>
+             </div>
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <input type="date" value={form.date} onChange={e => setForm({...form, date: e.target.value})} required className="px-4 py-2 bg-white/5 border border-white/10 rounded-lg text-slate-100" />

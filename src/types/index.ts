@@ -36,8 +36,8 @@ export interface Event {
   id: string;
   title_en: string;
   title_hy: string;
-  description_en: string;
-  description_hy: string;
+  content_en: string;
+  content_hy: string;
   date: string;
   time: string;
   link: string;

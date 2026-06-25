@@ -16,7 +16,7 @@ export async function GET(req: NextRequest) {
     supabase.from('books').select('id, title_en, title_hy, description_en, description_hy, pdf_file, created_at').ilike('title_en', ilike),
     supabase.from('videos').select('id, title_en, title_hy, description_en, description_hy, created_at').ilike('title_en', ilike),
     supabase.from('presentations').select('id, title_en, title_hy, description_en, description_hy, pdf_file, created_at').ilike('title_en', ilike),
-    supabase.from('events').select('id, title_en, title_hy, description_en, description_hy, date, time, link, instructor_en, instructor_hy, created_at').ilike('title_en', ilike),
+    supabase.from('events').select('id, title_en, title_hy, content_en, content_hy, date, time, link, instructor_en, instructor_hy, created_at').ilike('title_en', ilike),
     supabase.from('news').select('id, title_en, title_hy, content_en, content_hy, created_at').ilike('title_en', ilike),
   ]);
 
