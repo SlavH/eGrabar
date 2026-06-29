@@ -6,9 +6,9 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ["var(--font-calibri)", "var(--font-inter)", "sans-serif"],
-        serif: ["var(--font-calibri)", "serif"],
-        calibri: ["var(--font-calibri)", "sans-serif"],
+        sans: ["CalibriCustom", "var(--font-inter)", "sans-serif"],
+        serif: ["CalibriCustom", "serif"],
+        calibri: ["CalibriCustom", "sans-serif"],
       },
     },
   },

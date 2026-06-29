@@ -47,7 +47,7 @@ export default function Home() {
               href="/amaras"
               className="px-6 py-3 sm:px-8 sm:py-4 border border-slate-500 rounded-xl text-slate-300 font-semibold hover:border-blue-400 hover:text-blue-300 transition-all text-sm sm:text-base"
             >
-              {language === 'en' ? 'Amaras Center' : 'Ամարաս Կենտրոն'}
+              {language === 'en' ? '"Amaras" Center' : '«Ամարաս» Կենտրոն'}
             </Link>
           </div>
         </div>

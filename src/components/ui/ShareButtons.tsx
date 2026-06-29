@@ -39,7 +39,13 @@ export default function ShareButtons({ title, url }: { title: string; url?: stri
   return (
     <div className="relative inline-flex items-center gap-1" onClick={(e) => e.stopPropagation()}>
       <button
-        onClick={() => setShowOptions(!showOptions)}
+        onClick={() => {
+          if (typeof navigator !== 'undefined' && navigator.share) {
+            navigator.share({ title, url: shareUrl }).catch(() => {});
+          } else {
+            setShowOptions(!showOptions);
+          }
+        }}
         className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-slate-300 hover:text-blue-300 bg-white/5 hover:bg-white/10 rounded-lg transition-colors border border-white/10"
       >
         <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -68,7 +74,7 @@ export default function ShareButtons({ title, url }: { title: string; url?: stri
             <button
               onClick={() => { handleCopyLink(); setShowOptions(false); }}
               className="p-2 text-slate-300 hover:text-blue-300 hover:bg-white/10 rounded-lg transition-colors"
-              title={copied ? (language === 'en' ? 'Copied!' : 'Պատճենված') : (language === 'en' ? 'Copy link' : 'Պատճենել հղումը')}
+              title={copied ? (language === 'en' ? 'Copied!' : 'Պատճենված') : (language === 'en' ? 'Copy link' : 'Պատճենի՛ր հղումը')}
             >
               {copied ? (
                 <svg className="w-4 h-4 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">

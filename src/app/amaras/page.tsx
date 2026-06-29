@@ -14,7 +14,7 @@ export default function AmarasCenterPage() {
   useEffect(() => {
     async function fetchAmaras() {
       const { supabase } = await import('@/lib/supabase');
-      const { data } = await supabase.from('amaras').select('*').order('created_at', { ascending: true });
+      const { data } = await supabase.from('amaras').select('*').order('created_at', { ascending: false });
       if (data) setAmaras(data);
       setLoading(false);
     }
@@ -34,13 +34,13 @@ export default function AmarasCenterPage() {
   return (
     <main className="min-h-screen pt-24 pb-16 px-6">
       <Hero
-        title={language === 'en' ? 'Amaras Center' : 'Ամարաս Կենտրոն'}
+        title={language === 'en' ? '"Amaras" Center' : '«Ամարաս» Կենտրոն'}
         subtitle={language === 'en' ? 'Preserving Armenian Knowledge through Digital Innovation' : 'Հայկական գիտելիքի պահպանումը թվային նորարարության միջոցով'}
         className="mb-12"
       />
       
       <div className="text-center mb-12">
-        <img src="/amaras.png" alt="Amaras Center" className="w-24 h-24 mx-auto hover:opacity-80 transition-opacity" />
+        <img src="/amaras.png" alt="Amaras Center" className="w-32 h-32 mx-auto hover:opacity-80 transition-opacity" />
       </div>
 
       <div className="max-w-7xl mx-auto">

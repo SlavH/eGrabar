@@ -23,7 +23,7 @@ export default function ContactsPage() {
           <div className="flex justify-center gap-6 pt-4 text-blue-300">
             <a href="tel:+17472039694" className="flex items-center gap-2 hover:text-blue-300 text-blue-300">
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
-              <strong>{t.contacts.whatsappViber}:</strong> +1-747-203-9694
+              WhatsApp | Viber | <strong>+1-747-203-9694</strong>
             </a>
           </div>
           <div className="flex justify-center gap-6 pt-4 flex-wrap">
@@ -65,7 +65,7 @@ export default function ContactsPage() {
 
         <div className="text-center bg-white/10 backdrop-blur-md p-6 rounded-2xl border border-white/20">
           <p className="text-slate-400 text-sm">
-            &copy; 2026 <a href="https://www.linkedin.com/in/slav-hayrapetyan-b867a5243" target="_blank" rel="noopener noreferrer" className="text-blue-300 hover:text-white transition-colors">Slav Hayrapetyan</a>. {t.contacts.copyright}
+            &copy; 2026 <a href="https://orcid.org/0009-0002-4154-5907" target="_blank" rel="noopener noreferrer" className="text-blue-300 hover:text-white transition-colors">Norayr Poghosyan</a>, <a href="https://www.linkedin.com/in/slav-hayrapetyan-b867a5243" target="_blank" rel="noopener noreferrer" className="text-blue-300 hover:text-white transition-colors">Slav Hayrapetyan</a>. {t.contacts.copyright}
           </p>
         </div>
       </div>

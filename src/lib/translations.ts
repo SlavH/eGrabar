@@ -7,8 +7,8 @@ export const translations = {
       "presentations": "Presentations",
       "courses": "Courses",
       "news": "News",
-      "contacts": "Contacts",
-      "amaras": "Amaras Center",
+      "contacts": "Feedback",
+      "amaras": "\"Amaras\" Center",
       "donate": "Donate"
     },
     "admin": {
@@ -63,7 +63,7 @@ export const translations = {
       "armenian": "Armenian (Հայերեն)"
     },
     "contacts": {
-      "contactUsAt": "Contact us at:",
+      "contactUsAt": "Contact us.",
       "whatsappViber": "Whatsapp Viber",
       "facebook": "Facebook",
       "instagram": "Instagram",
@@ -73,20 +73,20 @@ export const translations = {
     "home": {
       "tagline": "Preserving Armenian Scientific Heritage",
       "title": "eGrabar",
-      "subtitle": "The Armenian written heritage and language are eternal national treasures passed on to future generations.",
+      "subtitle": "The Armenian written heritage and language are eternal treasures passed on to future generations.",
       "explore": "Explore Library",
       "about": "About eGrabar",
       "scroll": "Scroll to explore"
     },
     "sections": {
       "library": "Library",
-      "libraryDesc": "Explore our collection of books and scholarly studies on Classical Armenian and Armenian culture.",
+      "libraryDesc": "Explore our collection on Classical Armenian and Armenian culture.",
       "videoHub": "Video Hub",
       "videoHubDesc": "Watch videos, lectures, and programs dedicated to Classical Armenian and Armenian cultural heritage.",
       "presentations": "Presentations",
-      "presentationsDesc": "Access PowerPoint presentations and slides from our educational programs.",
+      "presentationsDesc": "Explore PowerPoint presentations and slides from our educational programs.",
       "courses": "Courses",
-      "coursesDesc": "Join upcoming courses and seminars with leading Armenian scholars."
+      "coursesDesc": "Join upcoming courses and seminars with our lecturers."
     },
     "library": {
       "search": "Search books, papers, manuscripts...",
@@ -121,9 +121,9 @@ export const translations = {
       "presentations": "Ներկայացումներ",
       "courses": "Դասընթացներ",
       "news": "Լրաշար",
-      "contacts": "Կոնտակտներ",
+      "contacts": "Հետադարձ կապ",
       "amaras": "«Ամարաս» Կենտրոն",
-      "donate": "Նվիրաբերեք"
+      "donate": "Նվիրաբերում"
     },
     "admin": {
       "manageBooks": "Կառավարել Գրքերը",
@@ -177,30 +177,30 @@ export const translations = {
       "armenian": "Armenian (Հայերեն)"
     },
     "contacts": {
-      "contactUsAt": "Կապնվեք մեզ հետ՝",
+      "contactUsAt": "Կապվի՛ր մեզ հետ.",
       "whatsappViber": "Whatsapp Viber",
       "facebook": "Facebook",
       "instagram": "Instagram",
       "youtube": "YouTube",
-      "copyright": "Բոլոր իրավունքները պաշտպանված են"
+      "copyright": "Բոլոր իրավունքները պաշտպանված են:"
     },
     "home": {
       "tagline": "Հայկական գիտական ժառանգության պահպանումը",
       "title": "eGrabar",
-      "subtitle": "Հայոց գրավոր մշակույթն ու լեզուն ապագային փոխանցվող ազգային հավերժական արժեք են։",
-      "explore": "Ուսումնասիրել գրադարանը",
+      "subtitle": "Հայոց գրավոր մշակույթն ու լեզուն ապագային փոխանցվող հավերժական արժեքներ են։",
+      "explore": "Ուսումնասիրի՛ր գրադարանը",
       "about": "Ամարաս Կենտրոն",
       "scroll": "Ոլորեք՝ ուսումնասիրելու համար"
     },
     "sections": {
       "library": "Գրադարան",
-      "libraryDesc": "Մտի՛ր գրաբարի ու հայ մշակույթի գրքերի և ուսումնասիրությունների շտեմարան։",
+      "libraryDesc": "Մտի՛ր գրաբարի ու հայ մշակույթի շտեմարան։",
       "videoHub": "Տեսանյութեր",
       "videoHubDesc": "Դիտի՛ր գրաբարին, հայագիտական ժառանգությանը նվիրված տեսանյութեր, դասախոսություններ և հաղորդումներ։",
       "presentations": "Ներկայացումներ",
-      "presentationsDesc": "Մուտք գործեք PowerPoint ներկայացումներ և սլայդեր մեր կրթական ծրագրերից:",
+      "presentationsDesc": "ՈՒսումնասիրի՛ր PowerPoint ներկայացումներ և սահիկներ մեր կրթական ծրագրերից:",
       "courses": "Դասընթացներ",
-      "coursesDesc": "Միացեք գալիք դասընթացներին և սեմինարներին հայ գիտնականների հետ:"
+      "coursesDesc": "Միացի՛ր գալիք դասընթացներին և սեմինարներին մեր դասախոսների հետ:"
     },
     "common": {
       "learnMore": "Իմանալ ավելին",
@@ -215,8 +215,8 @@ export const translations = {
       "join": "Միանալ",
       "download": "Ներբեռնել",
       "noNews": "Լրումներ չկան",
-      "share": "Կիսվել",
-      "copyLink": "Պատճենել հղումը",
+      "share": "Կիսվի՛ր",
+      "copyLink": "Պատճենի՛ր հղումը",
       "linkCopied": "Հղումը պատճենված է"
     },
     "library": {

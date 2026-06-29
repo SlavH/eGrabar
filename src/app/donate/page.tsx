@@ -14,12 +14,17 @@ export default function DonatePage() {
       />
       <div className="max-w-4xl mx-auto space-y-8">
         <div className="p-8 bg-white/10 backdrop-blur-md rounded-2xl border border-white/20 hover:border-blue-500/50 transition-all text-center">
-          <h3 className="text-xl font-bold text-slate-100 mb-4">{language === 'en' ? 'Support Our Mission' : 'Աջակցեք մեր առաքելությանը'}</h3>
+          <h3 className="text-xl font-bold text-slate-100 mb-4">{language === 'en' ? 'Support Our Mission' : 'Աջակցի՛ր մեր առաքելությանը'}</h3>
           <p className="text-slate-300">
             {language === 'en' 
-              ? 'Your contributions help support the study and digitization of Classical Armenian, the development of educational initiatives, and the implementation of charitable programs. Thank you for your generous support.'
-              : 'Ձեր ներդրումները կօգնեն մեզ՝ գրաբարի ուսումնասիրման, թվայնացման բազմազան ձեռնարկներ, նաև բարեգործական ծրագրեր իրականացնելիս։ Շնորհակալություն Ձեր աջակցության համար։'}
+              ? 'Your contributions help support the study and digitization of Classical Armenian, the development of educational initiatives, and the implementation of charitable programs.'
+              : 'Ձեր ներդրումները կօգնեն մեզ՝ գրաբարի ուսումնասիրման, թվայնացման բազմազան ձեռնարկներ, նաև բարեգործական ծրագրեր իրականացնելիս։'}
           </p>
+          <div className="mt-6 text-slate-100 font-semibold text-lg">
+            {language === 'en'
+              ? 'Thank you for your generous support.'
+              : 'Շնորհակալություն Ձեր աջակցության համար։'}
+          </div>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
