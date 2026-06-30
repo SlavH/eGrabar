@@ -3,6 +3,11 @@
 import { useState } from 'react';
 import { useApp } from '@/lib/context';
 
+function isMobileDevice() {
+  if (typeof navigator === 'undefined') return false;
+  return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Mobile|mobile/i.test(navigator.userAgent);
+}
+
 export default function ShareButtons({ title, url }: { title: string; url?: string }) {
   const [copied, setCopied] = useState(false);
   const [showOptions, setShowOptions] = useState(false);
@@ -70,7 +75,7 @@ export default function ShareButtons({ title, url }: { title: string; url?: stri
     <div className="relative inline-flex items-center gap-1" onClick={(e) => e.stopPropagation()}>
       <button
         onClick={async () => {
-          if (typeof navigator !== 'undefined' && navigator.share) {
+          if (isMobileDevice() && typeof navigator !== 'undefined' && navigator.share) {
             try {
               await navigator.share({ title, url: shareUrl });
             } catch {
