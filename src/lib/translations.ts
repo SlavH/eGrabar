@@ -71,7 +71,7 @@ export const translations = {
       "copyright": "All rights reserved"
     },
     "home": {
-      "tagline": "Preserving Armenian Scientific Heritage",
+      "tagline": "Platform for Classical Armenian and Armenian Studies Heritage",
       "title": "eGrabar",
       "subtitle": "The Armenian written heritage and language are eternal treasures passed on to future generations.",
       "explore": "Explore Library",
@@ -86,7 +86,8 @@ export const translations = {
       "presentations": "Presentations",
       "presentationsDesc": "Explore PowerPoint presentations and slides from our educational programs.",
       "courses": "Courses",
-      "coursesDesc": "Join upcoming courses and seminars with our lecturers."
+      "coursesDesc": "Join upcoming courses and seminars with our lecturers.",
+      "newsDesc": "Follow the latest news in Armenian Studies and Classical Armenian."
     },
     "library": {
       "search": "Search books, papers, manuscripts...",
@@ -185,7 +186,7 @@ export const translations = {
       "copyright": "Բոլոր իրավունքները պաշտպանված են:"
     },
     "home": {
-      "tagline": "Հայկական գիտական ժառանգության պահպանումը",
+      "tagline": "Գրաբարի և հայագիտական ժառանգության հարթակ",
       "title": "eGrabar",
       "subtitle": "Հայոց գրավոր մշակույթն ու լեզուն ապագային փոխանցվող հավերժական արժեքներ են։",
       "explore": "Ուսումնասիրի՛ր գրադարանը",
@@ -200,7 +201,8 @@ export const translations = {
       "presentations": "Ներկայացումներ",
       "presentationsDesc": "ՈՒսումնասիրի՛ր PowerPoint ներկայացումներ և սահիկներ մեր կրթական ծրագրերից:",
       "courses": "Դասընթացներ",
-      "coursesDesc": "Միացի՛ր գալիք դասընթացներին և սեմինարներին մեր դասախոսների հետ:"
+      "coursesDesc": "Միացի՛ր գալիք դասընթացներին և սեմինարներին մեր դասախոսների հետ:",
+      "newsDesc": "Հետևի՛ր հայագիտության և գրաբարագիտության նորություններին։"
     },
     "common": {
       "learnMore": "Իմանալ ավելին",
@@ -247,7 +249,7 @@ type Admin = {
 };
 type Contacts = { contactUsAt: string; whatsappViber: string; facebook: string; instagram: string; youtube: string; copyright: string };
 type Home = { tagline: string; title: string; subtitle: string; explore: string; about: string; scroll: string };
-type Sections = { library: string; libraryDesc: string; videoHub: string; videoHubDesc: string; presentations: string; presentationsDesc: string; courses: string; coursesDesc: string };
+type Sections = { library: string; libraryDesc: string; videoHub: string; videoHubDesc: string; presentations: string; presentationsDesc: string; courses: string; coursesDesc: string; newsDesc: string };
 type Library = { search: string; noResults: string; noResultsHint: string; preview: string; download: string };
 type Common = { learnMore: string; viewAll: string; noVideosYet: string; noVideosHint: string; noPresentationsYet: string; noPresentationsHint: string; noEventsYet: string; noEventsHint: string; instructor: string; join: string; download: string; noNews: string; share: string; copyLink: string; linkCopied: string };
 

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useApp } from '@/lib/context';
 
 export default function ShareButtons({ title, url }: { title: string; url?: string }) {
@@ -29,19 +29,16 @@ export default function ShareButtons({ title, url }: { title: string; url?: stri
     },
   ] as const;
 
-  useEffect(() => {
-    if (!showOptions) return;
-    function handleScroll() { setShowOptions(false); }
-    window.addEventListener('scroll', handleScroll, { once: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [showOptions]);
-
   return (
     <div className="relative inline-flex items-center gap-1" onClick={(e) => e.stopPropagation()}>
       <button
-        onClick={() => {
+        onClick={async () => {
           if (typeof navigator !== 'undefined' && navigator.share) {
-            navigator.share({ title, url: shareUrl }).catch(() => {});
+            try {
+              await navigator.share({ title, url: shareUrl });
+            } catch {
+              setShowOptions(true);
+            }
           } else {
             setShowOptions(!showOptions);
           }

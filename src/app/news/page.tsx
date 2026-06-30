@@ -37,6 +37,7 @@ export default function NewsPage() {
     <main className="min-h-screen pt-24 pb-16 px-6 bg-background">
       <Hero
         title={t.nav.news}
+        subtitle={t.sections.newsDesc}
         className="mb-8"
       />
       <div className="max-w-7xl mx-auto">

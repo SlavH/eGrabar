@@ -35,7 +35,7 @@ export default function AmarasCenterPage() {
     <main className="min-h-screen pt-24 pb-16 px-6">
       <Hero
         title={language === 'en' ? '"Amaras" Center' : '«Ամարաս» Կենտրոն'}
-        subtitle={language === 'en' ? 'Preserving Armenian Knowledge through Digital Innovation' : 'Հայկական գիտելիքի պահպանումը թվային նորարարության միջոցով'}
+        subtitle={language === 'en' ? 'Discover the educational opportunities of the «Amaras» scientific-educational center.' : 'Բացահայտի՛ր «Ամարաս» գիտական-ուսումնական կենտրոնի կրթական հնարավորությունները։'}
         className="mb-12"
       />
       
