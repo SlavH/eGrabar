@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useRef, useCallback } from 'react';
+import { useState } from 'react';
 import { useApp } from '@/lib/context';
 
 function isMobileDevice() {
@@ -11,8 +11,6 @@ function isMobileDevice() {
 export default function ShareButtons({ title, url }: { title: string; url?: string }) {
   const [copied, setCopied] = useState(false);
   const [showOptions, setShowOptions] = useState(false);
-  const [dropdownPos, setDropdownPos] = useState<{ top: number; left: number } | null>(null);
-  const buttonRef = useRef<HTMLButtonElement>(null);
   const { t, language } = useApp();
 
   const shareUrl = (() => {
@@ -24,18 +22,9 @@ export default function ShareButtons({ title, url }: { title: string; url?: stri
   const encodedUrl = encodeURIComponent(shareUrl);
   const encodedTitle = encodeURIComponent(title);
 
-  const showDropdown = useCallback(() => {
-    if (buttonRef.current) {
-      const rect = buttonRef.current.getBoundingClientRect();
-      setDropdownPos({ top: rect.bottom + 8, left: rect.left });
-    }
-    setShowOptions(true);
-  }, []);
-
-  const closeDropdown = useCallback(() => {
-    setShowOptions(false);
-    setDropdownPos(null);
-  }, []);
+  function toggleDropdown(open?: boolean) {
+    setShowOptions(open !== undefined ? open : !showOptions);
+  }
 
   const shareLinks = [
     {
@@ -89,21 +78,15 @@ export default function ShareButtons({ title, url }: { title: string; url?: stri
   return (
     <div className="relative inline-flex items-center gap-1" onClick={(e) => e.stopPropagation()}>
       <button
-        ref={buttonRef}
         onClick={async () => {
           if (isMobileDevice() && typeof navigator !== 'undefined' && navigator.share) {
             try {
               await navigator.share({ title, url: shareUrl });
             } catch {
-              showDropdown();
+              toggleDropdown(true);
             }
           } else {
-            if (showOptions) {
-              setShowOptions(false);
-              setDropdownPos(null);
-            } else {
-              showDropdown();
-            }
+            toggleDropdown();
           }
         }}
         className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-slate-300 hover:text-blue-300 bg-white/5 hover:bg-white/10 rounded-lg transition-colors border border-white/10"
@@ -114,14 +97,12 @@ export default function ShareButtons({ title, url }: { title: string; url?: stri
         {t.common.share}
       </button>
 
-      {showOptions && dropdownPos && (
+      {showOptions && (
         <>
-          <div className="fixed inset-0 z-40" onClick={closeDropdown} />
+          <div className="fixed inset-0 z-40" onClick={() => toggleDropdown(false)} />
           <div
-            className="fixed z-50 flex flex-col bg-white/30 border border-white/20 rounded-xl p-1.5 shadow-xl min-w-[160px]"
+            className="absolute left-0 top-full mt-2 z-[9999] flex flex-col bg-white/30 border border-white/20 rounded-xl p-1.5 shadow-xl min-w-[160px]"
             style={{
-              top: dropdownPos.top,
-              left: dropdownPos.left,
               backdropFilter: 'blur(10px)',
               WebkitBackdropFilter: 'blur(10px)',
             }}
@@ -132,7 +113,7 @@ export default function ShareButtons({ title, url }: { title: string; url?: stri
                 href={link.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                onClick={closeDropdown}
+                onClick={() => toggleDropdown(false)}
                 className="flex items-center gap-2.5 px-3 py-2 text-sm text-slate-300 hover:text-blue-300 hover:bg-white/10 rounded-lg transition-colors"
                 title={link.name}
               >
@@ -142,7 +123,7 @@ export default function ShareButtons({ title, url }: { title: string; url?: stri
             ))}
             <div className="border-t border-white/10 my-1" />
             <button
-              onClick={() => { handleCopyLink(); closeDropdown(); }}
+              onClick={() => { handleCopyLink(); toggleDropdown(false); }}
               className="flex items-center gap-2.5 px-3 py-2 text-sm text-slate-300 hover:text-blue-300 hover:bg-white/10 rounded-lg transition-colors"
             >
               {copied ? (
