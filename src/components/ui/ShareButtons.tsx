@@ -123,10 +123,11 @@ export default function ShareButtons({ title, url }: { title: string; url?: stri
         <>
           <div className="fixed inset-0 z-40" onClick={closeDropdown} />
           <div
-            className="fixed z-[9999] flex flex-col bg-white/70 border border-white/20 rounded-xl p-1.5 shadow-2xl min-w-[160px]"
+            className="absolute z-[9999] flex flex-col bg-white/70 border border-white/20 rounded-xl p-1.5 shadow-2xl min-w-[160px]"
             style={{
-              top: dropdownPos.top,
-              left: dropdownPos.left,
+              top: '100%',
+              left: 0,
+              marginTop: '0.5rem',
               backdropFilter: 'blur(24px)',
               WebkitBackdropFilter: 'blur(24px)',
             }}
