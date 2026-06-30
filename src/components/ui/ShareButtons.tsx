@@ -121,7 +121,7 @@ export default function ShareButtons({ title, url }: { title: string; url?: stri
         <>
           <div className="fixed inset-0 z-40" onClick={closeDropdown} />
           <div
-            className="fixed z-50 flex flex-col bg-white/30 border border-white/20 rounded-xl p-1.5 shadow-xl min-w-[160px]"
+            className="fixed z-50 flex flex-col bg-white/70 border border-white/20 rounded-xl p-1.5 shadow-2xl min-w-[160px]"
             style={{
               top: dropdownPos.top,
               left: dropdownPos.left,
@@ -137,7 +137,7 @@ export default function ShareButtons({ title, url }: { title: string; url?: stri
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={closeDropdown}
-                className="flex items-center gap-2.5 px-3 py-2 text-sm text-slate-300 hover:text-blue-300 hover:bg-white/10 rounded-lg transition-colors"
+                className="flex items-center gap-2.5 px-3 py-2 text-sm text-slate-800 hover:text-blue-600 hover:bg-black/5 rounded-lg transition-colors"
                 title={link.name}
               >
                 {link.icon}
@@ -147,7 +147,7 @@ export default function ShareButtons({ title, url }: { title: string; url?: stri
             <div className="border-t border-white/10 my-1" />
             <button
               onClick={() => { handleCopyLink(); closeDropdown(); }}
-              className="flex items-center gap-2.5 px-3 py-2 text-sm text-slate-300 hover:text-blue-300 hover:bg-white/10 rounded-lg transition-colors"
+              className="flex items-center gap-2.5 px-3 py-2 text-sm text-slate-800 hover:text-blue-600 hover:bg-black/5 rounded-lg transition-colors"
             >
               {copied ? (
                 <svg className="w-4 h-4 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
