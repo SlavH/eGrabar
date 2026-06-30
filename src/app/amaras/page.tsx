@@ -40,7 +40,7 @@ export default function AmarasCenterPage() {
       />
       
       <div className="text-center mb-12">
-        <img src="/amaras.png" alt="Amaras Center" className="w-32 h-32 mx-auto hover:opacity-80 transition-opacity" />
+        <img src="/amaras.png" alt="Amaras Center" className="w-48 h-48 mx-auto hover:opacity-80 transition-opacity" />
       </div>
 
       <div className="max-w-7xl mx-auto">

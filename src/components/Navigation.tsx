@@ -38,8 +38,8 @@ export default function Navigation() {
         <div className="max-w-[90rem] mx-auto px-6 flex items-center justify-between relative">
           <Link href="/" className="flex items-center gap-1.5 group relative z-[120]">
             <img src="/nur.png" alt="Logo" className="w-10 h-10 rounded-lg" />
-            <span className="text-xl sm:text-2xl font-semibold tracking-wide whitespace-nowrap max-w-[160px] sm:max-w-none truncate text-white">
-              <span className="text-blue-200 text-lg sm:text-2xl">{language === 'en' ? 'eGrabar' : 'իԳրաբար'}</span>
+            <span className="font-semibold tracking-wide whitespace-nowrap text-white text-base sm:text-lg lg:text-xl">
+              <span className="text-blue-200">{language === 'en' ? 'eGrabar' : 'իԳրաբար'}</span>
             </span>
           </Link>
 
