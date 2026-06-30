@@ -70,7 +70,7 @@ export default function PresentationsPage() {
                 <GlassCard className="card-hover h-full max-w-full">
                   <PdfCoverPreview src={ppt.pdf_file || ''} coverUrl={ppt.cover_url || ''} className="aspect-[3/4]" />
                   <GlassCardContent>
-                    <div className="flex items-start justify-between gap-2">
+                    <div className="flex items-center justify-between gap-2">
                       <GlassCardTitle className="text-slate-100 group-hover:text-blue-300 transition-colors break-words">
                         {language === 'en' ? ppt.title_en : ppt.title_hy}
                       </GlassCardTitle>

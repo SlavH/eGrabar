@@ -101,7 +101,7 @@ export default function ShareButtons({ title, url }: { title: string; url?: stri
         <>
           <div className="fixed inset-0 z-40" onClick={() => toggleDropdown(false)} />
           <div
-            className="absolute left-0 top-full mt-2 z-[9999] flex flex-col bg-white/30 border border-white/20 rounded-xl p-1.5 shadow-xl min-w-[160px]"
+            className="absolute right-0 top-full mt-2 z-[9999] flex flex-col bg-white/30 border border-white/20 rounded-xl p-1.5 shadow-xl min-w-[160px]"
             style={{
               backdropFilter: 'blur(10px)',
               WebkitBackdropFilter: 'blur(10px)',

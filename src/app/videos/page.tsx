@@ -72,7 +72,7 @@ export default function VideosPage() {
                   />
                 </div>
                 <div className="p-4">
-                  <div className="flex items-start justify-between gap-2">
+                  <div className="flex items-center justify-between gap-2">
                     <h3 className="font-semibold text-slate-100 line-clamp-2 group-hover:text-blue-300 transition-colors break-words">{getLocalizedText(video, 'title')}</h3>
                     <ShareButtons title={getLocalizedText(video, 'title')} url={`/videos#${video.id}`} />
                   </div>

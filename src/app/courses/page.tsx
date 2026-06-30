@@ -68,7 +68,7 @@ export default function EventsPage() {
           <div className="space-y-6">
             {events.map((event) => (
               <div key={event.id} id={event.id} className="group rounded-2xl p-6 border border-white/20 bg-white/10 backdrop-blur-[3px] card-hover max-w-full">
-                <div className="flex items-start justify-between gap-4 mb-4">
+                <div className="flex items-center justify-between gap-4 mb-4">
                   <div className="flex items-center gap-4 flex-wrap min-w-0">
                     <div className="px-4 py-2 bg-blue-600/20 rounded-lg text-blue-300 font-semibold backdrop-blur-[3px] shrink-0">
                       {formatDate(event.date)}
