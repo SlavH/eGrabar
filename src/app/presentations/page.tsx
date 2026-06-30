@@ -67,16 +67,20 @@ export default function PresentationsPage() {
                   }
                 }}
               >
-                <GlassCard className="card-hover h-full max-w-full">
+                <GlassCard className="card-hover h-full max-w-full relative">
                   <PdfCoverPreview src={ppt.pdf_file || ''} coverUrl={ppt.cover_url || ''} className="aspect-[3/4]" />
                   <GlassCardContent>
                     <div className="flex items-center justify-between gap-2">
                       <GlassCardTitle className="text-slate-100 group-hover:text-blue-300 transition-colors break-words">
                         {language === 'en' ? ppt.title_en : ppt.title_hy}
                       </GlassCardTitle>
-                      <ShareButtons title={language === 'en' ? ppt.title_en : ppt.title_hy} url={`/presentations#${ppt.id}`} />
                     </div>
                   </GlassCardContent>
+                  <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-10">
+                    <div className="pointer-events-auto">
+                      <ShareButtons title={language === 'en' ? ppt.title_en : ppt.title_hy} url={`/presentations#${ppt.id}`} />
+                    </div>
+                  </div>
                 </GlassCard>
               </div>
             ))}

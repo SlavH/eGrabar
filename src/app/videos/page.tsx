@@ -60,7 +60,7 @@ export default function VideosPage() {
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {videos.map((video) => (
-              <div key={video.id} id={video.id} className="group bg-white/10 backdrop-blur-md rounded-xl overflow-hidden border border-white/20 card-hover max-w-full">
+              <div key={video.id} id={video.id} className="group bg-white/10 backdrop-blur-md rounded-xl border border-white/20 card-hover max-w-full relative">
                 <div className="relative aspect-video bg-black rounded-t-xl overflow-hidden">
                   <iframe
                     className="absolute inset-0 w-full h-full"
@@ -74,6 +74,10 @@ export default function VideosPage() {
                 <div className="p-4">
                   <div className="flex items-center justify-between gap-2">
                     <h3 className="font-semibold text-slate-100 line-clamp-2 group-hover:text-blue-300 transition-colors break-words">{getLocalizedText(video, 'title')}</h3>
+                  </div>
+                </div>
+                <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-10">
+                  <div className="pointer-events-auto">
                     <ShareButtons title={getLocalizedText(video, 'title')} url={`/videos#${video.id}`} />
                   </div>
                 </div>

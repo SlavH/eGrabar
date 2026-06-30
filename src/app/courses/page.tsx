@@ -67,7 +67,7 @@ export default function EventsPage() {
         ) : (
           <div className="space-y-6">
             {events.map((event) => (
-              <div key={event.id} id={event.id} className="group rounded-2xl p-6 border border-white/20 bg-white/10 backdrop-blur-[3px] card-hover max-w-full">
+              <div key={event.id} id={event.id} className="group rounded-2xl p-6 border border-white/20 bg-white/10 backdrop-blur-[3px] card-hover max-w-full relative">
                 <div className="flex items-center justify-between gap-4 mb-4">
                   <div className="flex items-center gap-4 flex-wrap min-w-0">
                     <div className="px-4 py-2 bg-blue-600/20 rounded-lg text-blue-300 font-semibold backdrop-blur-[3px] shrink-0">
@@ -94,10 +94,14 @@ export default function EventsPage() {
                       {t.common.instructor}: <span className="text-blue-300">{getLocalizedText(event, 'instructor')}</span>
                     </p>
                   </div>
-                  <ShareButtons title={getLocalizedText(event, 'title')} url={`/courses#${event.id}`} />
                 </div>
                 <h3 className="text-xl font-semibold text-white mb-2 group-hover:text-blue-300 transition-colors break-words">{getLocalizedText(event, 'title')}</h3>
                 <div className="text-slate-300 mb-2 prose-custom max-w-full break-words" dangerouslySetInnerHTML={{ __html: getLocalizedText(event, 'content') }} />
+                <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-10">
+                  <div className="pointer-events-auto">
+                    <ShareButtons title={getLocalizedText(event, 'title')} url={`/courses#${event.id}`} />
+                  </div>
+                </div>
               </div>
             ))}
           </div>
