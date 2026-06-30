@@ -26,14 +26,16 @@ export default function ShareButtons({ title, url }: { title: string; url?: stri
 
   function openDropdown() {
     if (buttonRef.current) {
-      const card = buttonRef.current.closest('[id]') as HTMLElement | null;
-      if (card) {
-        const r = card.getBoundingClientRect();
-        setDropdownPos({ top: r.top + r.height / 2, left: r.left + r.width / 2 });
-      } else {
-        const r = buttonRef.current.getBoundingClientRect();
-        setDropdownPos({ top: r.bottom + 8, left: r.left });
+      const rect = buttonRef.current.getBoundingClientRect();
+      const viewportWidth = window.innerWidth;
+      const dropdownWidth = 160; 
+      let left = rect.left;
+      
+      if (left + dropdownWidth > viewportWidth - 20) {
+        left = viewportWidth - dropdownWidth - 20;
       }
+      
+      setDropdownPos({ top: rect.bottom + 8, left: left });
     }
     setShowOptions(true);
   }
@@ -125,7 +127,6 @@ export default function ShareButtons({ title, url }: { title: string; url?: stri
             style={{
               top: dropdownPos.top,
               left: dropdownPos.left,
-              transform: 'translate(-50%, -50%)',
               backdropFilter: 'blur(24px)',
               WebkitBackdropFilter: 'blur(24px)',
             }}
