@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Video } from '@/types';
 import { useApp } from '@/lib/context';
 
@@ -18,6 +18,8 @@ export default function AdminVideosPage() {
   const [form, setForm] = useState<VideoForm>({ 
     title_en: '', title_hy: '', youtube_url: '' 
   });
+  const [submitting, setSubmitting] = useState(false);
+  const submittedRef = useRef(false);
   const { t, language } = useApp();
 
   useEffect(() => {
@@ -44,6 +46,9 @@ export default function AdminVideosPage() {
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
+    if (submittedRef.current || submitting) return;
+    submittedRef.current = true;
+    setSubmitting(true);
     try {
       const { supabase } = await import('@/lib/supabase');
       
@@ -66,6 +71,9 @@ export default function AdminVideosPage() {
       setShowForm(false);
       fetchVideos();
     } catch (err) {
+    } finally {
+      setSubmitting(false);
+      submittedRef.current = false;
     }
   }
 
@@ -111,7 +119,7 @@ export default function AdminVideosPage() {
               <input type="text" placeholder="https://youtube.com/..." value={form.youtube_url} onChange={e => setForm({...form, youtube_url: e.target.value})} className="w-full px-4 py-2 bg-white/5 border border-white/10 rounded-lg text-slate-100 placeholder-slate-400" />
             </div>
           </div>
-          <button type="submit" className="px-6 py-2 bg-blue-600/80 backdrop-blur-md text-white font-semibold rounded-lg mt-4 hover:bg-blue-600 transition-colors">{t.admin.save}</button>
+          <button type="submit" disabled={submitting} className="px-6 py-2 bg-blue-600/80 backdrop-blur-md text-white font-semibold rounded-lg mt-4 hover:bg-blue-600 transition-colors disabled:opacity-50">{submitting ? (language === 'en' ? 'Saving...' : 'Պահպանվում է...') : t.admin.save}</button>
         </form>
       )}
 

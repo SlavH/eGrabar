@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useApp } from '@/lib/context';
 import RichTextEditor from '@/components/ui/RichTextEditor';
 
@@ -18,6 +18,8 @@ export default function AdminNewsPage() {
   const [showForm, setShowForm] = useState(false);
   const [editingId, setEditingId] = useState<string | null>(null);
   const [form, setForm] = useState<NewsForm>({ title_en: '', title_hy: '', content_en: '', content_hy: '', show_on_home: false });
+  const [submitting, setSubmitting] = useState(false);
+  const submittedRef = useRef(false);
   const { language } = useApp();
 
   useEffect(() => {
@@ -33,18 +35,26 @@ export default function AdminNewsPage() {
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    const { supabase } = await import('@/lib/supabase');
-    
-    if (editingId) {
-      await supabase.from('news').update(form).eq('id', editingId);
-    } else {
-      await supabase.from('news').insert([form]);
+    if (submittedRef.current || submitting) return;
+    submittedRef.current = true;
+    setSubmitting(true);
+    try {
+      const { supabase } = await import('@/lib/supabase');
+      
+      if (editingId) {
+        await supabase.from('news').update(form).eq('id', editingId);
+      } else {
+        await supabase.from('news').insert([form]);
+      }
+      
+      setForm({ title_en: '', title_hy: '', content_en: '', content_hy: '', show_on_home: false });
+      setEditingId(null);
+      setShowForm(false);
+      fetchNews();
+    } finally {
+      setSubmitting(false);
+      submittedRef.current = false;
     }
-    
-    setForm({ title_en: '', title_hy: '', content_en: '', content_hy: '', show_on_home: false });
-    setEditingId(null);
-    setShowForm(false);
-    fetchNews();
   }
 
   function handleEdit(item: any) {
@@ -117,8 +127,8 @@ export default function AdminNewsPage() {
               </label>
             </div>
           </div>
-          <button type="submit" className="px-6 py-2 bg-blue-600/80 backdrop-blur-md text-white font-semibold rounded-lg mt-4 hover:bg-blue-600 transition-colors">
-            {language === 'en' ? 'Save' : 'Պահպանել'}
+          <button type="submit" disabled={submitting} className="px-6 py-2 bg-blue-600/80 backdrop-blur-md text-white font-semibold rounded-lg mt-4 hover:bg-blue-600 transition-colors disabled:opacity-50">
+            {submitting ? (language === 'en' ? 'Saving...' : 'Պահպանվում է...') : (language === 'en' ? 'Save' : 'Պահպանել')}
           </button>
         </form>
       )}

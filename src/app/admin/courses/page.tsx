@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Event } from '@/types';
 import { useApp } from '@/lib/context';
 import RichTextEditor from '@/components/ui/RichTextEditor';
@@ -26,6 +26,8 @@ export default function AdminEventsPage() {
     title_en: '', title_hy: '', content_en: '', content_hy: '',
     instructor_en: '', instructor_hy: '', date: '', time: '', link: '' 
   });
+  const [submitting, setSubmitting] = useState(false);
+  const submittedRef = useRef(false);
   const { t, language } = useApp();
 
   useEffect(() => {
@@ -58,6 +60,9 @@ export default function AdminEventsPage() {
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
+    if (submittedRef.current || submitting) return;
+    submittedRef.current = true;
+    setSubmitting(true);
     try {
       const { supabase } = await import('@/lib/supabase');
       
@@ -89,11 +94,14 @@ export default function AdminEventsPage() {
     
       }
       
-            setForm({ title_en: '', title_hy: '', content_en: '', content_hy: '', instructor_en: '', instructor_hy: '', date: '', time: '', link: '' });
+      setForm({ title_en: '', title_hy: '', content_en: '', content_hy: '', instructor_en: '', instructor_hy: '', date: '', time: '', link: '' });
       setEditingId(null);
       setShowForm(false);
       fetchEvents();
     } catch (err) {
+    } finally {
+      setSubmitting(false);
+      submittedRef.current = false;
     }
   }
 
@@ -162,7 +170,7 @@ export default function AdminEventsPage() {
               <input type="text" placeholder="Link" value={form.link} onChange={e => setForm({...form, link: e.target.value})} required className="px-4 py-2 bg-white/5 border border-white/10 rounded-lg text-slate-100 md:col-span-2 placeholder-slate-400" />
             </div>
           </div>
-          <button type="submit" className="px-6 py-2 bg-blue-600/80 backdrop-blur-md text-white font-semibold rounded-lg mt-4 hover:bg-blue-600 transition-colors">{t.admin.save}</button>
+          <button type="submit" disabled={submitting} className="px-6 py-2 bg-blue-600/80 backdrop-blur-md text-white font-semibold rounded-lg mt-4 hover:bg-blue-600 transition-colors disabled:opacity-50">{submitting ? (language === 'en' ? 'Saving...' : 'Պահպանվում է...') : t.admin.save}</button>
         </form>
       )}
 

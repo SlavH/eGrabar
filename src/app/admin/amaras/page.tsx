@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useApp } from '@/lib/context';
 import RichTextEditor from '@/components/ui/RichTextEditor';
 
@@ -18,6 +18,8 @@ export default function AdminAmarasPage() {
   const [showForm, setShowForm] = useState(false);
   const [editingId, setEditingId] = useState<string | null>(null);
   const [form, setForm] = useState<AmarasForm>({ title_en: '', title_hy: '', content_en: '', content_hy: '', show_on_home: false });
+  const [submitting, setSubmitting] = useState(false);
+  const submittedRef = useRef(false);
   const { language } = useApp();
 
   useEffect(() => {
@@ -33,32 +35,38 @@ export default function AdminAmarasPage() {
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    // Explicitly destructure only valid database columns for Supabase update/insert
-    const { supabase } = await import('@/lib/supabase');
-    const { data, error } = editingId 
-      ? await supabase.from('amaras').update({
-          title_en: form.title_en,
-          title_hy: form.title_hy,
-          content_en: form.content_en,
-          content_hy: form.content_hy
-        }).eq('id', editingId)
-      : await supabase.from('amaras').insert([{
-          title_en: form.title_en,
-          title_hy: form.title_hy,
-          content_en: form.content_en,
-          content_hy: form.content_hy
-        }]);
+    if (submittedRef.current || submitting) return;
+    submittedRef.current = true;
+    setSubmitting(true);
+    try {
+      const { supabase } = await import('@/lib/supabase');
+      const { error } = editingId 
+        ? await supabase.from('amaras').update({
+            title_en: form.title_en,
+            title_hy: form.title_hy,
+            content_en: form.content_en,
+            content_hy: form.content_hy
+          }).eq('id', editingId)
+        : await supabase.from('amaras').insert([{
+            title_en: form.title_en,
+            title_hy: form.title_hy,
+            content_en: form.content_en,
+            content_hy: form.content_hy
+          }]);
 
-    if (error) {
-
-      alert("Error saving Amaras: " + error.message);
-      return;
+      if (error) {
+        alert("Error saving Amaras: " + error.message);
+        return;
+      }
+      
+      setForm({ title_en: '', title_hy: '', content_en: '', content_hy: '', show_on_home: false });
+      setEditingId(null);
+      setShowForm(false);
+      fetchAmaras();
+    } finally {
+      setSubmitting(false);
+      submittedRef.current = false;
     }
-    
-    setForm({ title_en: '', title_hy: '', content_en: '', content_hy: '', show_on_home: false });
-    setEditingId(null);
-    setShowForm(false);
-    fetchAmaras();
   }
 
   function handleEdit(item: any) {
@@ -123,8 +131,8 @@ export default function AdminAmarasPage() {
               />
             </div>
           </div>
-          <button type="submit" className="px-6 py-2 bg-blue-600/80 backdrop-blur-md text-white font-semibold rounded-lg mt-4 hover:bg-blue-600 transition-colors">
-            {language === 'en' ? 'Save' : 'Պահպանել'}
+          <button type="submit" disabled={submitting} className="px-6 py-2 bg-blue-600/80 backdrop-blur-md text-white font-semibold rounded-lg mt-4 hover:bg-blue-600 transition-colors disabled:opacity-50">
+            {submitting ? (language === 'en' ? 'Saving...' : 'Պահպանվում է...') : (language === 'en' ? 'Save' : 'Պահպանել')}
           </button>
         </form>
       )}
