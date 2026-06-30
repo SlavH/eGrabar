@@ -126,8 +126,8 @@ export default function ShareButtons({ title, url }: { title: string; url?: stri
               top: dropdownPos.top,
               left: dropdownPos.left,
               transform: 'translate(-50%, -50%)',
-              backdropFilter: 'blur(10px)',
-              WebkitBackdropFilter: 'blur(10px)',
+              backdropFilter: 'blur(24px)',
+              WebkitBackdropFilter: 'blur(24px)',
             }}
           >
             {shareLinks.map((link) => (
