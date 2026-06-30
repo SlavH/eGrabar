@@ -1,4 +1,10 @@
--- Storage policies for news-images bucket (used by CKEditor on all admin forms)
+-- Ensure news-images bucket exists and is public
+INSERT INTO storage.buckets (id, name, public)
+VALUES ('news-images', 'news-images', true)
+ON CONFLICT (id) DO UPDATE SET public = true;
+
+-- Enable RLS on storage.objects
+ALTER TABLE storage.objects ENABLE ROW LEVEL SECURITY;
 
 -- Allow public read access to images
 DROP POLICY IF EXISTS "Allow public select on news-images" ON storage.objects;
