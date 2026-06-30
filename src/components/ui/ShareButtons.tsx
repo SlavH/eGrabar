@@ -39,7 +39,7 @@ export default function ShareButtons({ title, url }: { title: string; url?: stri
           <path d="M12 0C5.373 0 0 4.975 0 11.111c0 3.497 1.745 6.616 4.472 8.652V24l4.086-2.242c1.09.301 2.246.464 3.442.464 6.627 0 12-4.975 12-11.111C24 4.975 18.627 0 12 0zm.72 14.963l-2.872-3.22-5.606 3.25 6.163-6.88 2.928 3.22 5.606-3.25-6.218 6.88z"/>
         </svg>
       ),
-      href: `fb-messenger://share?link=${encodedUrl}`,
+      href: `https://www.facebook.com/dialog/send?link=${encodedUrl}&app_id=1224183197895298&redirect_uri=${encodedUrl}&display=popup`,
     },
     {
       name: 'WhatsApp',
@@ -96,7 +96,7 @@ export default function ShareButtons({ title, url }: { title: string; url?: stri
       {showOptions && (
         <>
           <div className="fixed inset-0 z-40" onClick={() => setShowOptions(false)} />
-          <div className="absolute left-0 top-full mt-2 z-50 flex flex-col bg-white/20 backdrop-blur-2xl border border-white/20 rounded-xl p-1.5 shadow-xl min-w-[160px]">
+          <div className="absolute left-0 top-full mt-2 z-50 flex flex-col bg-white/30 border border-white/20 rounded-xl p-1.5 shadow-xl min-w-[160px]" style={{ backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)' }}>
             {shareLinks.map((link) => (
               <a
                 key={link.name}
