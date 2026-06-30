@@ -76,7 +76,7 @@ export default function ShareButtons({ title, url }: { title: string; url?: stri
   ] as const;
 
   return (
-    <div className="relative inline-flex items-center gap-1" onClick={(e) => e.stopPropagation()}>
+    <div className="relative inline-flex items-center gap-1" onClick={(e) => e.stopPropagation()} style={{ '--tw-backdrop-blur': 'blur(24px)' } as React.CSSProperties}>
       <button
         onClick={async () => {
           if (isMobileDevice() && typeof navigator !== 'undefined' && navigator.share) {
