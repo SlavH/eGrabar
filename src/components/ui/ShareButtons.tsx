@@ -35,7 +35,7 @@ export default function ShareButtons({ title, url }: { title: string; url?: stri
         left = viewportWidth - dropdownWidth - 20;
       }
       
-      setDropdownPos({ top: rect.bottom + 8, left: left });
+      setDropdownPos({ top: rect.bottom + window.scrollY + 8, left: rect.left + window.scrollX });
     }
     setShowOptions(true);
   }
