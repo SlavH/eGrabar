@@ -193,7 +193,13 @@ export default function AdminEventsPage() {
                 <tr key={event.id} className="border-b border-white/5">
                   <td className="p-4 text-slate-100">{event.title_en}</td>
                   <td className="p-4 text-slate-100">{event.title_hy}</td>
-                  <td className="p-4 text-slate-300">{event.date} {event.time}</td>
+                  <td className="p-4 text-slate-300">
+                    {new Date(`${event.date}T${event.time}`).toLocaleString('en-US', {
+                      timeZone: 'America/Los_Angeles',
+                      dateStyle: 'short',
+                      timeStyle: 'short',
+                    })}
+                  </td>
                   <td className="p-4 text-slate-300">{language === 'en' ? event.instructor_en : event.instructor_hy}</td>
                   <td className="p-4">
                     <button onClick={() => handleEdit(event)} className="text-blue-300 hover:text-blue-200 text-sm mr-4">{t.admin.edit}</button>
