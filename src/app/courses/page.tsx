@@ -15,7 +15,7 @@ export default function EventsPage() {
   useEffect(() => {
     async function fetchEvents() {
       const { supabase } = await import('@/lib/supabase');
-      const { data } = await supabase.from('events').select('*').order('date', { ascending: true });
+      const { data } = await supabase.from('events').select('*').order('date', { ascending: false });
       if (data && data.length > 0) {
         setEvents(data);
       }
@@ -78,7 +78,7 @@ export default function EventsPage() {
                     </div>
                     {event.link && (
                       <a
-                        href={event.link}
+                        href={event.link.startsWith('http') ? event.link : `https://${event.link}`}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="inline-flex items-center gap-2 px-4 py-2 bg-blue-600/80 backdrop-blur-[3px] hover:bg-blue-500/80 text-white text-sm font-semibold rounded-lg transition-colors border border-white/20 shrink-0"
